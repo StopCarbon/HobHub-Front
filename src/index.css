@@ -1,0 +1,48 @@
+@font-face {
+  font-family: nanum-light;
+  font-display: swap;
+  src: url('./fonts/NanumSquareL.otf') format('truetype');
+}
+@font-face {
+  font-family: nanum-reg;
+  font-display: swap;
+  src: url('./fonts/NanumSquareR.ttf') format('truetype');
+}
+@font-face {
+  font-family: nanum-bold;
+  font-display: swap;
+  src: url('./fonts/NanumSquareB.otf') format('truetype');
+}
+@font-face {
+  font-family: gmarket-light;
+  font-display: swap;
+  src: url('./fonts/GmarketSansLight.otf') format('truetype');
+}
+@font-face {
+  font-family: gmarket-reg;
+  font-display: swap;
+  src: url('./fonts/GmarketSansMedium.otf') format('truetype');
+}
+
+:root {
+  --blue1: #eef5ff;
+  --blue2: #b4d4ff;
+  --blue3: #86b6f6;
+  --blue4: #014f86;
+  --pink: #ffd6ff;
+  --purple1: #e7c6ff;
+  --purple2: #c8b6ff;
+  --orange: #ffd670;
+  --grey: #f2f4f5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'nanum-light';
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
