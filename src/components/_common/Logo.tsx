@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
 import logo from '../../assets/_common/logo.svg';
 
-const Logo = ({ type }: { type?: 'main' }) => {
+const Logo = ({ type }: { type?: 'login' }) => {
     return <LogoImg className={type} src={logo}></LogoImg>;
 };
 
@@ -14,8 +15,8 @@ const LogoImg = styled.img`
         width: 200px;
     }
 
-    // 메인 페이지
-    &.main {
+    // 로그인 페이지
+    &.login {
         width: calc(100% - 120px);
         margin-bottom: -13px;
 
