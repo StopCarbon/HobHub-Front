@@ -6,7 +6,7 @@ import shadow from '../assets/_common/shadow.svg';
 const LoginPage = () => {
     return (
         <Wrapper>
-            <Logo type="main"></Logo>
+            <Logo type="login"></Logo>
             <Shadow src={shadow}></Shadow>
             <LoginButton src={loginButton}></LoginButton>
         </Wrapper>
