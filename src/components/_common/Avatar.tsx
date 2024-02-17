@@ -15,6 +15,7 @@ const UserProfile = styled.div`
     border-radius: 50%;
     overflow: hidden;
 
+    // 네비게이션바
     &.navbar {
         width: 30px;
         height: 30px;
@@ -26,12 +27,14 @@ const UserProfile = styled.div`
         }
     }
 
+    // 사이드바
     &.sidebar {
         width: 40px;
         height: 40px;
 
         @media (min-width: 1024px) {
-            display: none;
+            width: 60px;
+            height: 60px;
         }
     }
 

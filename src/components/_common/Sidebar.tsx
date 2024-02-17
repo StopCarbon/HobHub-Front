@@ -13,7 +13,7 @@ import user from '../../assets/sidebar/user.svg';
 const Sidebar = () => {
     return (
         <Wrapper>
-            <Logo />
+            <Logo type="sidebar" />
             <AvatarWrapper>
                 <Avatar type="sidebar" />
                 <p>김민지</p>
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     top: 0;
     left: 0;
     background-color: white;
-    width: 250px;
+    width: 70%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -85,6 +85,15 @@ const Wrapper = styled.div`
         to {
             transform: translate3d(0, 0, 0);
         }
+    }
+
+    @media (min-width: 1024px) {
+        position: absolute;
+        width: 320px;
+        animation: none;
+        border-right: 1px solid #e0e2e7;
+        padding-right: 0;
+        font-size: 24px;
     }
 `;
 
@@ -106,6 +115,10 @@ const AvatarWrapper = styled.div`
     p {
         margin-left: 20px;
     }
+
+    @media (min-width: 1024px) {
+        margin-top: 15px;
+    }
 `;
 
 const MenuWrapper = styled.ul`
@@ -117,6 +130,13 @@ const ListItem = styled.li`
     display: flex;
     align-items: center;
     margin-bottom: 24px;
+    p {
+        white-space: nowrap;
+    }
+
+    @media (min-width: 1024px) {
+        margin-bottom: 30px;
+    }
 `;
 
 const Icon = styled.div`

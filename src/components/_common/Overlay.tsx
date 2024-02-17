@@ -24,4 +24,8 @@ const Wrapper = styled.div`
             opacity: 1;
         }
     }
+
+    @media (min-width: 1024px) {
+        display: none;
+    }
 `;

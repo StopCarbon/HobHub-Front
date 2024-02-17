@@ -7,7 +7,6 @@ import Sidebar from './Sidebar';
 import Overlay from './Overlay';
 
 import drawerIcon from '../../assets/_common/drawerIcon.svg';
-import shadow from '../../assets/_common/shadow.svg';
 
 const Navbar = ({}) => {
     // 사이드바 열고 닫기
@@ -19,12 +18,29 @@ const Navbar = ({}) => {
         setSidebar(false);
     };
 
+    // 페이지가 처음 로드될 때 화면 너비를 확인하여 Sidebar 상태 설정
+    // -> PC일 경우 사이드바 열린 상태 유지
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 900) {
+                setSidebar(true);
+            }
+        };
+        handleResize();
+        // 화면 크기 변화 감지
+        window.addEventListener('resize', handleResize);
+        // 컴포넌트 언마운트 시 리스너 제거
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <Wrapper>
             <IconWrapper onClick={openSidebar}>
                 <img src={drawerIcon} alt="drawer" />
             </IconWrapper>
-            <Logo />
+            <Logo type="navbar" />
             <Avatar type="navbar" />
             {isSidebar ? (
                 <>
