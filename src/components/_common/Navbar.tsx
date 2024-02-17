@@ -1,25 +1,42 @@
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+
 import Logo from './Logo';
+import Avatar from './Avatar';
+import Sidebar from './Sidebar';
+import Overlay from './Overlay';
 
 import drawerIcon from '../../assets/_common/drawerIcon.svg';
-import defaultProfile from '../../assets/_common/defaultProfile.png';
 import shadow from '../../assets/_common/shadow.svg';
 
-const Header = ({}) => {
+const Navbar = ({}) => {
+    // 사이드바 열고 닫기
+    const [isSidebar, setSidebar] = useState(false);
+    const openSidebar = () => {
+        setSidebar(true);
+    };
+    const closeSidebar = () => {
+        setSidebar(false);
+    };
+
     return (
         <Wrapper>
-            <IconWrapper>
+            <IconWrapper onClick={openSidebar}>
                 <img src={drawerIcon} alt="drawer" />
             </IconWrapper>
             <Logo />
-            <UserProfile>
-                <img src={defaultProfile} alt="user-profile" />
-            </UserProfile>
+            <Avatar type="navbar" />
+            {isSidebar ? (
+                <>
+                    <Sidebar />
+                    <Overlay closeSidebar={closeSidebar} />
+                </>
+            ) : null}
         </Wrapper>
     );
 };
 
-export default Header;
+export default Navbar;
 
 const Wrapper = styled.div`
     width: 100%;
@@ -36,32 +53,11 @@ const Wrapper = styled.div`
 
 const IconWrapper = styled.div`
     position: absolute;
-    left: 10px;
+    left: 15px;
     top: 14px;
     cursor: pointer;
 
     @media (min-width: 1024px) {
         display: none;
-    }
-`;
-
-const UserProfile = styled.div`
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-
-    position: absolute;
-    right: 10px;
-
-    @media (min-width: 1024px) {
-        display: none;
-    }
-
-    img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
 `;
