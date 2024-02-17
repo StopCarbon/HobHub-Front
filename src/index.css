@@ -43,7 +43,7 @@
 
 /* PC뷰 설정 */
 @media (min-width: 1000px) {
-    .wrapper {
+    body {
         width: 960px;
         margin: 0 auto;
     }
