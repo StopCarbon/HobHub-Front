@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import NavBar from 'components/_common/Navbar';
 
 const RecommendPage = () => {
-  return (
-    <div>
-      <h1>RecommendPage</h1>
-    </div>
-  );
+    return (
+        <div>
+            <NavBar></NavBar>
+        </div>
+    );
 };
 
 export default RecommendPage;
