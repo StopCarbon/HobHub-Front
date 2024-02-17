@@ -39,6 +39,8 @@
 
     /* 그림자 선언 */
     --dropdown-shadow: 0 4px 6px rgba(0, 0, 0, 0.18);
+
+    --sidebar: 300px;
 }
 
 /* PC뷰 설정 */
@@ -58,6 +60,7 @@
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 ul,

@@ -20,31 +20,31 @@ const Sidebar = () => {
             </AvatarWrapper>
             <Border className="first" />
             <MenuWrapper>
-                <ListItem>
+                <ListItem href="/main">
                     <Icon>
                         <img src={home} alt="mainpage" />
                     </Icon>
                     <p>메인 페이지</p>
                 </ListItem>
-                <ListItem>
+                <ListItem href="/chat">
                     <Icon>
                         <img src={chat} alt="chat" />
                     </Icon>
                     <p>챗봇과 대화하기</p>
                 </ListItem>
-                <ListItem>
+                <ListItem href="/recommend">
                     <Icon>
                         <img src={list} alt="list" />
                     </Icon>
                     <p>나의 추천 취미</p>
                 </ListItem>
-                <ListItem>
+                <ListItem href="/archive">
                     <Icon>
                         <img src={anchor} alt="anchor" />
                     </Icon>
                     <p>나의 취미 아카이브</p>
                 </ListItem>
-                <ListItem>
+                <ListItem href="/alarm">
                     <Icon>
                         <img src={bell} alt="bell" />
                     </Icon>
@@ -89,10 +89,12 @@ const Wrapper = styled.div`
 
     @media (min-width: 1024px) {
         position: absolute;
-        width: 320px;
+        z-index: 0;
+        width: var(--sidebar);
         animation: none;
         border-right: 1px solid #e0e2e7;
-        padding-right: 0;
+        padding: 0;
+        padding-top: 20px;
         font-size: 24px;
     }
 `;
@@ -126,7 +128,7 @@ const MenuWrapper = styled.ul`
     flex-direction: column;
 `;
 
-const ListItem = styled.li`
+const ListItem = styled.a`
     display: flex;
     align-items: center;
     margin-bottom: 24px;
