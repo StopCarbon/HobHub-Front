@@ -2,17 +2,22 @@ import styled from 'styled-components';
 
 import logo from '../../assets/_common/logo.svg';
 
-const Logo = ({ type }: { type?: 'login' }) => {
+const Logo = ({ type }: { type: 'login' | 'sidebar' | 'navbar' }) => {
     return <LogoImg className={type} src={logo}></LogoImg>;
 };
 
 export default Logo;
 
 const LogoImg = styled.img`
-    width: 125px;
+    // 네비게이션 바
+    &.navbar {
+        width: 125px;
 
-    @media (min-width: 1024px) {
-        width: 200px;
+        @media (min-width: 1024px) {
+            position: absolute;
+            left: 550px;
+            width: 200px;
+        }
     }
 
     // 로그인 페이지
@@ -22,6 +27,15 @@ const LogoImg = styled.img`
 
         @media (min-width: 1024px) {
             width: 350px;
+        }
+    }
+
+    // 사이드바
+    &.sidebar {
+        width: 125px;
+
+        @media (min-width: 1024px) {
+            display: none;
         }
     }
 `;
