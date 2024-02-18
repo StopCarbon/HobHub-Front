@@ -107,6 +107,12 @@ const Border = styled.div`
     &.first {
         margin: 28px 0;
     }
+
+    @media (min-width: 1024px) {
+        &.first {
+            margin-bottom: 0;
+        }
+    }
 `;
 
 const AvatarWrapper = styled.div`
@@ -137,7 +143,15 @@ const ListItem = styled.a`
     }
 
     @media (min-width: 1024px) {
-        margin-bottom: 30px;
+        margin-bottom: 0;
+        padding: 20px 8px;
+        border-radius: 8px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--grey);
+            transition: background-color 200ms ease-in-out;
+        }
     }
 `;
 
