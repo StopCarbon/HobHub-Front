@@ -24,7 +24,7 @@ const RecommendPage = () => {
 export default RecommendPage;
 
 const Wrapper = styled.div`
-    position: relative;
+    position: relative; // PC 버전 container 때문
 `;
 
 const Exp = styled.p`
