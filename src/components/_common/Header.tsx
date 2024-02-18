@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import arrow from '../../assets/_common/backarrow.svg';
 
+// 굵은 글씨, 일반 글씨 나눠서 받기
 const Header = ({ bold, reg }: { bold?: string; reg: string }) => {
     const navigate = useNavigate();
     const handleArrowClick = () => {
@@ -40,6 +41,11 @@ const Icon = styled.a`
         img {
             width: 100%;
             height: 100%;
+        }
+
+        &:hover {
+            opacity: 0.6;
+            transition: opacity 200ms ease-in-out;
         }
     }
 `;
