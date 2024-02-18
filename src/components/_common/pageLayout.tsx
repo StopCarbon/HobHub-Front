@@ -6,9 +6,8 @@ export const Container = styled.div`
     flex-direction: column;
 
     @media (min-width: 1024px) {
-        padding: 0;
         position: absolute;
         left: calc(var(--sidebar) + 30px);
-        margin-top: 40px;
+        margin-top: 20px;
     }
 `;
