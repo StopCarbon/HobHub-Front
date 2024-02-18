@@ -29,11 +29,13 @@ const Wrapper = styled.div`
     align-items: center;
 `;
 
-const Icon = styled.div`
+const Icon = styled.a`
     @media (min-width: 1024px) {
-        cursor: pointer;
         width: 30px;
         height: 18px;
+        display: block;
+        padding: 10px; // hover 영역 확장
+        cursor: pointer;
 
         img {
             width: 100%;
