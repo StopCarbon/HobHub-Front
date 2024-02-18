@@ -31,14 +31,14 @@
     --blue2: #b4d4ff;
     --blue3: #86b6f6;
     --blue4: #014f86;
-    --pink: #ffd6ff;
-    --purple1: #e7c6ff;
-    --purple2: #c8b6ff;
+    --pink: rgba(255, 214, 255, 0.7);
+    --purple1: rgba(231, 198, 255, 0.7);
+    --purple2: rgba(200, 182, 255, 0.7);
     --orange: #ffd670;
     --grey: #f2f4f5;
 
     /* 그림자 선언 */
-    --dropdown-shadow: 0 4px 6px rgba(0, 0, 0, 0.18);
+    --dropdown-shadow: 0 4px 6px rgba(0, 0, 0, 0.45);
     --popup-shadow: 0 4px 20px rgba(63, 65, 80, 0.3);
     --popup-reversed-shadow: 0 -4px 20px rgba(63, 65, 80, 0.3);
 
