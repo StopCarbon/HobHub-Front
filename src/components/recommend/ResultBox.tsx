@@ -37,7 +37,7 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 16px 15px 50px;
+    padding: 15px 18px 18px 50px;
     margin-bottom: 30px;
 
     border-radius: 8px;

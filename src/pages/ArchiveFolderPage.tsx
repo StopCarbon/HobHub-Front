@@ -37,5 +37,6 @@ const FolderWrapper = styled.div`
 
     @media (min-width: 1024px) {
         margin-top: 40px;
+        justify-content: center;
     }
 `;

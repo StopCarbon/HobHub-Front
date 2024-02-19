@@ -59,6 +59,7 @@ const Wrapper = styled.section`
     @media (min-width: 1024px) {
         width: 215px;
         height: 215px;
+        margin-right: 40px;
         margin-bottom: 30px;
         cursor: pointer;
 
