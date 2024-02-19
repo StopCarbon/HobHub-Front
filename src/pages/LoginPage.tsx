@@ -6,9 +6,9 @@ import shadow from '../assets/_common/shadow.svg';
 const LoginPage = () => {
     return (
         <Wrapper>
-            <Logo type="login"></Logo>
-            <Shadow src={shadow}></Shadow>
-            <LoginButton src={loginButton}></LoginButton>
+            <Logo type="login" />
+            <Shadow src={shadow} />
+            <LoginButton src={loginButton} />
         </Wrapper>
     );
 };
@@ -18,6 +18,11 @@ export default LoginPage;
 const Wrapper = styled.div`
     width: 100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     background-color: var(--pink);
     background-image: linear-gradient(
         to top,
@@ -25,11 +30,6 @@ const Wrapper = styled.div`
         transparent 100%
     );
     background-size: cover;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 `;
 
 const Shadow = styled.img`

@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+
+import { ImgStyle } from './commonStyle';
+
 import defaultProfile from '../../assets/_common/defaultProfile.png';
 
 const Avatar = ({ type }: { type: 'navbar' | 'sidebar' }) => {
@@ -39,9 +42,6 @@ const UserProfile = styled.div`
     }
 
     img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        ${ImgStyle}
     }
 `;

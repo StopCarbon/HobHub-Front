@@ -88,14 +88,14 @@ const Wrapper = styled.div`
     }
 
     @media (min-width: 1024px) {
-        position: absolute;
-        z-index: 0;
         width: var(--sidebar);
-        animation: none;
-        border-right: 1px solid #e0e2e7;
         padding: 0;
+        z-index: 0;
+        animation: none;
         padding-top: 20px;
+        border-right: 1px solid #e0e2e7;
         font-size: 24px;
+        position: absolute;
     }
 `;
 

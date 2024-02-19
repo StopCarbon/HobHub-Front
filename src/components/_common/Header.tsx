@@ -65,7 +65,7 @@ const Title = styled.span`
     }
 
     @media (min-width: 1024px) {
-        font-size: 25px;
+        font-size: 26px;
         margin-left: 40px;
     }
 `;
