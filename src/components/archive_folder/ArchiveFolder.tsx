@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import { hobbies } from 'components/_common/hobbies';
 import { ImgStyle } from 'components/_common/commonStyle';
@@ -19,9 +20,13 @@ const ArchiveFolder = ({ order, hobby }: { order: number; hobby: string }) => {
             orderNum = 3;
             break;
     }
+    const navigate = useNavigate();
+    const handleFolderClick = () => {
+        navigate(`/archive/${hobby}`);
+    };
 
     return (
-        <Wrapper className={`order${orderNum}`}>
+        <Wrapper className={`order${orderNum}`} onClick={handleFolderClick}>
             <Badge>3</Badge>
             <Icon>
                 <img src={hobbies[hobby]} alt="hobby" />
