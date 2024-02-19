@@ -73,7 +73,7 @@ const Settings = styled.button`
     border-radius: 4px;
 
     &.public {
-        background-color: var(--blue2);
+        background-color: var(--blue1);
     }
     &.private {
         background-color: var(--blue4);
