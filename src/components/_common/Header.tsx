@@ -53,7 +53,7 @@ const Icon = styled.a`
 const Title = styled.span`
     display: flex;
     font-size: 22px;
-    margin-left: 20px;
+    margin-left: 25px;
     white-space: nowrap;
 
     p {
