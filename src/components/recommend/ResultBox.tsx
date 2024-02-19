@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { hobbies } from 'components/_common/hobbies';
+import { ImgStyle } from 'components/_common/commonStyle';
 
 const ResultBox = ({
     ranking,
@@ -64,7 +65,7 @@ const Wrapper = styled.section`
 const Ranking = styled.div`
     width: 64px;
     height: 52px;
-    clip-path: polygon(0 0, 100% 0, 47% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 47% 100%, 0% 100%); // 사다리꼴
     box-shadow: var(--popup-shadow);
 
     position: absolute;
@@ -181,9 +182,6 @@ const Icon = styled.div`
     flex-grow: 0.6;
 
     img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        ${ImgStyle}
     }
 `;

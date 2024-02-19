@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { hobbies } from 'components/_common/hobbies';
+import { ImgStyle } from 'components/_common/commonStyle';
 
 const ArchiveFolder = ({ order, hobby }: { order: number; hobby: string }) => {
     const remainder = order % 3;
@@ -104,10 +105,7 @@ const Icon = styled.div`
     flex-grow: 0.3;
 
     img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        ${ImgStyle}
     }
 `;
 
