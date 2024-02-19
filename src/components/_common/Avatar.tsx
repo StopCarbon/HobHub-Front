@@ -7,7 +7,8 @@ import defaultProfile from '../../assets/_common/defaultProfile.png';
 const Avatar = ({ type }: { type: 'navbar' | 'sidebar' }) => {
     return (
         <UserProfile className={type}>
-            <img src={defaultProfile} alt="user-profile" />
+            {/* 유저 프로필 불러오기 */}
+            {/* <img src="/" alt="user-profile" /> */}
         </UserProfile>
     );
 };
@@ -15,6 +16,9 @@ const Avatar = ({ type }: { type: 'navbar' | 'sidebar' }) => {
 export default Avatar;
 
 const UserProfile = styled.div`
+    background-image: url(${defaultProfile});
+    background-size: contain;
+
     border-radius: 50%;
     overflow: hidden;
 
