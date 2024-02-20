@@ -4,7 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import arrow from '../../assets/_common/backarrow.svg';
 
 // 굵은 글씨, 일반 글씨 나눠서 받기
-const Header = ({ bold, reg }: { bold?: string; reg: string }) => {
+const Header = ({
+    bold,
+    reg,
+    type,
+}: {
+    bold?: string;
+    reg: string;
+    type?: string;
+}) => {
     const navigate = useNavigate();
     const handleArrowClick = () => {
         navigate(-1);
@@ -12,10 +20,10 @@ const Header = ({ bold, reg }: { bold?: string; reg: string }) => {
 
     return (
         <Wrapper>
-            <Icon onClick={handleArrowClick}>
+            <Icon onClick={handleArrowClick} className={type}>
                 <img src={arrow} alt="arrow" />
             </Icon>
-            <Title>
+            <Title className={type}>
                 <p className="bold">{bold}</p>
                 <p>{reg}</p>
             </Title>
@@ -31,6 +39,11 @@ const Wrapper = styled.div`
 `;
 
 const Icon = styled.a`
+    // 메인 페이지
+    &.noArrow {
+        display: none;
+    }
+
     @media (min-width: 1024px) {
         width: 30px;
         height: 18px;
@@ -53,8 +66,16 @@ const Icon = styled.a`
 const Title = styled.span`
     display: flex;
     font-size: 22px;
+    line-height: 30px;
     margin-left: 25px;
     white-space: nowrap;
+
+    // 메인 페이지
+    &.noArrow {
+        white-space: wrap;
+        word-break: keep-all;
+        margin-left: 0px;
+    }
 
     p {
         font-family: 'nanum-bold';
