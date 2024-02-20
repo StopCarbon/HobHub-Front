@@ -21,10 +21,15 @@ const ArchivePage = () => {
             <Navbar />
             <Container>
                 <Header bold={hobby + '\u00A0'} reg="아카아브" />
+                <ArchiveBoxWrapper>
+                    <ArchiveBox />
+                    <ArchiveBox />
+                    <ArchiveBox />
+                    <ArchiveBox />
+                </ArchiveBoxWrapper>
                 <AddButton onClick={handleAddClick}>
                     <img src={plus} alt="add" />
                 </AddButton>
-                <ArchiveBox></ArchiveBox>
             </Container>
         </Wrapper>
     );
@@ -45,9 +50,9 @@ const AddButton = styled.button`
     background-image: linear-gradient(to top, var(--blue2) 0%, transparent 80%);
     background-size: cover;
 
-    /* position: absolute;
+    position: absolute;
     right: 20px;
-    top: 300px; */
+    bottom: -70px; // Wrapper를 기준으로 간격 조정
 
     @media (min-width: 1024px) {
         width: 100px;
@@ -58,5 +63,18 @@ const AddButton = styled.button`
             transform: rotate(180deg);
             transition: transform 300ms ease-in-out;
         }
+    }
+`;
+
+const ArchiveBoxWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+
+    @media (min-width: 1024px) {
+        margin-top: 40px;
+        justify-content: center;
     }
 `;
