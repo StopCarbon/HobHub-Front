@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import pic from '../../assets/archive/cookie.png';
 import { ImgStyle } from 'components/_common/commonStyle';
 
 const ArchiveBox = () => {
+    const navigate = useNavigate();
+
+    const handleBoxClick = () => {
+        navigate('/archivedetail');
+    };
+
     return (
-        <Wrapper>
+        <Wrapper onClick={handleBoxClick}>
             <Picture>
                 <img src={pic} alt="picture" />
             </Picture>
