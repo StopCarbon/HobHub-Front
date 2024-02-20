@@ -4,7 +4,7 @@ import { Container } from 'components/_common/pageLayout';
 
 import NavBar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
-import ResultBox from 'components/recommend/ResultBox';
+import ResultBox from 'components/recommendpage/ResultBox';
 
 const RecommendPage = () => {
     return (
