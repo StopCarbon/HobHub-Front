@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Container } from 'components/_common/pageLayout';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
+import PictureBox from 'components/_common/PictureBox';
 import { InputStyle, ImgStyle } from 'components/_common/commonStyle';
 
 import archive from '../assets/archive/cookie.png';
@@ -29,10 +30,7 @@ const CreatePage = () => {
                     </Settings>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <Picture>
-                        <img className="icon" src={camera} alt="picture" />
-                        {/* <img className="pic" src={archive} alt="picture" /> */}
-                    </Picture>
+                    <PictureBox />
                     <Form>
                         <Title placeholder="제목"></Title>
                         <Hashtag placeholder="#해시태그를 사용하여 기록해보세요."></Hashtag>
@@ -91,36 +89,6 @@ const ContentWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
-
-const Picture = styled.div`
-    width: calc(100% - 120px);
-    height: 40vw;
-    background-color: var(--blue1);
-    border-radius: 4px;
-    box-shadow: var(--dropdown-shadow);
-    margin-bottom: 25px;
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .icon {
-        width: 30px;
-        height: 30px;
-    }
-
-    .pic {
-        ${ImgStyle}
-    }
-
-    @media (min-width: 1024px) {
-        width: 300px;
-        height: 220px;
-        margin-bottom: 40px;
-        cursor: pointer;
-    }
 `;
 
 const Form = styled.form`
