@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import pic from '../../assets/archive/cookie.png';
 import { ImgStyle } from 'components/_common/commonStyle';
 
-const ArchiveBox = () => {
+import pic from '../../assets/archive/cookie.png';
+
+const ArchiveBox = ({ image }: { image?: string }) => {
     const navigate = useNavigate();
 
     const handleBoxClick = () => {
@@ -14,7 +15,7 @@ const ArchiveBox = () => {
     return (
         <Wrapper onClick={handleBoxClick}>
             <Picture>
-                <img src={pic} alt="picture" />
+                <img src={image} alt="picture" />
             </Picture>
             <Text>
                 <p>공강시간에 즐긴 베이킹 클래스크래스클래스캐스</p>
@@ -51,13 +52,13 @@ const Wrapper = styled.section`
     }
 `;
 
-const Picture = styled.div`
+const Picture = styled.figure`
     img {
         ${ImgStyle}
     }
 `;
 
-const Text = styled.div`
+const Text = styled.figcaption`
     width: 100%;
     background-color: white;
     font-size: 14px;
@@ -67,6 +68,7 @@ const Text = styled.div`
     bottom: -4px;
 
     p {
+        overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
