@@ -32,9 +32,10 @@ const CreatePage = () => {
                 <ContentWrapper>
                     <PictureBox type="upload" />
                     <Form>
-                        <Title placeholder="제목"></Title>
+                        <Title placeholder="제목" />
                         <Hashtag placeholder="#해시태그를 사용하여 기록해보세요."></Hashtag>
-                        <TextForm placeholder="간단한 글을 남겨보세요."></TextForm>
+                        <OneDayClass placeholder="원데이 클래스 이름(선택)" />
+                        <TextForm placeholder="간단한 글을 남겨보세요." />
                     </Form>
                 </ContentWrapper>
                 <CompleteButton type="submit">완료</CompleteButton>
@@ -118,6 +119,7 @@ const Title = styled.input`
         margin-bottom: 25px;
     }
 `;
+const OneDayClass = styled(Title)``;
 
 const Hashtag = styled.input`
     ${InputStyle}

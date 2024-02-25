@@ -18,6 +18,10 @@ const ArchiveDetailPage = () => {
                     <PictureBox type="archive" />
                     <Detail>
                         <Title>공강시간에 즐긴 베이킹 클래스</Title>
+                        <OneDayClass>
+                            <span className="place">마포/서대문</span> 3가지 맛
+                            쿠키 만들기 체험
+                        </OneDayClass>
                         <Hashtag></Hashtag>
                         <Text>
                             베이킹을 처음해보는 거였는데 재밌었고 수업 분위기가
@@ -59,6 +63,12 @@ const Title = styled.div`
     @media (min-width: 1024px) {
         font-size: 24px;
         margin-bottom: 25px;
+    }
+`;
+
+const OneDayClass = styled(Title)`
+    .place {
+        font-family: 'nanum-bold';
     }
 `;
 
