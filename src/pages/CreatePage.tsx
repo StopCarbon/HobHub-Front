@@ -30,7 +30,7 @@ const CreatePage = () => {
                     </Settings>
                 </HeaderWrapper>
                 <ContentWrapper>
-                    <PictureBox />
+                    <PictureBox type="upload" />
                     <Form>
                         <Title placeholder="제목"></Title>
                         <Hashtag placeholder="#해시태그를 사용하여 기록해보세요."></Hashtag>
@@ -53,10 +53,10 @@ const HeaderWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     @media (min-width: 1024px) {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 `;
 

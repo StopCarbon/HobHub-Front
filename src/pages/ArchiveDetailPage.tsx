@@ -15,7 +15,7 @@ const ArchiveDetailPage = () => {
             <Container>
                 <Header reg="2024.3.15" />
                 <ContentWrapper>
-                    <PictureBox />
+                    <PictureBox type="archive" />
                     <Detail>
                         <Title>공강시간에 즐긴 베이킹 클래스</Title>
                         <Hashtag></Hashtag>
