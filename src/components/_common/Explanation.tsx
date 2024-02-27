@@ -14,6 +14,6 @@ const Exp = styled.p`
 
     @media (min-width: 1024px) {
         font-size: 16px;
-        margin: 8px 0 40px 90px;
+        margin: 8px 0 30px 90px;
     }
 `;
