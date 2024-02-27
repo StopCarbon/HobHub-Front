@@ -66,6 +66,7 @@ body {
     overflow-y: auto;
 }
 
+/* 기본적으로 적용되는 스타일 제거 */
 ul,
 ol {
     padding-left: 0;
@@ -89,4 +90,11 @@ textarea {
         outline: none;
         box-shadow: none;
     }
+}
+
+h1 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
 }
