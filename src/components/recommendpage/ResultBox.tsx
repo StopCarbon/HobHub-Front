@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import { hobbies } from 'components/_common/hobbies';
 import { ImgStyle } from 'components/_common/commonStyle';
@@ -12,6 +13,11 @@ const ResultBox = ({
     hobby: string;
     similarity: number;
 }) => {
+    const navigate = useNavigate();
+    const handleIconClick = () => {
+        navigate(`/onedayclass/${hobby}`);
+    };
+
     return (
         <Wrapper className={`rank${ranking}`}>
             <Ranking className={`rank${ranking}`}>
@@ -23,7 +29,7 @@ const ResultBox = ({
                 <AddButton type="button">서랍장에 추가하기</AddButton>
             </Text>
             <IconCircle className={`rank${ranking}`}>
-                <Icon>
+                <Icon onClick={handleIconClick}>
                     <img src={hobbies[hobby]} alt={hobby} />
                 </Icon>
             </IconCircle>
