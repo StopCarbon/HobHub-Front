@@ -1,9 +1,18 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../../assets/_common/logo.svg';
 
 const Logo = ({ type }: { type: 'login' | 'sidebar' | 'navbar' }) => {
-    return <LogoImg className={type} src={logo}></LogoImg>;
+    // 네비게이션 바 로고를 누르면 메인 페이지로 이동
+    const navigate = useNavigate();
+    const handleLogoClick = () => {
+        if (type === 'navbar') {
+            navigate(`/main`);
+        }
+    };
+
+    return <LogoImg className={type} src={logo} onClick={handleLogoClick} />;
 };
 
 export default Logo;
@@ -17,6 +26,7 @@ const LogoImg = styled.img`
             position: absolute;
             left: 550px;
             width: 200px;
+            cursor: pointer;
         }
     }
 
