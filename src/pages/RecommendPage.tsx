@@ -4,7 +4,14 @@ import { Container } from 'components/_common/pageLayout';
 import NavBar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
-import ResultBox from 'components/recommendpage/ResultBox';
+import ResultBox from 'components/recommend/ResultBox';
+
+// 유사도가 높은 순으로 정렬된 추천 취미
+const recommendList = {
+    아웃도어: 88,
+    베이킹: 72,
+    스포츠: 53,
+};
 
 const RecommendPage = () => {
     return (
@@ -12,11 +19,18 @@ const RecommendPage = () => {
             <NavBar />
             <Container>
                 <Header bold="민지" reg="님을 위한 취미는 . . . " />
-                <Explanation text="아이콘을 클릭하여 바로 취미 활동을 시작해보세요!" />
+                <Explanation text="아이콘을 클릭하여 세부적인 취미를 골라주세요!" />
                 <ResultWrapper>
-                    <ResultBox ranking={1} hobby="등산" similarity={88} />
-                    <ResultBox ranking={2} hobby="베이킹" similarity={70} />
-                    <ResultBox ranking={3} hobby="공예" similarity={68} />
+                    {Object.entries(recommendList).map(
+                        ([hobby, similarity], index) => (
+                            <ResultBox
+                                key={index}
+                                ranking={index + 1}
+                                hobby={hobby}
+                                similarity={similarity}
+                            />
+                        ),
+                    )}
                 </ResultWrapper>
             </Container>
         </Wrapper>
