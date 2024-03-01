@@ -117,6 +117,7 @@ const Icon = styled.div`
 
 const Title = styled.h1`
     font-size: 20px;
+    font-family: nanum-bold;
 
     @media (min-width: 1024px) {
         font-size: 24px;
