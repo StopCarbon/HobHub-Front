@@ -8,14 +8,17 @@ import Explanation from 'components/_common/Explanation';
 import ClassCard from 'components/onedayclass/ClassCard';
 
 const OnedayclassPage = () => {
-    const { hobby } = useParams(); // 추천 취미
+    const { detailhobby } = useParams(); // 사용자가 선택한 세부 취미
 
     const handleLevelClick = () => {};
     return (
         <Wrapper>
             <Navbar />
             <Container>
-                <Header bold={hobby + '\u00A0'} reg="원데이 클래스 목록" />
+                <Header
+                    bold={detailhobby + '\u00A0'}
+                    reg="원데이 클래스 목록"
+                />
                 <Explanation text="민지님의 위치와 가까운 순서대로 정렬한 결과입니다. " />
                 <Filters>
                     <Filter>가격 낮은순</Filter>
