@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
-import ArchiveFolder from 'components/archive_folder/ArchiveFolder';
+import ArchiveFolder from 'components/archivefolder/ArchiveFolder';
 import { Container } from 'components/_common/pageLayout';
 
 const ArchiveFolderPage = () => {

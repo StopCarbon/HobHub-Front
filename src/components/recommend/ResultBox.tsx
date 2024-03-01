@@ -15,7 +15,7 @@ const ResultBox = ({
 }) => {
     const navigate = useNavigate();
     const handleIconClick = () => {
-        navigate(`/onedayclass/${hobby}`);
+        navigate(`/detailhobby/${hobby}`);
     };
 
     return (
@@ -110,6 +110,7 @@ const Text = styled.div`
     margin-right: 50px;
 
     h1 {
+        font-family: nanum-bold;
         font-size: 24px;
     }
     p {
@@ -157,6 +158,7 @@ const IconCircle = styled.div`
     border-radius: 50%;
     background-color: var(--pink);
     border: 5px solid var(--orange);
+    overflow: hidden;
     box-shadow: var(--dropdown-shadow);
 
     &.rank1 {
@@ -185,7 +187,7 @@ const Icon = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 0.6;
+    flex-grow: 0.4;
 
     img {
         ${ImgStyle}

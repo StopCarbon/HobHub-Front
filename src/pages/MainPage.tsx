@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container } from 'components/_common/pageLayout';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
-import HobbySection from 'components/mainpage/HobbySection';
+import HobbySection from 'components/main/HobbySection';
 import { ImgStyle } from 'components/_common/commonStyle';
 
 import chatIcon from '../assets/_common/Chat.svg';
