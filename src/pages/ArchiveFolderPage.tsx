@@ -5,6 +5,9 @@ import Header from 'components/_common/Header';
 import ArchiveFolder from 'components/archivefolder/ArchiveFolder';
 import { Container } from 'components/_common/pageLayout';
 
+// 사용자의 취미 아카이브 목록
+const archiveList = ['베이킹', '아웃도어', '스포츠', '베이킹'];
+
 const ArchiveFolderPage = () => {
     return (
         <Wrapper>
@@ -12,10 +15,13 @@ const ArchiveFolderPage = () => {
             <Container>
                 <Header reg="나의 취미 아카이브" />
                 <FolderWrapper>
-                    <ArchiveFolder order={1} hobby="베이킹" />
-                    <ArchiveFolder order={2} hobby="등산" />
-                    <ArchiveFolder order={3} hobby="등산" />
-                    <ArchiveFolder order={4} hobby="등산" />
+                    {archiveList.map((hobby, index) => (
+                        <ArchiveFolder
+                            key={index}
+                            order={index + 1}
+                            hobby={hobby}
+                        />
+                    ))}
                 </FolderWrapper>
             </Container>
         </Wrapper>
