@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { hobbies } from 'components/_common/hobbies';
+import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 
 const ResultBox = ({
@@ -30,7 +30,7 @@ const ResultBox = ({
             </Text>
             <IconCircle className={`rank${ranking}`}>
                 <Icon onClick={handleIconClick}>
-                    <img src={hobbies[hobby]} alt={hobby} />
+                    <img src={hobbyIcons[hobby]} alt={hobby} />
                 </Icon>
             </IconCircle>
         </Wrapper>

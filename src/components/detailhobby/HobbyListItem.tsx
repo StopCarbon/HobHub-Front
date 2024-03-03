@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ImgStyle } from 'components/_common/commonStyle';
 
 import arrow from '../../assets/_common/rightarow.png';
-import { detailhobbies } from 'components/_common/hobbies';
+import { detailhobbyIcons } from 'components/_common/icons';
 
 // 배경색을 위한 order, 취미 카테고리, 세부 취미 받기
 const HobbyListItem = ({
@@ -35,7 +35,7 @@ const HobbyListItem = ({
     // 세부 취미 원데이 클래스 목록으로 이동
     const navigate = useNavigate();
     const handleDetailhobbyClick = () => {
-        navigate(`/onedayclass/${detailhobby}`);
+        navigate(`/onedayclass/${hobby}/${detailhobby}`);
     };
 
     return (
@@ -45,7 +45,7 @@ const HobbyListItem = ({
         >
             <Icon>
                 <img
-                    src={detailhobbies[hobby][detailhobby]}
+                    src={detailhobbyIcons[hobby][detailhobby]}
                     alt={detailhobby}
                 />
             </Icon>

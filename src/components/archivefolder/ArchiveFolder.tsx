@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { hobbies } from 'components/_common/hobbies';
+import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 
 const ArchiveFolder = ({ order, hobby }: { order: number; hobby: string }) => {
@@ -29,7 +29,7 @@ const ArchiveFolder = ({ order, hobby }: { order: number; hobby: string }) => {
         <Wrapper className={`order${orderNum}`} onClick={handleFolderClick}>
             <Badge>3</Badge>
             <Icon>
-                <img src={hobbies[hobby]} alt="hobby" />
+                <img src={hobbyIcons[hobby]} alt="hobby" />
             </Icon>
             <Title>{hobby}</Title>
         </Wrapper>

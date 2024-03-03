@@ -7,13 +7,13 @@ import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
 import HobbyListItem from 'components/detailhobby/HobbyListItem';
 
-import { detailhobbies } from 'components/_common/hobbies';
+import { detailhobbyIcons } from 'components/_common/icons';
 
 const DetailHobbyPage = () => {
     const { hobby } = useParams();
 
     // 카테고리별 세부 취미 목록 가져오기
-    const detailhobbieslist = Object.keys(detailhobbies[hobby as string]);
+    const detailhobbieslist = Object.keys(detailhobbyIcons[hobby as string]);
 
     return (
         <Wrapper>
