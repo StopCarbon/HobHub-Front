@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 import { Container } from 'components/_common/pageLayout';
 import { InputStyle } from 'components/_common/commonStyle';
@@ -6,28 +7,99 @@ import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import PictureBox from 'components/_common/PictureBox';
 
-import cookie from '../../assets/archive/cookie.png';
+import cookie from '../assets/archive/cookie.png';
 
 const ArchiveDetailPage = () => {
+    // 수정 모드 관리
+    const [isEditing, setIsEditing] = useState(false);
+
+    // 수정한 데이터
+    const [editedTitle, setEditedTitle] =
+        useState('공강시간에 즐긴 베이킹 클래스');
+    const [editedPlace, setEditedPlace] = useState('마포/서대문');
+    const [editedContent, setEditedContent] = useState(
+        '베이킹을 처음해보는 거였는데 재밌었고 수업 분위기가 좋았다~~',
+    );
+    const [editedImg, setEditedImg] = useState<File | null>(null);
+
+    // 수정 버튼을 클릭했을 때
+    const handleEditClick = () => {
+        setIsEditing(true); // 수정 모드로 변경
+    };
+
+    // 저장 버튼을 클릭했을 때
+    const handleSaveClick = () => {
+        // 수정된 데이터 patch api
+        const data = {
+            title: editedTitle,
+            text: editedContent,
+        };
+
+        // 수정 모드 종료
+        setIsEditing(false);
+    };
+
     return (
         <Wrapper>
             <Navbar />
             <Container>
-                <Header reg="2024.3.15" />
+                <HeaderWrapper>
+                    <Header reg="2024.3.15" />
+                    {isEditing ? ( // 수정 모드인 경우
+                        <EditButton className="edit" onClick={handleSaveClick}>
+                            저장하기
+                        </EditButton>
+                    ) : (
+                        // 수정 모드가 아닌 경우
+                        <EditButton className="save" onClick={handleEditClick}>
+                            수정하기
+                        </EditButton>
+                    )}
+                </HeaderWrapper>
                 <ContentWrapper>
-                    <PictureBox type="archive" />
-                    <Detail>
-                        <Title>공강시간에 즐긴 베이킹 클래스</Title>
-                        <OneDayClass>
-                            <span className="place">마포/서대문</span> 3가지 맛
-                            쿠키 만들기 체험
-                        </OneDayClass>
-                        <Hashtag></Hashtag>
-                        <Text>
-                            베이킹을 처음해보는 거였는데 재밌었고 수업 분위기가
-                            좋았다~~
-                        </Text>
-                    </Detail>
+                    {isEditing ? ( // 수정 모드인 경우
+                        <>
+                            <PictureBox
+                                type="upload"
+                                pic={cookie}
+                                setEditedImg={setEditedImg}
+                            />
+                            <Detail>
+                                <TitleInput
+                                    value={editedTitle}
+                                    onChange={(e) =>
+                                        setEditedTitle(e.target.value)
+                                    }
+                                />
+                                <OneDayClassInput
+                                    type="text"
+                                    value={editedPlace}
+                                    onChange={(e) =>
+                                        setEditedPlace(e.target.value)
+                                    }
+                                />
+                                <TextInput
+                                    value={editedContent}
+                                    onChange={(e) =>
+                                        setEditedContent(e.target.value)
+                                    }
+                                />
+                            </Detail>
+                        </>
+                    ) : (
+                        // 수정 모드가 아닌 경우
+                        <>
+                            <PictureBox type="archive" pic={cookie} />
+                            <Detail>
+                                <Title>{editedTitle}</Title>
+                                <OneDayClass>
+                                    <span className="place">{editedPlace}</span>{' '}
+                                    3가지 맛 쿠키 만들기 체험
+                                </OneDayClass>
+                                <Text>{editedContent}</Text>
+                            </Detail>
+                        </>
+                    )}
                 </ContentWrapper>
             </Container>
         </Wrapper>
@@ -38,6 +110,31 @@ export default ArchiveDetailPage;
 
 const Wrapper = styled.div`
     position: relative;
+`;
+
+const HeaderWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const EditButton = styled.button`
+    padding: 6px 8px;
+    font-size: 18px;
+    white-space: nowrap;
+    border-radius: 4px;
+
+    &.edit {
+        background-color: var(--blue1);
+    }
+    &.save {
+        background-color: var(--blue4);
+        color: white;
+    }
+
+    @media (min-width: 1024px) {
+        font-size: 22px;
+        cursor: pointer;
+    }
 `;
 
 const ContentWrapper = styled.section`
@@ -87,3 +184,10 @@ const Text = styled.div`
         font-size: 24px;
     }
 `;
+
+// input 요소로 렌더링
+const TitleInput = styled(Title).attrs((input) => ({ as: 'input' }))``;
+const TextInput = styled(Text).attrs((input) => ({ as: 'input' }))``;
+const OneDayClassInput = styled(OneDayClass).attrs((input) => ({
+    as: 'input',
+}))``;

@@ -7,15 +7,19 @@ import camera from '../../assets/archive/camera.svg';
 
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
 
+// 타입, 이미지url, 사진 업로드 함수, 사진 수정 함수를 전달받음
 const PictureBox = ({
     type,
     pic,
+    setPostImg,
+    setEditedImg,
 }: {
     type: 'upload' | 'archive';
     pic?: string;
+    setPostImg?: (file: File | null) => void;
+    setEditedImg?: (file: File | null) => void;
 }) => {
-    const [postImg, setPostImg] = useState(null); // 이미지 파일 자체 -> 서버 저장용
-    const [previewImg, setPreviewImg]: any = useState(null); // 이미지 파일의 url -> 미리보기용
+    const [previewImg, setPreviewImg]: any = useState(pic); // 이미지 파일의 url -> 미리보기용
 
     const handleFileUpload = (e: any) => {
         let file = e.target.files[0];
@@ -25,7 +29,10 @@ const PictureBox = ({
             return;
         }
 
-        setPostImg(file);
+        // 업로드 함수를 전달받았을 경우 postImg 변수에 사진 저장
+        setPostImg?.(file);
+        // 수정 함수를 전달받았을 경우 editedImg 변수에 사진 저장
+        setEditedImg?.(file);
 
         let fileRead = new FileReader();
         fileRead.readAsDataURL(file);
@@ -35,14 +42,14 @@ const PictureBox = ({
         };
     };
 
-    // 기록 작성 페이지 -> 사진을 업로드할 수 있는 input
     // 취미 아카이브 페이지 -> 업로드한 사진을 볼 수 있는 div
+    // 기록 작성 페이지 -> 사진을 업로드할 수 있는 input
     return type == 'archive' ? (
         <Wrapper>
             {pic ? (
                 <img className="pic" src={pic} alt="기록" />
             ) : (
-                <img className="icon" src={camera} alt="사진 없음" />
+                <img className="icon" src={camera} alt="업로드" />
             )}
         </Wrapper>
     ) : (
