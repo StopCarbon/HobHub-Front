@@ -48,9 +48,12 @@ const CreatePage = () => {
             <Container>
                 <HeaderWrapper>
                     <Header reg="취미 기록 남기기" />
-                    <Settings onClick={handleSettingClick} className={setting}>
+                    <SettingButton
+                        onClick={handleSettingClick}
+                        className={setting}
+                    >
                         {setting === 'public' ? '공개🔓' : '비공개🔒'}
-                    </Settings>
+                    </SettingButton>
                 </HeaderWrapper>
                 <Form>
                     <PictureBox type="upload" setPostImg={setPostImg} />
@@ -96,7 +99,7 @@ const HeaderWrapper = styled.div`
     }
 `;
 
-const Settings = styled.button`
+const SettingButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
