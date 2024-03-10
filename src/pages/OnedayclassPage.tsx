@@ -1,16 +1,37 @@
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import { Container } from 'components/_common/pageLayout';
+import { ClassData } from 'components/_common/props';
+import { hobbies, detailhobbies } from 'components/_common/hobbies';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
 import ClassCard from 'components/onedayclass/ClassCard';
 
 const OnedayclassPage = () => {
-    const { detailhobby } = useParams(); // 사용자가 선택한 세부 취미
+    const { hobby, detailhobby } = useParams(); // 사용자가 선택한 취미 카테고리 & 세부 취미
 
+    // 크롤링을 위해 한국어 -> 영어로 변경
+    const search_hobby = hobbies[hobby as string];
+    const search_detailhobby =
+        detailhobbies[hobby as string][detailhobby as string];
+
+    const [data, setData] = useState<ClassData[] | null>(null);
+
+    useEffect(() => {
+        fetch(`/search?category=${search_hobby}&keyword=${search_detailhobby}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data);
+                console.log(data);
+            });
+    }, [hobby, detailhobby]);
+
+    // 난이도 선택
     const handleLevelClick = () => {};
+
     return (
         <Wrapper>
             <Navbar />
@@ -26,10 +47,11 @@ const OnedayclassPage = () => {
                     <Filter onClick={handleLevelClick}>난이도</Filter>
                 </Filters>
                 <Content>
-                    <ClassCard />
-                    <ClassCard />
-                    <ClassCard />
-                    <ClassCard />
+                    {data
+                        ? data.map((item, index) => (
+                              <ClassCard key={index} classData={item} />
+                          ))
+                        : 'Loading...'}
                 </Content>
             </Container>
         </Wrapper>

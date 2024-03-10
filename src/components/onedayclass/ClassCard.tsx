@@ -1,31 +1,73 @@
 import styled from 'styled-components';
 
 import { ImgStyle } from 'components/_common/commonStyle';
+import { ClassData } from 'components/_common/props';
 
+// todo : 기본 이미지 설정(이미지를 불러오지 못할 경우)
 import pic from '../../assets/archive/cookie.png';
 
-const ClassCard = () => {
-    // 해당 원데이 클래스 링크로 이동
-    const handleOnedayclassClick = () => {};
+const ClassCard = ({ classData }: { classData?: ClassData }) => {
+    // 난이도별로 태그 색 분류
+    let levelTag;
+    switch (classData?.level) {
+        case '매우쉬움':
+            levelTag = 'veryeasy';
+            break;
+        case '쉬움':
+            levelTag = 'easy';
+            break;
+        case '보통':
+            levelTag = 'normal';
+            break;
+        default: // 미정인 경우
+            levelTag = 'none';
+    }
 
+    // 소요시간별로 태그 색 분류
+    let timeTag;
+    const total = classData?.total_time;
+    if (total != undefined) {
+        switch (true) {
+            case total == 0: // 미정인 경우
+                timeTag = 'none';
+                break;
+            case total == 1440: // 24시간 이상
+                timeTag = 'allday';
+                break;
+            case total <= 60: // ~1시간
+                timeTag = 'short';
+                break;
+            case total > 60 && total < 120: // 1시간 ~ 2시간
+                timeTag = 'med';
+                break;
+            case total >= 120: // 2시간 이상
+                timeTag = 'long';
+                break;
+            default:
+                timeTag = 'none';
+        }
+    }
+
+    // 클릭시 해당 원데이 클래스 링크로 이동
     return (
         <Wrapper>
-            <Picture onClick={handleOnedayclassClick}>
-                <img src={pic} alt="pic" />
+            <Picture href={classData?.link}>
+                <img src={classData?.picture} alt="pic" />
             </Picture>
             <Detail>
-                <Place>마포/서대문</Place>
-                <Title>
-                    3가지 맛 스콘 만들기 체험 3가지 맛 스콘 만들기 체험 3가지 맛
-                    스콘 만들기 체험 3가지 맛 스콘 만들기 체험
-                </Title>
-                <Price>55,000원</Price>
+                <Place>{classData?.location}</Place>
+                <Title>{classData?.title}</Title>
+                <Price>{classData?.price}</Price>
                 <Border />
-                <DetailTag className="time">
-                    <p>약 1시간 30분</p>
+                <DetailTag className={`time ${timeTag}`}>
+                    <p>
+                        {classData?.total_time == 0
+                            ? '미정'
+                            : classData?.total_time + '분'}
+                    </p>
                 </DetailTag>
-                <DetailTag className="level">
-                    <p>난이도 중</p>
+                <DetailTag className={`level ${levelTag}`}>
+                    <p>{classData?.level == '' ? '미정' : classData?.level}</p>
                 </DetailTag>
             </Detail>
         </Wrapper>
@@ -46,7 +88,8 @@ const Wrapper = styled.section`
     }
 `;
 
-const Picture = styled.div`
+const Picture = styled.a`
+    display: block;
     position: relative;
     width: 100%;
     height: 0;
@@ -125,11 +168,41 @@ const Border = styled.div`
 const DetailTag = styled.div`
     background-color: var(--blue2);
     border-radius: 4px;
-    padding: 5px 10px;
+    padding: 5px 8px;
     font-size: 16px;
 
     &.time {
         margin-bottom: 5px;
+    }
+
+    // 난이도별로 태그 색 분류
+    &.veryeasy {
+        background-color: var(--blue1);
+    }
+    &.easy {
+        background-color: var(--blue2);
+    }
+    &.normal {
+        background-color: var(--blue3);
+    }
+
+    // 소요시간별로 태그 색 분류
+    &.short {
+        background-color: var(--pink);
+    }
+    &.med {
+        background-color: var(--purple1);
+    }
+    &.long {
+        background-color: var(--purple2);
+    }
+    &.allday {
+        background-color: var(--grey);
+    }
+
+    // 미정인 경우
+    &.none {
+        background-color: var(--grey);
     }
 
     @media (min-width: 1024px) {
