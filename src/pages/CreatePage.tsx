@@ -5,18 +5,41 @@ import { Container } from 'components/_common/pageLayout';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import PictureBox from 'components/_common/PictureBox';
-import { InputStyle, ImgStyle } from 'components/_common/commonStyle';
+import { InputStyle } from 'components/_common/commonStyle';
 
 import archive from '../assets/archive/cookie.png';
 import camera from '../assets/archive/camera.svg';
 
 const CreatePage = () => {
+    // 작성 내용 저장
     const [setting, setSetting] = useState('public');
+    const [postImg, setPostImg] = useState<File | null>(null); // 이미지 파일 자체 -> 서버 저장용
+    const [title, setTitle] = useState('');
+    const [text, setText] = useState('');
+    const [oneday, setOneDay] = useState('');
 
+    // 공개 or 비공개 설정
     const handleSettingClick = () => {
         setSetting((prevSetting) =>
             prevSetting === 'public' ? 'private' : 'public',
         );
+    };
+    const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
+    };
+    const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.target.value);
+    };
+
+    // 작성 내용 POST
+    const handleSubmit = () => {
+        const data = {
+            setting: setting,
+            title: title,
+            text: text,
+            img: postImg,
+        };
+        // post api
     };
 
     return (
@@ -29,16 +52,28 @@ const CreatePage = () => {
                         {setting === 'public' ? '공개🔓' : '비공개🔒'}
                     </Settings>
                 </HeaderWrapper>
-                <ContentWrapper>
-                    <PictureBox type="upload" />
-                    <Form>
-                        <Title placeholder="제목" />
+                <Form>
+                    <PictureBox type="upload" setPostImg={setPostImg} />
+                    <ContentWrapper>
+                        <Title
+                            placeholder="제목"
+                            value={title}
+                            onChange={onChangeTitle}
+                            required
+                        />
                         <Hashtag placeholder="#해시태그를 사용하여 기록해보세요."></Hashtag>
                         <OneDayClass placeholder="원데이 클래스 이름(선택)" />
-                        <TextForm placeholder="간단한 글을 남겨보세요." />
-                    </Form>
-                </ContentWrapper>
-                <CompleteButton type="submit">완료</CompleteButton>
+                        <TextForm
+                            placeholder="간단한 글을 남겨보세요."
+                            value={text}
+                            onChange={onChangeText}
+                            wrap="hard"
+                        />
+                    </ContentWrapper>
+                    <CompleteButton type="submit" onClick={handleSubmit}>
+                        완료
+                    </CompleteButton>
+                </Form>
             </Container>
         </Wrapper>
     );
@@ -85,14 +120,14 @@ const Settings = styled.button`
     }
 `;
 
-const ContentWrapper = styled.section`
+const Form = styled.form`
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 `;
 
-const Form = styled.form`
+const ContentWrapper = styled.section`
     width: 100%;
     display: flex;
     flex-direction: column;
