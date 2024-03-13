@@ -2,18 +2,18 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { ImgStyle } from 'components/_common/commonStyle';
+import { detailhobbyIcons } from 'components/_common/icons';
 
 import arrow from '../../assets/_common/rightarow.png';
-import { detailhobbyIcons } from 'components/_common/icons';
 
 // 배경색을 위한 order, 취미 카테고리, 세부 취미 받기
 const HobbyListItem = ({
     order,
-    hobby,
+    category,
     detailhobby,
 }: {
     order: number;
-    hobby: string;
+    category: string;
     detailhobby: string;
 }) => {
     // 파랑1, 파랑2, 파랑3 순으로 배경색 규칙적으로 적용하기
@@ -35,7 +35,7 @@ const HobbyListItem = ({
     // 세부 취미 원데이 클래스 목록으로 이동
     const navigate = useNavigate();
     const handleDetailhobbyClick = () => {
-        navigate(`/onedayclass/${hobby}/${detailhobby}`);
+        navigate(`/onedayclass/${category}/${detailhobby}`);
     };
 
     return (
@@ -45,7 +45,7 @@ const HobbyListItem = ({
         >
             <Icon>
                 <img
-                    src={detailhobbyIcons[hobby][detailhobby]}
+                    src={detailhobbyIcons[category][detailhobby]}
                     alt={detailhobby}
                 />
             </Icon>

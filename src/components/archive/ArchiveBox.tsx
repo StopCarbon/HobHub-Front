@@ -15,7 +15,7 @@ const ArchiveBox = ({ image }: { image?: string }) => {
     return (
         <Wrapper onClick={handleBoxClick}>
             <Picture>
-                <img src={image} alt="picture" />
+                <img src={pic} alt="picture" />
             </Picture>
             <Text>
                 <p>공강시간에 즐긴 베이킹 클래스크래스클래스캐스</p>

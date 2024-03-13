@@ -11,12 +11,12 @@ import Explanation from 'components/_common/Explanation';
 import ClassCard from 'components/onedayclass/ClassCard';
 
 const OnedayclassPage = () => {
-    const { hobby, detailhobby } = useParams(); // 사용자가 선택한 취미 카테고리 & 세부 취미
+    const { category, detailhobby } = useParams(); // 사용자가 선택한 취미 카테고리 & 세부 취미
 
     // 크롤링을 위해 한국어 -> 영어로 변경
-    const search_hobby = hobbies[hobby as string];
+    const search_hobby = hobbies[category as string];
     const search_detailhobby =
-        detailhobbies[hobby as string][detailhobby as string];
+        detailhobbies[category as string][detailhobby as string];
 
     const [data, setData] = useState<ClassData[] | null>(null);
 
@@ -27,7 +27,7 @@ const OnedayclassPage = () => {
                 setData(data);
                 console.log(data);
             });
-    }, [hobby, detailhobby]);
+    }, [category, detailhobby]);
 
     // 난이도 선택
     const handleLevelClick = () => {};

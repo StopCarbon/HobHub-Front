@@ -3,41 +3,44 @@ import { useNavigate } from 'react-router-dom';
 
 import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
+import AddButton from './AddButton';
 
-const ResultBox = ({
+const DetailResultBox = ({
     ranking,
-    hobby,
-    similarity,
+    detailhobby,
+    category,
 }: {
     ranking: number;
-    hobby: string;
-    similarity: number;
+    detailhobby: string;
+    category: string;
 }) => {
+    // 원데이 클래스 페이지로 이동
     const navigate = useNavigate();
     const handleIconClick = () => {
-        navigate(`/detailhobby/${hobby}`);
+        navigate(`/onedayclass/${category}/${detailhobby}`);
     };
 
+    // todo : detail hobby icons 로 바꾸기
     return (
         <Wrapper className={`rank${ranking}`}>
             <Ranking className={`rank${ranking}`}>
                 <p>{ranking}위</p>
             </Ranking>
             <Text>
-                <h1>{hobby}</h1>
-                <p>유사도 {similarity}%</p>
-                <AddButton type="button">서랍장에 추가하기</AddButton>
+                <h1>{detailhobby}</h1>
+                <p>{category}</p>
+                <AddButton />
             </Text>
             <IconCircle className={`rank${ranking}`}>
                 <Icon onClick={handleIconClick}>
-                    <img src={hobbyIcons[hobby]} alt={hobby} />
+                    <img src={hobbyIcons[category]} alt={category} />
                 </Icon>
             </IconCircle>
         </Wrapper>
     );
 };
 
-export default ResultBox;
+export default DetailResultBox;
 
 const Wrapper = styled.section`
     display: flex;
@@ -129,31 +132,13 @@ const Text = styled.div`
     }
 `;
 
-const AddButton = styled.button`
-    padding: 5px 10px;
-    font-size: 12px;
-    color: white;
-    white-space: nowrap;
-    border-radius: 4px;
-    background-color: var(--blue4);
-
-    @media (min-width: 1024px) {
-        font-size: 15px;
-
-        &:hover {
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 200ms ease-in-out;
-        }
-    }
-`;
-
 const IconCircle = styled.div`
     width: 100px;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px;
 
     border-radius: 50%;
     background-color: var(--pink);
@@ -187,7 +172,6 @@ const Icon = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 0.4;
 
     img {
         ${ImgStyle}
