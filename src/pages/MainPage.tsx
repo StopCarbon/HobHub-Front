@@ -57,8 +57,8 @@ const IconWrapper = styled.div`
     height: 80px;
 
     position: fixed;
-    right: 10px;
-    bottom: 20px;
+    right: 15px;
+    bottom: 25px;
 
     img {
         ${ImgStyle}
