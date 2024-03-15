@@ -79,7 +79,6 @@ width: 100%;
 height: 50vw;
 background-color: var(--blue1);
 border-radius: 4px;
-box-shadow: var(--dropdown-shadow);
 margin-bottom: 30px;
 overflow: hidden;
 
@@ -97,8 +96,7 @@ justify-content: center;
 }
 
 @media (min-width: 1024px) {
-    width: 480px;
-    height: 350px;
+    height: 35vw;
     margin-bottom: 40px;
     cursor: pointer;
 }
