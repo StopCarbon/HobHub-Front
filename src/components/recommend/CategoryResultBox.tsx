@@ -25,6 +25,9 @@ const CategoryResultBox = ({
             <Text>
                 <h1>{category}</h1>
                 <p>유사도 {similarity}%</p>
+                <Graph>
+                    <Fill style={{ width: `${similarity}%` }} />
+                </Graph>
                 <AddButton />
             </Text>
         </Wrapper>
@@ -87,7 +90,7 @@ const Text = styled.p`
 
     p {
         font-size: 18px;
-        margin-bottom: 20px;
+        margin-bottom: 8px;
     }
 
     @media (min-width: 1024px) {
@@ -96,6 +99,45 @@ const Text = styled.p`
         }
         p {
             font-size: 20px;
+        }
+    }
+`;
+
+const Graph = styled.div`
+    width: 280px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--blue2);
+    border-radius: 4px;
+    margin-bottom: 25px;
+`;
+
+const Fill = styled.div`
+    height: 8px;
+    background-color: var(--pink);
+    background-image: linear-gradient(
+        to left,
+        var(--blue2) 0%,
+        transparent 100%
+    );
+    background-size: cover;
+    border-radius: 4px;
+    animation-name: slide-active-bar;
+    animation-duration: 1500ms;
+
+    @keyframes slide-active-bar {
+        0% {
+            transform: translate3d(
+                -100%,
+                0,
+                0
+            ); // 자신의 길이만큼 왼쪽으로 움직여서 안보이게 됨
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0); // 원래 자기 위치로 이동
         }
     }
 `;
