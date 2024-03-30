@@ -10,7 +10,7 @@ import DetailResultBox from 'components/recommend/DetailResultBox';
 const recommendList = {
     등산: '아웃도어',
     쿠키: '베이킹',
-    축구: '스포츠',
+    수영: '수상레포츠',
 };
 
 const DetailRecommendPage = () => {
@@ -28,6 +28,7 @@ const DetailRecommendPage = () => {
                                 ranking={index + 1}
                                 detailhobby={detailhobby}
                                 category={category}
+                                similarity={89}
                             />
                         ),
                     )}

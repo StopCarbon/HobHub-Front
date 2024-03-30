@@ -107,11 +107,14 @@ const Badge = styled.span`
 `;
 
 const Icon = styled.div`
-    margin-bottom: 20px;
-    flex-grow: 0.3;
+    margin-bottom: 12px;
 
     img {
         ${ImgStyle}
+    }
+
+    @media (min-width: 1024px) {
+        flex-grow: 0.3;
     }
 `;
 

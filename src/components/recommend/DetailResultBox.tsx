@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import { hobbyIcons } from 'components/_common/icons';
+// component
+import { detailhobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 import AddButton from './AddButton';
 
@@ -9,10 +10,12 @@ const DetailResultBox = ({
     ranking,
     detailhobby,
     category,
+    similarity,
 }: {
     ranking: number;
     detailhobby: string;
     category: string;
+    similarity?: number;
 }) => {
     // 원데이 클래스 페이지로 이동
     const navigate = useNavigate();
@@ -20,7 +23,6 @@ const DetailResultBox = ({
         navigate(`/onedayclass/${category}/${detailhobby}`);
     };
 
-    // todo : detail hobby icons 로 바꾸기
     return (
         <Wrapper className={`rank${ranking}`}>
             <Ranking className={`rank${ranking}`}>
@@ -28,12 +30,19 @@ const DetailResultBox = ({
             </Ranking>
             <Text>
                 <h1>{detailhobby}</h1>
-                <p>{category}</p>
-                <AddButton />
+                <p className="category">{category}</p>
+                <p className="similarity">유사도 {similarity}%</p>
+                <Graph>
+                    <Fill style={{ width: `${similarity}%` }} />
+                </Graph>
+                <AddButton detailhobby={detailhobby} />
             </Text>
             <IconCircle className={`rank${ranking}`}>
                 <Icon onClick={handleIconClick}>
-                    <img src={hobbyIcons[category]} alt={category} />
+                    <img
+                        src={detailhobbyIcons[category][detailhobby]}
+                        alt={detailhobby}
+                    />
                 </Icon>
             </IconCircle>
         </Wrapper>
@@ -43,10 +52,11 @@ const DetailResultBox = ({
 export default DetailResultBox;
 
 const Wrapper = styled.section`
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 18px 18px 50px;
+    padding: 20px 18px 20px 50px;
     margin-bottom: 30px;
 
     border-radius: 8px;
@@ -110,15 +120,23 @@ const Ranking = styled.div`
 `;
 
 const Text = styled.div`
-    margin-right: 50px;
+    width: 100%;
+    margin-right: 20px;
 
     h1 {
         font-family: nanum-bold;
-        font-size: 24px;
+        font-size: 22px;
+        margin-bottom: 7px;
     }
-    p {
-        margin: 15px 0;
-        font-size: 18px;
+    .category {
+        margin-bottom: 15px;
+        font-family: nanum-bold;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.6);
+    }
+    .similarity {
+        font-size: 12px;
+        margin-bottom: 3px;
     }
 
     @media (min-width: 1024px) {
@@ -139,6 +157,7 @@ const IconCircle = styled.div`
     justify-content: center;
     align-items: center;
     padding: 5px;
+    flex-shrink: 0;
 
     border-radius: 50%;
     background-color: var(--pink);
@@ -175,5 +194,39 @@ const Icon = styled.div`
 
     img {
         ${ImgStyle}
+    }
+`;
+
+const Graph = styled.div`
+    height: 10px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 2px solid var(--orange);
+    border-radius: 8px;
+    margin-bottom: 18px;
+`;
+
+const Fill = styled.div`
+    height: 8px;
+    background-color: #ffd6ff;
+    background-image: linear-gradient(to left, #c8b6ff 25%, transparent 100%);
+    background-size: cover;
+    border-radius: 4px;
+    animation-name: slide-active-bar;
+    animation-duration: 1500ms;
+
+    @keyframes slide-active-bar {
+        0% {
+            transform: translate3d(
+                -100%,
+                0,
+                0
+            ); // 자신의 길이만큼 왼쪽으로 움직여서 안보이게 됨
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0); // 원래 자기 위치로 이동
+        }
     }
 `;

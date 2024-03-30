@@ -32,7 +32,7 @@ const Sidebar = () => {
                     </Icon>
                     <p>챗봇과 대화하기</p>
                 </ListItem>
-                <ListItem href="/recommend">
+                <ListItem href="/detailrecommend">
                     <Icon>
                         <img src={list} alt="list" />
                     </Icon>
