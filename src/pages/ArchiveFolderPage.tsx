@@ -1,17 +1,15 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
+// component
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import ArchiveFolder from 'components/archivefolder/ArchiveFolder';
 import { Container } from 'components/_common/pageLayout';
+import { HobbyList } from 'components/_common/props';
 
+// api
 import { getHobbyList } from 'api/hobbylist';
-
-interface HobbyList {
-    id: number;
-    hobby: string;
-}
 
 const ArchiveFolderPage = () => {
     // 사용자의 취미 아카이브 목록

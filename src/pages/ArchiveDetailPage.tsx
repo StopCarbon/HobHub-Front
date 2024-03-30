@@ -8,19 +8,13 @@ import { InputStyle } from 'components/_common/commonStyle';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import PictureBox from 'components/_common/PictureBox';
+import { PostDetail } from 'components/_common/props';
 
 // asset
 import cookie from '../assets/archive/cookie.png';
 
 // api
 import { getPostDetail } from 'api/board';
-
-interface PostDetail {
-    id: number;
-    title: string;
-    content: string;
-    boardFile?: string;
-}
 
 const ArchiveDetailPage = () => {
     // 게시물 상세내용

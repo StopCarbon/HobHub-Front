@@ -7,18 +7,13 @@ import { Container } from 'components/_common/pageLayout';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import ArchiveBox from 'components/archive/ArchiveBox';
+import { BoardList } from 'components/_common/props';
 
 // asset
 import plus from '../assets/archive/plus.svg';
 
 // api
 import { getHobbyBoard } from 'api/board';
-
-interface BoardList {
-    id: number;
-    title: string;
-    boardFile: string;
-}
 
 const ArchivePage = () => {
     const [boxData, setBoxData] = useState<BoardList[]>([]);
