@@ -2,7 +2,7 @@ import { http } from './http';
 
 import { PostInfo } from 'components/_common/props';
 
-// 게시물 저장
+// 게시물 작성
 export const savePost = async ({
     user_id,
     hobby_id,
