@@ -1,17 +1,37 @@
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
+// component
 import { Container } from 'components/_common/pageLayout';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import ArchiveBox from 'components/archive/ArchiveBox';
 
+// asset
 import plus from '../assets/archive/plus.svg';
 
+// api
+import { getHobbyBoard } from 'api/board';
+
+interface BoardList {
+    id: number;
+    title: string;
+    boardFile: string;
+}
+
 const ArchivePage = () => {
+    const [boxData, setBoxData] = useState<BoardList[]>([]);
+
+    useEffect(() => {
+        getHobbyBoard({ hobby_id: 1 }).then((res) => {
+            console.log(res?.data);
+            setBoxData(res?.data);
+        });
+    }, []);
+
     const { hobby } = useParams(); // 아카이브 폴더명
     const navigate = useNavigate();
-
     const handleAddClick = () => {
         navigate('/create');
     };
@@ -22,10 +42,9 @@ const ArchivePage = () => {
             <Container>
                 <Header bold={hobby + '\u00A0'} reg="아카아브" />
                 <ArchiveBoxWrapper>
-                    <ArchiveBox />
-                    <ArchiveBox />
-                    <ArchiveBox />
-                    <ArchiveBox />
+                    {boxData.map((data) => (
+                        <ArchiveBox boardId={data.id} title={data.title} />
+                    ))}
                 </ArchiveBoxWrapper>
                 <AddButton onClick={handleAddClick}>
                     <img src={plus} alt="add" />

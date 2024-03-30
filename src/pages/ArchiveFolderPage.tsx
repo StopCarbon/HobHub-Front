@@ -1,25 +1,41 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import ArchiveFolder from 'components/archivefolder/ArchiveFolder';
 import { Container } from 'components/_common/pageLayout';
 
-// 사용자의 취미 아카이브 목록
-const archiveList = ['베이킹', '아웃도어', '스포츠', '베이킹'];
+import { getHobbyList } from 'api/hobbylist';
+
+interface HobbyList {
+    id: number;
+    hobby: string;
+}
 
 const ArchiveFolderPage = () => {
+    // 사용자의 취미 아카이브 목록
+    const [hobbyList, setHobbyList] = useState<HobbyList[]>([]);
+
+    // 사용자의 취미 아카이브 목록 가져오기 api
+    useEffect(() => {
+        getHobbyList({ user_id: 1 }).then((res) => {
+            setHobbyList(res?.data);
+            console.log('data: ', res?.data);
+        });
+    }, []);
+
     return (
         <Wrapper>
             <Navbar />
             <Container>
                 <Header reg="나의 취미 아카이브" />
                 <FolderWrapper>
-                    {archiveList.map((hobby, index) => (
+                    {hobbyList.map((e, idx) => (
                         <ArchiveFolder
-                            key={index}
-                            order={index + 1}
-                            hobby={hobby}
+                            key={e?.id}
+                            order={idx + 1}
+                            hobby={e?.hobby}
                         />
                     ))}
                 </FolderWrapper>

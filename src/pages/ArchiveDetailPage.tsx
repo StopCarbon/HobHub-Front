@@ -1,15 +1,43 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
+// component
 import { Container } from 'components/_common/pageLayout';
 import { InputStyle } from 'components/_common/commonStyle';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import PictureBox from 'components/_common/PictureBox';
 
+// asset
 import cookie from '../assets/archive/cookie.png';
 
+// api
+import { getPostDetail } from 'api/board';
+
+interface PostDetail {
+    id: number;
+    title: string;
+    content: string;
+    boardFile?: string;
+}
+
 const ArchiveDetailPage = () => {
+    // 게시물 상세내용
+    const [postDetail, setPostDetail] = useState<PostDetail>();
+
+    // 게시물 id 가져오기
+    const { boardId } = useParams();
+    const parsedBoardId = Number(boardId);
+
+    // 게시물 상세내용 get api
+    useEffect(() => {
+        getPostDetail({ board_id: parsedBoardId }).then((res) => {
+            console.log(res?.data);
+            setPostDetail(res?.data);
+        });
+    }, []);
+
     // 수정 모드 관리
     const [isEditing, setIsEditing] = useState(false);
 
@@ -91,12 +119,12 @@ const ArchiveDetailPage = () => {
                         <>
                             <PictureBox type="archive" pic={cookie} />
                             <Detail>
-                                <Title>{editedTitle}</Title>
+                                <Title>{postDetail?.title}</Title>
                                 <OneDayClass>
                                     <span className="place">{editedPlace}</span>{' '}
                                     3가지 맛 쿠키 만들기 체험
                                 </OneDayClass>
-                                <Text>{editedContent}</Text>
+                                <Text>{postDetail?.content}</Text>
                             </Detail>
                         </>
                     )}

@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 
-const AddButton = () => {
+import { addHobby } from 'api/add';
+
+const AddButton = ({ detailhobby }: { detailhobby: string }) => {
     // 서랍장 post api
-    const handleButtonClick = () => {};
+    const handleButtonClick = () => {
+        addHobby(detailhobby).then((res) => {
+            console.log('hobby: ' + detailhobby);
+            console.log('res: ' + res);
+        });
+    };
 
     return (
         <Button type="button" onClick={handleButtonClick}>
@@ -14,7 +21,7 @@ const AddButton = () => {
 export default AddButton;
 
 const Button = styled.button`
-    padding: 8px 10px;
+    padding: 6px 10px;
     font-size: 12px;
     color: white;
     white-space: nowrap;

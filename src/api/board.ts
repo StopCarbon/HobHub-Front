@@ -22,6 +22,7 @@ export const savePost = async ({
             postInfo,
         );
         console.log(res);
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -43,6 +44,7 @@ export const getPostDetail = async ({ board_id }: { board_id: number }) => {
     try {
         const res = http.get(`/board/${board_id}`);
         console.log(res);
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -53,6 +55,7 @@ export const deletePost = async ({ board_id }: { board_id: number }) => {
     try {
         const res = http.get(`/board/delete/${board_id}`);
         console.log(res);
+        return res;
     } catch (error) {
         console.log(error);
     }

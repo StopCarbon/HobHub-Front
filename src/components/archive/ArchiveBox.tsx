@@ -5,11 +5,19 @@ import { ImgStyle } from 'components/_common/commonStyle';
 
 import pic from '../../assets/archive/cookie.png';
 
-const ArchiveBox = ({ image }: { image?: string }) => {
+const ArchiveBox = ({
+    boardId,
+    title,
+    image,
+}: {
+    boardId: number;
+    title: string;
+    image?: string;
+}) => {
     const navigate = useNavigate();
 
     const handleBoxClick = () => {
-        navigate('/archivedetail');
+        navigate(`/archivedetail/${boardId}`);
     };
 
     return (
@@ -18,7 +26,7 @@ const ArchiveBox = ({ image }: { image?: string }) => {
                 <img src={pic} alt="picture" />
             </Picture>
             <Text>
-                <p>공강시간에 즐긴 베이킹 클래스크래스클래스캐스</p>
+                <p>{title}</p>
             </Text>
         </Wrapper>
     );
