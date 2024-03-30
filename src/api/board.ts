@@ -1,10 +1,6 @@
 import { http } from './http';
 
-interface PostInfo {
-    title: string;
-    content: string;
-    boardFile?: string; // 파일
-}
+import { PostInfo } from 'components/_common/props';
 
 // 게시물 저장
 export const savePost = async ({
