@@ -28,6 +28,7 @@ export interface PostDetail {
     id: number;
     title: string;
     content: string;
+    boardCreatedTime: string;
     boardFile?: string;
 }
 

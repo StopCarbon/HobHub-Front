@@ -19,6 +19,8 @@ import { getPostDetail } from 'api/board';
 const ArchiveDetailPage = () => {
     // 게시물 상세내용
     const [postDetail, setPostDetail] = useState<PostDetail>();
+    // 날짜 형식 변환
+    const [postDate, setPostDate] = useState('');
 
     // 게시물 id 가져오기
     const { boardId } = useParams();
@@ -29,6 +31,19 @@ const ArchiveDetailPage = () => {
         getPostDetail({ board_id: parsedBoardId }).then((res) => {
             console.log(res?.data);
             setPostDetail(res?.data);
+            // 날짜 형식 변환
+            if (res?.data.boardCreatedTime) {
+                const dateObject = new Date(res.data.boardCreatedTime);
+                const formattedDate = `${dateObject.getFullYear()}.${(
+                    dateObject.getMonth() + 1
+                )
+                    .toString()
+                    .padStart(2, '0')}.${dateObject
+                    .getDate()
+                    .toString()
+                    .padStart(2, '0')}`;
+                setPostDate(formattedDate);
+            }
         });
     }, []);
 
@@ -66,7 +81,7 @@ const ArchiveDetailPage = () => {
             <Navbar />
             <Container>
                 <HeaderWrapper>
-                    <Header reg="2024.3.15" />
+                    <Header reg={postDate} />
                     {isEditing ? ( // 수정 모드인 경우
                         <EditButton className="edit" onClick={handleSaveClick}>
                             저장하기
