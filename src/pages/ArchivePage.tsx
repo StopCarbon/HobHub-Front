@@ -16,19 +16,23 @@ import plus from '../assets/archive/plus.svg';
 import { getHobbyBoard } from 'api/board';
 
 const ArchivePage = () => {
+    const { hobby, hobbyId } = useParams(); // 아카이브 폴더명, 취미 id
+    const parsedHobbyId = Number(hobbyId);
+
+    // 취미 게시물 썸네일 데이터
     const [boxData, setBoxData] = useState<BoardList[]>([]);
 
+    // // 취미 게시물 썸네일 정보 get api
     useEffect(() => {
-        getHobbyBoard({ hobby_id: 1 }).then((res) => {
+        getHobbyBoard({ hobby_id: parsedHobbyId }).then((res) => {
             console.log(res?.data);
             setBoxData(res?.data);
         });
     }, []);
 
-    const { hobby } = useParams(); // 아카이브 폴더명
     const navigate = useNavigate();
     const handleAddClick = () => {
-        navigate('/create');
+        navigate(`/create/${hobbyId}`);
     };
 
     return (

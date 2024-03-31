@@ -31,7 +31,7 @@ const ArchiveFolderPage = () => {
                 <FolderWrapper>
                     {hobbyList.map((e, idx) => (
                         <ArchiveFolder
-                            key={e?.id}
+                            hobbyId={e?.id}
                             order={idx + 1}
                             hobby={e?.hobby}
                         />

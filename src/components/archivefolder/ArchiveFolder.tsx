@@ -1,10 +1,20 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+// component
 import { hobbyIcons } from 'components/_common/icons';
+import { detailhobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 
-const ArchiveFolder = ({ order, hobby }: { order: number; hobby: string }) => {
+const ArchiveFolder = ({
+    hobbyId,
+    order,
+    hobby,
+}: {
+    hobbyId: number;
+    order: number;
+    hobby: string;
+}) => {
     const remainder = order % 3;
     let orderNum;
 
@@ -22,7 +32,7 @@ const ArchiveFolder = ({ order, hobby }: { order: number; hobby: string }) => {
     }
     const navigate = useNavigate();
     const handleFolderClick = () => {
-        navigate(`/archive/${hobby}`);
+        navigate(`/archive/${hobby}/${hobbyId}`);
     };
 
     return (

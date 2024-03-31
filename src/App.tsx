@@ -36,11 +36,14 @@ function App() {
                     path={'/onedayclass/:category/:detailhobby'}
                     element={<OnedayclassPage />}
                 />
-                <Route path={'/create'} element={<CreatePage />}></Route>
+                <Route path={'/create/:hobbyId'} element={<CreatePage />} />
                 <Route path={'/archive'} element={<ArchiveFolderPage />} />
-                <Route path={'/archive/:hobby'} element={<ArchivePage />} />
                 <Route
-                    path={'/archivedetail'}
+                    path={'/archive/:hobby/:hobbyId'}
+                    element={<ArchivePage />}
+                />
+                <Route
+                    path={'/archivedetail/:boardId'}
                     element={<ArchiveDetailPage />}
                 />
                 <Route path={'/*'} element={<ErrorPage />} />

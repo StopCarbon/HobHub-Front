@@ -28,7 +28,7 @@ const CategoryResultBox = ({
                 <Graph>
                     <Fill style={{ width: `${similarity}%` }} />
                 </Graph>
-                <AddButton />
+                <AddButton detailhobby={category} />
             </Text>
         </Wrapper>
     );
