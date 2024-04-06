@@ -94,7 +94,7 @@ const Wrapper = styled.div`
         animation: none;
         padding-top: 20px;
         border-right: 1px solid #e0e2e7;
-        font-size: 24px;
+        font-size: 22px;
         position: absolute;
     }
 `;
@@ -144,7 +144,7 @@ const ListItem = styled.a`
 
     @media (min-width: 1024px) {
         margin-bottom: 0;
-        padding: 20px 8px;
+        padding: 18px 8px;
         border-radius: 8px;
 
         &:hover {
