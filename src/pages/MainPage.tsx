@@ -53,8 +53,8 @@ const Wrapper = styled.div`
 `;
 
 const IconWrapper = styled.div`
-    width: 65px;
-    height: 65px;
+    width: 70px;
+    height: 70px;
 
     position: fixed;
     right: 15px;
@@ -65,8 +65,8 @@ const IconWrapper = styled.div`
     }
 
     @media (min-width: 1024px) {
-        width: 80px;
-        height: 80px;
+        width: 85px;
+        height: 85px;
         right: 8vw;
         cursor: pointer;
 
