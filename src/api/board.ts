@@ -12,10 +12,40 @@ export const savePost = async ({
     hobby_id: number;
     postInfo: PostInfo;
 }) => {
+    const formData = new FormData();
+    formData.append('title', postInfo.title);
+    formData.append('content', postInfo.content);
+
+    // boardFile이 null이 아닌 경우에만 formData에 추가
+    if (postInfo.boardFile !== null) {
+        formData.append('boardFile', postInfo.boardFile);
+    } else {
+        // boardFile이 null인 경우에는 null을 formData에 추가
+        formData.append('boardFile', 'null');
+    }
+
+    // formData.append('postInfo', JSON.stringify(postInfo));
+    // FormData의 key 확인
+    // @ts-ignore
+    for (const key of formData.keys()) {
+        console.log(key);
+    }
+    // FormData의 value 확인
+    // @ts-ignore
+    for (const value of formData.values()) {
+        console.log(value);
+    }
+    console.log(formData);
+
     try {
         const res = await http.post(
             `/board/${user_id}/hobbies/${hobby_id}/save`,
-            postInfo,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            },
         );
         console.log(res);
         return res;

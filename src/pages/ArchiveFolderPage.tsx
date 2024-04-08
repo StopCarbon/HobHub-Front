@@ -29,13 +29,14 @@ const ArchiveFolderPage = () => {
             <Container>
                 <Header reg="나의 취미 아카이브" />
                 <FolderWrapper>
-                    {hobbyList.map((e, idx) => (
-                        <ArchiveFolder
-                            hobbyId={e?.id}
-                            order={idx + 1}
-                            hobby={e?.hobby}
-                        />
-                    ))}
+                    {hobbyList &&
+                        hobbyList.map((e, idx) => (
+                            <ArchiveFolder
+                                hobbyId={e?.id}
+                                order={idx + 1}
+                                hobby={e?.hobby}
+                            />
+                        ))}
                 </FolderWrapper>
             </Container>
         </Wrapper>

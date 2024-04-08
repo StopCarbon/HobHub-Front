@@ -64,6 +64,7 @@ const Wrapper = styled.div`
     position: relative;
 
     @media (min-width: 1024px) {
+        width: 1025px;
         height: 88px;
     }
 `;

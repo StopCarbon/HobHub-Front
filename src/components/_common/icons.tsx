@@ -52,7 +52,7 @@ import swimming from '../../assets/hobby_icons/swimming.svg';
 import diving from '../../assets/hobby_icons/diving.svg';
 
 // 아웃도어
-import fishing from '../../assets/hobby_icons/fishing.png';
+import fishing from '../../assets/hobby_icons/fishing.svg';
 import hiking from '../../assets/hobby_icons/hiking.svg';
 import riding from '../../assets/hobby_icons/riding.svg';
 import running from '../../assets/hobby_icons/running.svg';
@@ -103,8 +103,8 @@ interface HobbyIcons {
     };
 }
 
-// 협업 필터링 추천 취미 리스트(취미 없는 사람)
-const collabHobbyIcons = {
+// 유사도 기반 추천 취미 리스트(취미 없는 사람)
+const similarityHobbyIcons = {
     공예: {
         공예: craft,
     },
@@ -166,8 +166,8 @@ const collabHobbyIcons = {
     },
 } as HobbyIcons;
 
-// 유사도 기반 추천 취미 리스트(취미 있는 사람)
-const similarityHobbyIcons = {
+// 협업 필터링 추천 취미 리스트(취미 있는 사람)
+const collabHobbyIcons = {
     공예: {
         가죽: leather,
         비누: soap,

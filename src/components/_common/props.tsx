@@ -36,5 +36,5 @@ export interface PostDetail {
 export interface PostInfo {
     title: string;
     content: string;
-    boardFile?: string; // 파일
+    boardFile: Blob | null; // 파일
 }

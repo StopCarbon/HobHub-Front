@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 
 // components
 import Header from 'components/_common/Header';
@@ -36,11 +36,12 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
     };
 
     // 작성 내용 POST api
-    const handleSubmit = () => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const data = {
             title: title,
             content: text,
-            boardFile: '', // 파일
+            boardFile: null, // 파일
         };
         savePost({ user_id: 1, hobby_id: hobbyId, postInfo: data }).then(
             (res) => {
@@ -57,7 +58,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
                     {setting === 'public' ? '공개🔓' : '비공개🔒'}
                 </SettingButton>
             </HeaderWrapper>
-            <Form>
+            <Form onSubmit={handleSubmit} encType="multipart/form-data">
                 <PictureBox type="upload" setPostImg={setPostImg} />
                 <ContentWrapper>
                     <Title
@@ -75,9 +76,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
                         wrap="hard"
                     />
                 </ContentWrapper>
-                <CompleteButton type="submit" onClick={handleSubmit}>
-                    완료
-                </CompleteButton>
+                <CompleteButton type="submit">완료</CompleteButton>
             </Form>
         </div>
     );
