@@ -3,8 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from 'pages/LoginPage';
 import MainPage from 'pages/MainPage';
 import ChatbotPage from 'pages/ChatbotPage';
-import DetailRecommendPage from 'pages/DetailRecommendPage';
-import CategoryRecommendPage from 'pages/CategoryRecommendPage';
+import RecommendPage from 'pages/RecommendPage';
 import DetailHobbyPage from 'pages/DetailHobbyPage';
 import ArchiveFolderPage from 'pages/ArchiveFolderPage';
 import ArchiveDetailPage from 'pages/ArchiveDetailPage';
@@ -20,14 +19,7 @@ function App() {
                 <Route path={'/'} element={<LoginPage />} />
                 <Route path={'/main'} element={<MainPage />} />
                 <Route path={'/chat'} element={<ChatbotPage />} />
-                <Route
-                    path={'/detailrecommend'}
-                    element={<DetailRecommendPage />}
-                />
-                <Route
-                    path={'/categoryrecommend'}
-                    element={<CategoryRecommendPage />}
-                />
+                <Route path={'/recommend'} element={<RecommendPage />} />
                 <Route
                     path={'/detailhobby/:category'}
                     element={<DetailHobbyPage />}

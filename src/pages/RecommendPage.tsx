@@ -4,16 +4,16 @@ import { Container } from 'components/_common/pageLayout';
 import NavBar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
-import DetailResultBox from 'components/recommend/DetailResultBox';
+import ResultBox from 'components/recommend/ResultBox';
 
 // 유사도가 높은 순으로 정렬된 세부 취미 추천
 const recommendList = {
-    등산: '아웃도어',
-    쿠키: '베이킹',
-    수영: '수상레포츠',
+    클라이밍: '스포츠',
+    피아노: '음악',
+    꽃: '공예',
 };
 
-const DetailRecommendPage = () => {
+const RecommendPage = () => {
     return (
         <Wrapper>
             <NavBar />
@@ -23,9 +23,10 @@ const DetailRecommendPage = () => {
                 <ResultWrapper>
                     {Object.entries(recommendList).map(
                         ([detailhobby, category], index) => (
-                            <DetailResultBox
+                            <ResultBox
                                 key={index}
                                 ranking={index + 1}
+                                type={'collab'}
                                 detailhobby={detailhobby}
                                 category={category}
                                 similarity={89}
@@ -38,7 +39,7 @@ const DetailRecommendPage = () => {
     );
 };
 
-export default DetailRecommendPage;
+export default RecommendPage;
 
 const Wrapper = styled.div`
     position: relative; // PC 버전 container 때문
