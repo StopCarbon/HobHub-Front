@@ -4,6 +4,7 @@ import TinySlider from 'tiny-slider-react';
 import 'tiny-slider/dist/tiny-slider.css';
 
 import { ImgStyle } from 'components/_common/commonStyle';
+import { BoardList } from 'components/_common/props';
 
 import loadingImage from '../../assets/archive/cookie.png';
 import cookie from '../../assets/archive/cookie.png';
@@ -31,10 +32,12 @@ const HobbySection = ({
     reg1,
     bold,
     reg2,
+    data,
 }: {
     reg1: string;
     bold: string;
     reg2: string;
+    data: BoardList[];
 }) => {
     return (
         <Wrapper>
@@ -47,15 +50,15 @@ const HobbySection = ({
             </Title>
             <SliderWrapper>
                 <TinySlider settings={settings}>
-                    {imgs.map((el, index) => (
+                    {data.map((e, index) => (
                         <ImgWrapper key={index}>
                             <img
                                 className={`tns-lazy-img`}
                                 src={loadingImage}
-                                data-src={el}
+                                data-src={e}
                             />
                             <Text>
-                                <p>스릴있었던 클라이밍sdfasdfasdfasdf</p>
+                                <p>{e.title}</p>
                             </Text>
                         </ImgWrapper>
                     ))}
