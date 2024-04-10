@@ -1,5 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
 import Navbar from 'components/_common/Navbar';
@@ -22,6 +23,8 @@ const buttonHistory = Array.from({ length: 30 }, (_, index) => ({
 }));
 
 const ChatbotPage = () => {
+    const navigate = useNavigate();
+
     // 순서
     const userCurrentOrder = useRef(0);
     const botCurrentOrder = useRef(0);
@@ -75,6 +78,13 @@ const ChatbotPage = () => {
     const handleResponse = (data: any) => {
         console.log(data.action);
         console.log(data.message);
+
+        // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
+        if (data.action === 'end') {
+            setTimeout(() => {
+                navigate(`/recommend`);
+            }, 3000);
+        }
 
         // 취미가 있는 경우 -> 기존 취미 입력 받기
         if (data.action === 'yes_hobby') {
@@ -240,6 +250,10 @@ const ChatbotPage = () => {
                 body: JSON.stringify({ selectedHobby }),
             });
             const data = await response.json();
+            // 선택 취미 전달 3초 후 취미 추천 페이지로 이동
+            setTimeout(() => {
+                navigate(`/recommend`);
+            }, 3000);
             console.log(data);
             return data;
         } catch (error) {
