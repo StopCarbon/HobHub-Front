@@ -2,10 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import { ImgStyle } from 'components/_common/commonStyle';
-import {
-    collabHobbyIcons,
-    similarityHobbyIcons,
-} from 'components/_common/icons';
+import { hobbyIcons } from 'components/_common/icons';
 
 import arrow from '../../assets/_common/rightarow.png';
 
@@ -48,7 +45,7 @@ const HobbyListItem = ({
         >
             <Icon>
                 <img
-                    src={collabHobbyIcons[category][detailhobby]}
+                    src={hobbyIcons[category][detailhobby]}
                     alt={detailhobby}
                 />
             </Icon>

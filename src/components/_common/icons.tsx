@@ -103,10 +103,20 @@ interface HobbyIcons {
     };
 }
 
-// 유사도 기반 추천 취미 리스트(취미 없는 사람)
-const similarityHobbyIcons = {
+// 전체 취미 리스트
+const hobbyIcons = {
     공예: {
-        공예: craft,
+        공예: craft, //
+        가죽: leather, //
+        비누: soap, //
+        목공예: woodart, //
+        캔들: candle, //
+        유리: glass,
+        뜨개: wool,
+        도예: pottery,
+        꽃: flower,
+        터프팅: tufting,
+        액세서리: accessory,
     },
     여행: {
         여행: travel,
@@ -120,23 +130,35 @@ const similarityHobbyIcons = {
     },
     음악: {
         음악: music,
+        전통악기: tradinstrument,
+        드럼: drum,
+        기타: guitar,
+        보컬: vocal,
+        피아노: piano,
     },
     미술: {
         미술: art,
         사진: camera,
         인테리어: interior,
+        오일파스텔: oilpastel,
+        펜드로잉: drawing,
     },
     뷰티: {
         뷰티: beauty,
+        패션: fashion,
+        향수: perfume,
     },
     수상레포츠: {
         수영: swimming,
+        다이빙: diving,
     },
     스포츠: {
         구기스포츠: ballsports,
         댄스: dance,
         라켓스포츠: racket,
         볼링: bowling,
+        클라이밍: climbing,
+        실내스포츠: insidesports,
     },
     아웃도어: {
         낚시: fishing,
@@ -146,12 +168,14 @@ const similarityHobbyIcons = {
         캠핑: camping,
         골프: golf,
         피크닉: picnic,
+        야외스포츠: outdoor,
     },
     요리: {
         요리: cooking,
     },
     음료: {
         주류: alcohol,
+        커피: coffee,
     },
     피트니스: {
         요가: yoga,
@@ -163,6 +187,12 @@ const similarityHobbyIcons = {
         독서: books,
         어학: language,
         신문: news,
+    },
+    베이킹: {
+        다쿠아즈: dacq,
+        마들렌: madeliene,
+        케이크: cake,
+        쿠키: cookie,
     },
 } as HobbyIcons;
 
@@ -227,4 +257,4 @@ const collabHobbyIcons = {
     },
 } as HobbyIcons;
 
-export { collabHobbyIcons, similarityHobbyIcons };
+export { hobbyIcons, collabHobbyIcons };

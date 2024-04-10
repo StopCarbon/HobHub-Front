@@ -2,10 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 // component
-import {
-    collabHobbyIcons,
-    similarityHobbyIcons,
-} from 'components/_common/icons';
+import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 import AddButton from './AddButton';
 
@@ -14,13 +11,13 @@ const ResultBox = ({
     type,
     detailhobby,
     category,
-    similarity,
+    percent,
 }: {
     ranking: number;
     type: 'collab' | 'simil';
     detailhobby: string;
     category: string;
-    similarity?: number;
+    percent?: number;
 }) => {
     // 원데이 클래스 페이지로 이동
     const navigate = useNavigate();
@@ -36,26 +33,30 @@ const ResultBox = ({
             <Text>
                 <h1>{detailhobby}</h1>
                 <p className="category">{category}</p>
-                {similarity && (
+                {percent && (
                     <>
-                        <p className="similarity">유사도 {similarity}%</p>
+                        <p className="similarity">유사도 {percent}%</p>
                         <Graph>
-                            <Fill style={{ width: `${similarity}%` }} />
+                            <Fill style={{ width: `${percent}%` }} />
                         </Graph>
                     </>
                 )}
-                <AddButton detailhobby={detailhobby} />
+                <AddButton
+                    category={category}
+                    detailhobby={detailhobby}
+                    percent={percent as number}
+                />
             </Text>
             <IconCircle className={`rank${ranking}`}>
                 <Icon onClick={handleIconClick}>
                     {type == 'collab' ? ( // 협업 필터링 취미 추천 or 유사도 기반 취미 추천
                         <img
-                            src={collabHobbyIcons[category][detailhobby]}
+                            src={hobbyIcons[category][detailhobby]}
                             alt={detailhobby}
                         />
                     ) : (
                         <img
-                            src={similarityHobbyIcons[category][detailhobby]}
+                            src={hobbyIcons[category][detailhobby]}
                             alt={detailhobby}
                         />
                     )}
