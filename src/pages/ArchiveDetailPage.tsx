@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // component
 import { Container } from 'components/_common/pageLayout';
@@ -14,7 +14,7 @@ import { PostDetail } from 'components/_common/props';
 import cookie from '../assets/archive/cookie.png';
 
 // api
-import { getPostDetail } from 'api/board';
+import { getPostDetail, deletePost } from 'api/board';
 
 const ArchiveDetailPage = () => {
     // 게시물 상세내용
@@ -76,6 +76,18 @@ const ArchiveDetailPage = () => {
         setIsEditing(false);
     };
 
+    const navigate = useNavigate();
+
+    // 삭제 버튼을 클릭했을 때
+    const handleDeleteClick = () => {
+        deletePost({ board_id: parsedBoardId }).then((res) => {
+            console.log(res?.data);
+        });
+        setTimeout(() => {
+            navigate(-1);
+        }, 2000); // 2초 후에 이전 페이지로 이동
+    };
+
     return (
         <Wrapper>
             <Navbar />
@@ -83,14 +95,22 @@ const ArchiveDetailPage = () => {
                 <HeaderWrapper>
                     <Header reg={postDate} />
                     {isEditing ? ( // 수정 모드인 경우
-                        <EditButton className="edit" onClick={handleSaveClick}>
-                            저장하기
-                        </EditButton>
+                        <Button className="edit" onClick={handleSaveClick}>
+                            저장
+                        </Button>
                     ) : (
                         // 수정 모드가 아닌 경우
-                        <EditButton className="save" onClick={handleEditClick}>
-                            수정하기
-                        </EditButton>
+                        <ButtonWrapper>
+                            <Button className="save" onClick={handleEditClick}>
+                                수정
+                            </Button>
+                            <Button
+                                className="delete"
+                                onClick={handleDeleteClick}
+                            >
+                                삭제
+                            </Button>
+                        </ButtonWrapper>
                     )}
                 </HeaderWrapper>
                 <ContentWrapper>
@@ -153,9 +173,11 @@ const HeaderWrapper = styled.div`
     display: flex;
     justify-content: space-between;
 `;
-
-const EditButton = styled.button`
-    padding: 6px 8px;
+const ButtonWrapper = styled.div`
+    display: flex;
+`;
+const Button = styled.button`
+    padding: 6px 10px;
     font-size: 18px;
     white-space: nowrap;
     border-radius: 4px;
@@ -166,6 +188,10 @@ const EditButton = styled.button`
     &.save {
         background-color: var(--blue4);
         color: white;
+    }
+    &.delete {
+        background-color: var(--blue2);
+        margin-left: 5px;
     }
 
     @media (min-width: 1024px) {
