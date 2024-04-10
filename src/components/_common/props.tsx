@@ -14,13 +14,15 @@ export interface ClassData {
 export interface HobbyList {
     id: number;
     hobby: string;
+    category: string;
 }
 
-// 게시물 목록
+// 게시물 목록 (썸네일)
 export interface BoardList {
     id: number;
     title: string;
     boardFile: string;
+    storedFileName: string;
 }
 
 // 게시물 상세 내용
@@ -37,4 +39,5 @@ export interface PostInfo {
     title: string;
     content: string;
     boardFile: Blob | null; // 파일
+    open: string;
 }

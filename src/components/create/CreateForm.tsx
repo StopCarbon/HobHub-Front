@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // components
 import Header from 'components/_common/Header';
@@ -25,7 +26,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
     // 공개 or 비공개 설정
     const handleSettingClick = () => {
         setSetting((prevSetting) =>
-            prevSetting === 'public' ? 'private' : 'public',
+            prevSetting === '공개' ? '비공개' : '공개',
         );
     };
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,17 +36,22 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
         setText(e.target.value);
     };
 
+    const navigate = useNavigate();
+
     // 작성 내용 POST api
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = {
             title: title,
             content: text,
-            boardFile: null, // 파일
+            boardFile: postImg || null, // 파일
+            open: setting,
         };
-        savePost({ user_id: 1, hobby_id: hobbyId, postInfo: data }).then(
+        console.log(postImg);
+        savePost({ user_id: 6, hobby_id: hobbyId, postInfo: data }).then(
             (res) => {
                 console.log(res);
+                navigate(-1);
             },
         );
     };
@@ -55,7 +61,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
             <HeaderWrapper>
                 <Header reg="취미 기록 남기기" />
                 <SettingButton onClick={handleSettingClick} className={setting}>
-                    {setting === 'public' ? '공개🔓' : '비공개🔒'}
+                    {setting === '공개' ? '공개🔓' : '비공개🔒'}
                 </SettingButton>
             </HeaderWrapper>
             <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -67,7 +73,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
                         onChange={onChangeTitle}
                         required
                     />
-                    <Hashtag placeholder="#해시태그를 사용하여 기록해보세요."></Hashtag>
+                    {/* <Hashtag placeholder="#해시태그를 사용하여 기록해보세요."></Hashtag> */}
                     <OneDayClass placeholder="원데이 클래스 이름(선택)" />
                     <TextForm
                         placeholder="간단한 글을 남겨보세요."
@@ -100,15 +106,16 @@ const SettingButton = styled.button`
     justify-content: center;
     align-items: center;
     padding: 6px 8px;
+    background-color: var(--blue1);
 
     font-size: 18px;
     white-space: nowrap;
     border-radius: 4px;
 
-    &.public {
+    &.공개 {
         background-color: var(--blue1);
     }
-    &.private {
+    &.비공개 {
         background-color: var(--blue4);
         color: white;
     }

@@ -15,6 +15,7 @@ export const savePost = async ({
     const formData = new FormData();
     formData.append('title', postInfo.title);
     formData.append('content', postInfo.content);
+    formData.append('open', postInfo.open);
 
     // boardFile이 null이 아닌 경우에만 formData에 추가
     if (postInfo.boardFile !== null) {

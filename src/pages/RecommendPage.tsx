@@ -29,7 +29,7 @@ const RecommendPage = () => {
                                 type={'collab'}
                                 detailhobby={detailhobby}
                                 category={category}
-                                similarity={89}
+                                percent={86}
                             />
                         ),
                     )}

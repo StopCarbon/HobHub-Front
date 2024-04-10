@@ -2,12 +2,21 @@ import styled from 'styled-components';
 
 import { addHobby } from 'api/add';
 
-const AddButton = ({ detailhobby }: { detailhobby: string }) => {
+const AddButton = ({
+    category,
+    detailhobby,
+    percent,
+}: {
+    category: string;
+    detailhobby: string;
+    percent: number;
+}) => {
     // 서랍장 post api
     const handleButtonClick = () => {
-        addHobby(detailhobby).then((res) => {
+        addHobby(category, detailhobby, percent).then((res) => {
             console.log('hobby: ' + detailhobby);
-            console.log('res: ' + res);
+            console.log('category: ' + category);
+            console.log('percent: ' + percent);
         });
     };
 

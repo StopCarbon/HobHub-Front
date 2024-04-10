@@ -2,19 +2,18 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 // component
-import {
-    collabHobbyIcons,
-    similarityHobbyIcons,
-} from 'components/_common/icons';
+import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 
 const ArchiveFolder = ({
     hobbyId,
     order,
+    category,
     hobby,
 }: {
     hobbyId: number;
     order: number;
+    category: string;
     hobby: string;
 }) => {
     const remainder = order % 3;
@@ -40,7 +39,9 @@ const ArchiveFolder = ({
     return (
         <Wrapper className={`order${orderNum}`} onClick={handleFolderClick}>
             <Badge>3</Badge>
-            <Icon>{/* <img src={hobbyIcons[hobby]} alt="hobby" /> */}</Icon>
+            <Icon>
+                <img src={hobbyIcons[category][hobby]} alt="hobby" />
+            </Icon>
             <Title>{hobby}</Title>
         </Wrapper>
     );
