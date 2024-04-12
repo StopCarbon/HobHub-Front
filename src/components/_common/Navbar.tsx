@@ -22,7 +22,7 @@ const Navbar = ({}) => {
     // -> PC일 경우 사이드바 열린 상태 유지
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth >= 900) {
+            if (window.innerWidth >= 640) {
                 setSidebar(true);
             }
         };
@@ -63,9 +63,9 @@ const Wrapper = styled.div`
     background-color: white;
     position: relative;
 
-    @media (min-width: 1024px) {
-        width: 1025px;
-        height: 88px;
+    @media (min-width: 650px) {
+        width: 640px;
+        height: 65px;
     }
 `;
 
@@ -75,7 +75,7 @@ const IconWrapper = styled.div`
     top: 14px;
     cursor: pointer;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         display: none;
     }
 `;

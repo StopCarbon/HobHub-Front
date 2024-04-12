@@ -91,20 +91,20 @@ const Title = styled.header`
         }
     }
 
-    @media (min-width: 1024px) {
-        margin-top: 30px;
+    @media (min-width: 650px) {
+        margin-top: 20px;
 
         p {
-            font-size: 24px;
+            font-size: 15px;
         }
     }
 `;
 const SliderWrapper = styled.div`
     margin: 0 -20px 20px -20px;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         margin: 0;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -119,7 +119,7 @@ const ImgWrapper = styled.div`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         height: 140px;
         cursor: pointer;
 
@@ -144,7 +144,7 @@ const Text = styled.div`
         text-overflow: ellipsis;
     }
 
-    @media (min-width: 1024px) {
-        font-size: 16px;
+    @media (min-width: 650px) {
+        font-size: 12px;
     }
 `;

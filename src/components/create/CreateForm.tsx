@@ -17,7 +17,7 @@ import { savePost } from 'api/board';
 
 const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
     // 작성 내용 저장
-    const [setting, setSetting] = useState('public');
+    const [setting, setSetting] = useState('공개');
     const [postImg, setPostImg] = useState<File | null>(null); // 이미지 파일 자체 -> 서버 저장용
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
@@ -95,10 +95,6 @@ const HeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-
-    @media (min-width: 1024px) {
-        margin-bottom: 30px;
-    }
 `;
 
 const SettingButton = styled.button`
@@ -120,8 +116,8 @@ const SettingButton = styled.button`
         color: white;
     }
 
-    @media (min-width: 1024px) {
-        font-size: 22px;
+    @media (min-width: 650px) {
+        font-size: 12px;
         cursor: pointer;
     }
 `;
@@ -144,10 +140,10 @@ const ContentWrapper = styled.section`
         font-size: 18px;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         ::-webkit-input-placeholder {
             /* placeholder 폰트 크기 변경 */
-            font-size: 24px;
+            font-size: 14px;
         }
     }
 `;
@@ -155,18 +151,19 @@ const ContentWrapper = styled.section`
 const Title = styled.input`
     ${InputStyle}
 
-    @media (min-width: 1024px) {
-        font-size: 24px;
-        margin-bottom: 25px;
+    @media (min-width: 650px) {
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 `;
 const OneDayClass = styled(Title)``;
 
 const Hashtag = styled.input`
     ${InputStyle}
-    @media (min-width: 1024px) {
+
+    @media (min-width: 650px) {
         font-size: 24px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -174,9 +171,10 @@ const TextForm = styled.textarea`
     ${InputStyle}
     height:150px;
     margin-bottom: 40px;
-    @media (min-width: 1024px) {
-        font-size: 24px;
-        margin-bottom: 50px;
+
+    @media (min-width: 650px) {
+        font-size: 14px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -188,9 +186,9 @@ const CompleteButton = styled.button`
     font-size: 20px;
     border-radius: 4px;
 
-    @media (min-width: 1024px) {
-        padding: 15px 0;
-        font-size: 22px;
+    @media (min-width: 650px) {
+        padding: 10px 0;
+        font-size: 15px;
         cursor: pointer;
         &:hover {
             background-color: var(--blue2);

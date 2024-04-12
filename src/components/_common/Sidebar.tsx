@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import Avatar from './Avatar';
 import Logo from './Logo';
+import { ImgStyle } from './commonStyle';
 
 import home from '../../assets/sidebar/home.svg';
 import chat from '../../assets/sidebar/message-circle.svg';
@@ -78,6 +79,8 @@ const Wrapper = styled.div`
     overscroll-behavior: contain;
     z-index: 10;
     animation: sidebar-show 0.3s;
+    overflow-y: auto;
+
     @keyframes sidebar-show {
         from {
             transform: translate3d(-250px, 0, 0);
@@ -87,15 +90,19 @@ const Wrapper = styled.div`
         }
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         width: var(--sidebar);
         padding: 0;
         z-index: 0;
         animation: none;
-        padding-top: 20px;
+        padding-top: 10px;
         border-right: 1px solid #e0e2e7;
-        font-size: 22px;
+        font-size: 14px;
         position: absolute;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 
@@ -108,8 +115,9 @@ const Border = styled.div`
         margin: 28px 0;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         &.first {
+            margin-top: 15px;
             margin-bottom: 0;
         }
     }
@@ -121,11 +129,12 @@ const AvatarWrapper = styled.div`
     margin-top: 33px;
 
     p {
-        margin-left: 20px;
+        margin-left: 15px;
     }
 
-    @media (min-width: 1024px) {
-        margin-top: 15px;
+    @media (min-width: 650px) {
+        margin-top: 12px;
+        padding: 0 5px;
     }
 `;
 
@@ -142,9 +151,9 @@ const ListItem = styled.a`
         white-space: nowrap;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         margin-bottom: 0;
-        padding: 18px 8px;
+        padding: 13px 8px;
         border-radius: 8px;
 
         &:hover {
@@ -156,5 +165,14 @@ const ListItem = styled.a`
 `;
 
 const Icon = styled.div`
-    margin-right: 18px;
+    margin-right: 15px;
+
+    @media (min-width: 650px) {
+        width: 22px;
+        height: 22px;
+
+        img {
+            ${ImgStyle}
+        }
+    }
 `;

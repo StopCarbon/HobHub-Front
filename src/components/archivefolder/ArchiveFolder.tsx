@@ -72,10 +72,10 @@ const Wrapper = styled.section`
         background-color: var(--purple2);
     }
 
-    @media (min-width: 1024px) {
-        width: 215px;
-        height: 215px;
-        margin-right: 40px;
+    @media (min-width: 650px) {
+        width: 150px;
+        height: 150px;
+        margin-right: 30px;
         margin-bottom: 30px;
         cursor: pointer;
 
@@ -104,11 +104,11 @@ const Badge = styled.span`
     top: 5px;
     right: 5px;
 
-    @media (min-width: 1024px) {
-        height: 30px;
-        min-width: 30px;
-        border-radius: calc(30px / 2);
-        font-size: 17px;
+    @media (min-width: 650px) {
+        height: 20px;
+        min-width: 20px;
+        border-radius: calc(20px / 2);
+        font-size: 12px;
 
         &:hover {
             transform: rotate(-90deg);
@@ -124,8 +124,8 @@ const Icon = styled.div`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
-        flex-grow: 0.3;
+    @media (min-width: 650px) {
+        margin-bottom: 10px;
     }
 `;
 
@@ -133,7 +133,7 @@ const Title = styled.h1`
     font-size: 20px;
     font-family: nanum-bold;
 
-    @media (min-width: 1024px) {
-        font-size: 24px;
+    @media (min-width: 650px) {
+        font-size: 16px;
     }
 `;

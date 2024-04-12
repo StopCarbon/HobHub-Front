@@ -5,12 +5,11 @@ export const Container = styled.div`
     flex-direction: column;
     padding: 25px 20px;
 
-    @media (min-width: 1024px) {
-        width: calc(960px - var(--sidebar));
-        padding: 25px 40px;
+    @media (min-width: 650px) {
+        width: calc(640px - var(--sidebar));
+        padding: 15px 20px;
 
         position: absolute;
         left: var(--sidebar);
-        margin-top: 20px;
     }
 `;

@@ -22,10 +22,10 @@ const LogoImg = styled.img`
     &.navbar {
         width: 125px;
 
-        @media (min-width: 1024px) {
+        @media (min-width: 650px) {
             position: absolute;
-            left: 550px;
-            width: 200px;
+            left: 350px;
+            width: 120px;
             cursor: pointer;
         }
     }
@@ -35,8 +35,8 @@ const LogoImg = styled.img`
         width: calc(100% - 120px);
         margin-bottom: -13px;
 
-        @media (min-width: 1024px) {
-            width: 350px;
+        @media (min-width: 650px) {
+            width: 220px;
         }
     }
 
@@ -44,7 +44,7 @@ const LogoImg = styled.img`
     &.sidebar {
         width: 125px;
 
-        @media (min-width: 1024px) {
+        @media (min-width: 650px) {
             display: none;
         }
     }

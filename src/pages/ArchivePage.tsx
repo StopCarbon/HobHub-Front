@@ -42,7 +42,11 @@ const ArchivePage = () => {
                 <Header bold={hobby + '\u00A0'} reg="아카아브" />
                 <ArchiveBoxWrapper>
                     {boxData.map((data) => (
-                        <ArchiveBox boardId={data.id} title={data.title} />
+                        <ArchiveBox
+                            boardId={data.id}
+                            title={data.title}
+                            image={data.storedFileName}
+                        />
                     ))}
                 </ArchiveBoxWrapper>
                 <AddButton onClick={handleAddClick}>
@@ -72,9 +76,13 @@ const AddButton = styled.button`
     right: 20px;
     bottom: -70px; // Wrapper를 기준으로 간격 조정
 
-    @media (min-width: 1024px) {
-        width: 100px;
-        height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 650px) {
+        width: 65px;
+        height: 65px;
         cursor: pointer;
 
         &:hover {
@@ -91,8 +99,8 @@ const ArchiveBoxWrapper = styled.div`
     flex-wrap: wrap;
     margin-top: 30px;
 
-    @media (min-width: 1024px) {
-        margin-top: 40px;
+    @media (min-width: 650px) {
+        margin-top: 20px;
         justify-content: center;
     }
 `;

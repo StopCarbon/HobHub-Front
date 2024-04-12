@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { useRecoilState } from 'recoil';
 
 import Navbar from 'components/_common/Navbar';
 import { ImgStyle } from 'components/_common/commonStyle';
@@ -11,6 +12,8 @@ import arrow from '../assets/_common/arrow-up.svg';
 import bot from '../assets/_common/defaultProfile.png';
 
 import { saveUserInfo } from 'api/user';
+
+import { UserInfoAtom } from 'recoil/User';
 
 const history = Array.from({ length: 30 }, (_, index) => ({
     order: index,
@@ -23,6 +26,8 @@ const buttonHistory = Array.from({ length: 30 }, (_, index) => ({
 }));
 
 const ChatbotPage = () => {
+    const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+
     const navigate = useNavigate();
 
     // 순서
@@ -81,6 +86,8 @@ const ChatbotPage = () => {
 
         // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
         if (data.action === 'end') {
+            // 사용자 정보 flask에서 받기 & spring으로 post -> spring으로부터 받은 사용자 정보 저장
+            // 추천 취미 리스트 flask 에서받기
             setTimeout(() => {
                 navigate(`/recommend`);
             }, 3000);
@@ -249,6 +256,7 @@ const ChatbotPage = () => {
                 },
                 body: JSON.stringify({ selectedHobby }),
             });
+            // 추천 취미 리스트 받기
             const data = await response.json();
             // 선택 취미 전달 3초 후 취미 추천 페이지로 이동
             setTimeout(() => {
@@ -375,10 +383,14 @@ const Wrapper = styled.div`
     position: relative;
     overflow-y: scroll;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         overflow-x: hidden;
         background-color: white;
         background-image: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 `;
 
@@ -388,8 +400,8 @@ export const Container = styled.div`
     padding: 25px 20px;
     padding-bottom: 50px;
 
-    @media (min-width: 1024px) {
-        width: 630px;
+    @media (min-width: 650px) {
+        width: calc(640px - var(--sidebar) - 30px);
         height: 100vh;
         overflow-y: auto;
         padding: 15px;
@@ -426,10 +438,9 @@ const Profile = styled.div`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
-        width: 45px;
-        height: 45px;
-        margin-right: 15px;
+    @media (min-width: 650px) {
+        width: 35px;
+        height: 35px;
     }
 `;
 
@@ -447,9 +458,10 @@ const BotBubble = styled.div`
     box-shadow: var(--popup-shadow);
     margin-bottom: 20px;
 
-    @media (min-width: 1024px) {
-        font-size: 18px;
-        line-height: 24px;
+    @media (min-width: 650px) {
+        font-size: 14px;
+        line-height: 18px;
+        padding: 10px 12px;
     }
 `;
 
@@ -470,9 +482,10 @@ const UserBubble = styled.div`
     border-radius: 20px 20px 0px 20px;
     box-shadow: var(--popup-shadow);
 
-    @media (min-width: 1024px) {
-        font-size: 18px;
-        line-height: 24px;
+    @media (min-width: 650px) {
+        font-size: 14px;
+        line-height: 18px;
+        padding: 10px 12px;
     }
 `;
 
@@ -487,9 +500,10 @@ const InputForm = styled.form`
     bottom: 0;
     left: 0;
 
-    @media (min-width: 1024px) {
-        width: 660px;
-        margin-left: calc((100% - 960px) / 2);
+    @media (min-width: 650px) {
+        width: 440px;
+        margin-left: calc((100% - 640px) / 2);
+        height: 40px;
         left: var(--sidebar);
     }
 `;
@@ -505,9 +519,9 @@ const InputBox = styled.div`
         font-size: 16px;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         input {
-            font-size: 18px;
+            font-size: 14px;
         }
     }
 `;
@@ -522,6 +536,11 @@ const SendButton = styled.button`
     img {
         ${ImgStyle}
     }
+
+    @media (min-width: 650px) {
+        width: 40px;
+        height: 40px;
+    }
 `;
 
 const CompleteButton = styled(InputForm)`
@@ -532,7 +551,9 @@ const CompleteButton = styled(InputForm)`
     background-color: var(--blue4);
     color: white;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
+        height: 45px;
+
         &:hover {
             background-color: var(--blue1);
             color: var(--blue4);
@@ -565,7 +586,10 @@ const Button = styled.div`
         background-color: var(--blue1);
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
+        padding: 8px 10px;
+        font-size: 12px;
+
         &:hover {
             background-color: var(--blue1);
             cursor: pointer;

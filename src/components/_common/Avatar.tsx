@@ -29,7 +29,7 @@ const UserProfile = styled.div`
         position: absolute;
         right: 15px;
 
-        @media (min-width: 1024px) {
+        @media (min-width: 650px) {
             display: none;
         }
     }
@@ -39,9 +39,9 @@ const UserProfile = styled.div`
         width: 40px;
         height: 40px;
 
-        @media (min-width: 1024px) {
-            width: 50px;
-            height: 50px;
+        @media (min-width: 650px) {
+            width: 30px;
+            height: 30px;
         }
     }
 

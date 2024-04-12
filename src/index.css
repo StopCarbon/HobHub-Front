@@ -42,13 +42,13 @@
     --popup-shadow: 0 4px 20px rgba(63, 65, 80, 0.3);
     --popup-reversed-shadow: 0 -4px 20px rgba(63, 65, 80, 0.3);
 
-    --sidebar: 300px;
+    --sidebar: 200px;
 }
 
 /* PC뷰 설정 */
-@media (min-width: 1000px) {
+@media (min-width: 650px) {
     body {
-        width: 960px;
+        width: 640px;
         margin: 0 auto;
     }
 }

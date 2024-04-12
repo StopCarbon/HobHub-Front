@@ -91,13 +91,13 @@ justify-content: center;
 }
 
 .icon {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
-@media (min-width: 1024px) {
-    height: 35vw;
-    margin-bottom: 40px;
+@media (min-width: 650px) {
+    height: 30vw;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 `;

@@ -172,12 +172,15 @@ const Wrapper = styled.div`
 const HeaderWrapper = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
 `;
+
 const ButtonWrapper = styled.div`
     display: flex;
 `;
+
 const Button = styled.button`
-    padding: 6px 10px;
+    padding: 6px 8px;
     font-size: 18px;
     white-space: nowrap;
     border-radius: 4px;
@@ -194,8 +197,8 @@ const Button = styled.button`
         margin-left: 5px;
     }
 
-    @media (min-width: 1024px) {
-        font-size: 22px;
+    @media (min-width: 650px) {
+        font-size: 12px;
         cursor: pointer;
     }
 `;
@@ -206,8 +209,8 @@ const ContentWrapper = styled.section`
     align-items: center;
     margin-top: 30px;
 
-    @media (min-width: 1024px) {
-        margin-top: 40px;
+    @media (min-width: 650px) {
+        margin-top: 20px;
     }
 `;
 
@@ -220,9 +223,9 @@ const Detail = styled.div`
 const Title = styled.div`
     ${InputStyle}
 
-    @media (min-width: 1024px) {
-        font-size: 24px;
-        margin-bottom: 25px;
+    @media (min-width: 650px) {
+        font-size: 14px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -235,16 +238,16 @@ const OneDayClass = styled(Title)`
 const Hashtag = styled.div`
     ${InputStyle}
 
-    @media (min-width: 1024px) {
-        margin-bottom: 25px;
+    @media (min-width: 650px) {
+        margin-bottom: 20px;
     }
 `;
 
 const Text = styled.div`
     ${InputStyle}
 
-    @media (min-width: 1024px) {
-        font-size: 24px;
+    @media (min-width: 650px) {
+        font-size: 14px;
     }
 `;
 

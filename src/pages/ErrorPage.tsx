@@ -28,9 +28,9 @@ const Wrapper = styled.div`
         font-size: 20px;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         p {
-            font-size: 26px;
+            font-size: 18px;
         }
     }
 `;
@@ -43,7 +43,7 @@ const Error = styled.div`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
-        width: 30%;
+    @media (min-width: 650px) {
+        width: 20%;
     }
 `;

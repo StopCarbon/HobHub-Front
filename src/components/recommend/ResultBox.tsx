@@ -91,10 +91,9 @@ const Wrapper = styled.section`
         background-color: var(--blue3);
     }
 
-    @media (min-width: 1024px) {
-        width: 460px;
-        padding: 20px 25px 20px 90px;
-        margin-bottom: 40px;
+    @media (min-width: 650px) {
+        padding: 15px 20px 15px 50px;
+        margin-bottom: 25px;
     }
 `;
 
@@ -124,14 +123,14 @@ const Ranking = styled.div`
         background-color: var(--purple2);
     }
 
-    @media (min-width: 1024px) {
-        width: 80px;
-        height: 70px;
+    @media (min-width: 650px) {
+        width: 60px;
+        height: 52px;
 
         p {
             font-family: nanum-bold;
-            font-size: 24px;
-            margin: 18px 7px;
+            font-size: 16px;
+            margin: 13px 7px;
         }
     }
 `;
@@ -156,13 +155,16 @@ const Text = styled.div`
         margin-bottom: 3px;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         h1 {
-            font-size: 26px;
+            font-size: 16px;
         }
-        p {
-            margin: 15px 0;
-            font-size: 20px;
+        .category {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .similarity {
+            font-size: 10px;
         }
     }
 `;
@@ -192,9 +194,9 @@ const IconCircle = styled.div`
         background-color: var(--purple2);
     }
 
-    @media (min-width: 1024px) {
-        width: 120px;
-        height: 120px;
+    @media (min-width: 650px) {
+        width: 85px;
+        height: 85px;
         transition: transform 200ms ease-in-out;
 
         &:hover {
@@ -222,6 +224,11 @@ const Graph = styled.div`
     border: 2px solid var(--orange);
     border-radius: 8px;
     margin-bottom: 18px;
+
+    @media (min-width: 650px) {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
 `;
 
 const Fill = styled.div`

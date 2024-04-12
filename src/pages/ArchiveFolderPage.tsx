@@ -17,7 +17,7 @@ const ArchiveFolderPage = () => {
 
     // 사용자의 취미 아카이브 목록 가져오기 api
     useEffect(() => {
-        getHobbyList({ user_id: 1 }).then((res) => {
+        getHobbyList({ user_id: 6 }).then((res) => {
             setHobbyList(res?.data);
             console.log('data: ', res?.data);
         });
@@ -34,6 +34,7 @@ const ArchiveFolderPage = () => {
                             <ArchiveFolder
                                 hobbyId={e?.id}
                                 order={idx + 1}
+                                category={e?.category}
                                 hobby={e?.hobby}
                             />
                         ))}
@@ -56,8 +57,8 @@ const FolderWrapper = styled.div`
     flex-wrap: wrap;
     margin-top: 30px;
 
-    @media (min-width: 1024px) {
-        margin-top: 40px;
+    @media (min-width: 650px) {
+        margin-top: 20px;
         justify-content: center;
     }
 `;

@@ -10,7 +10,7 @@ const CreatePage = () => {
         <Wrapper>
             <Navbar />
             <Container>
-                <CreateForm hobbyId={1} />
+                <CreateForm hobbyId={19} />
             </Container>
         </Wrapper>
     );

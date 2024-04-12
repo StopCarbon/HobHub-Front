@@ -13,8 +13,8 @@ const Exp = styled.p`
     margin: 8px 0 25px 45px;
     word-break: keep-all;
 
-    @media (min-width: 1024px) {
-        font-size: 16px;
-        margin: 8px 0 30px 90px;
+    @media (min-width: 650px) {
+        font-size: 12px;
+        margin: 0 0 20px 50px;
     }
 `;

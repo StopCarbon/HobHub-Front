@@ -20,7 +20,7 @@ import {
 const MainPage = () => {
     const [ageList, setAgeList] = useState<BoardList[]>();
     const [locList, setLocList] = useState<BoardList[]>();
-    const [motList, setMotList] = useState<BoardList[]>();
+    const [motList, setMotList] = useState<BoardList[]>([]);
 
     // 챗 아이콘 클릭하면 챗봇 페이지로 이동
     const navigate = useNavigate();
@@ -110,10 +110,10 @@ const IconWrapper = styled.div`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
-        width: 85px;
-        height: 85px;
-        right: 8vw;
+    @media (min-width: 650px) {
+        width: 50px;
+        height: 50px;
+        right: 10vw;
         cursor: pointer;
 
         &:hover {

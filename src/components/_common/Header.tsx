@@ -44,9 +44,9 @@ const Icon = styled.a`
         display: none;
     }
 
-    @media (min-width: 1024px) {
-        width: 30px;
-        height: 18px;
+    @media (min-width: 650px) {
+        width: 20px;
+        height: 15px;
         display: block;
         padding: 10px; // hover 영역 확장
         cursor: pointer;
@@ -85,8 +85,8 @@ const Title = styled.span`
         }
     }
 
-    @media (min-width: 1024px) {
-        font-size: 26px;
-        margin-left: 40px;
+    @media (min-width: 650px) {
+        font-size: 18px;
+        margin-left: 10px;
     }
 `;

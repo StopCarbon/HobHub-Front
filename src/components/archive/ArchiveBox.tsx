@@ -23,7 +23,7 @@ const ArchiveBox = ({
     return (
         <Wrapper onClick={handleBoxClick}>
             <Picture>
-                <img src={pic} alt="picture" />
+                <img src={image} alt="picture" />
             </Picture>
             <Text>
                 <p>{title}</p>
@@ -45,12 +45,12 @@ const Wrapper = styled.section`
     margin-bottom: 20px;
     position: relative;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         min-width: 0;
-        width: 250px; // width 고정
-        height: 180px;
-        margin-right: 40px;
-        margin-bottom: 30px;
+        width: 180px; // width 고정
+        height: 140px;
+        margin-right: 20px;
+        margin-bottom: 20px;
         cursor: pointer;
 
         &:hover {
@@ -79,5 +79,9 @@ const Text = styled.figcaption`
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+
+    @media (min-width: 650px) {
+        font-size: 13px;
     }
 `;

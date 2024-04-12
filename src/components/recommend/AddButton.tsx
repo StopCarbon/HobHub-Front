@@ -37,8 +37,8 @@ const Button = styled.button`
     border-radius: 4px;
     background-color: var(--blue4);
 
-    @media (min-width: 1024px) {
-        font-size: 15px;
+    @media (min-width: 650px) {
+        font-size: 10px;
 
         &:hover {
             cursor: pointer;

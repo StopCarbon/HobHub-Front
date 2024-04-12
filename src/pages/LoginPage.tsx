@@ -36,8 +36,8 @@ const Shadow = styled.img`
     width: calc(100% - 140px);
     opacity: 0.5;
 
-    @media (min-width: 1024px) {
-        width: 330px;
+    @media (min-width: 650px) {
+        width: 210px;
     }
 `;
 
@@ -46,8 +46,8 @@ const LoginButton = styled.img`
     margin-top: 250px;
     cursor: pointer;
 
-    @media (min-width: 1024px) {
-        width: 500px;
-        margin-top: 300px;
+    @media (min-width: 650px) {
+        width: 250px;
+        margin-top: 100px;
     }
 `;
