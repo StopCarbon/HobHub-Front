@@ -146,13 +146,16 @@ const ArchiveDetailPage = () => {
                     ) : (
                         // 수정 모드가 아닌 경우
                         <>
-                            <PictureBox type="archive" pic={cookie} />
+                            <PictureBox
+                                type="archive"
+                                pic={postDetail?.storedFileName}
+                            />
                             <Detail>
                                 <Title>{postDetail?.title}</Title>
-                                <OneDayClass>
+                                {/* <OneDayClass>
                                     <span className="place">{editedPlace}</span>{' '}
                                     3가지 맛 쿠키 만들기 체험
-                                </OneDayClass>
+                                </OneDayClass> */}
                                 <Text>{postDetail?.content}</Text>
                             </Detail>
                         </>
@@ -225,7 +228,7 @@ const Title = styled.div`
 
     @media (min-width: 650px) {
         font-size: 14px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 `;
 

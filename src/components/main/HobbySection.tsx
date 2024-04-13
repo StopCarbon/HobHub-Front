@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import TinySlider from 'tiny-slider-react';
 import 'tiny-slider/dist/tiny-slider.css';
+import { useNavigate } from 'react-router-dom';
 
 import { ImgStyle } from 'components/_common/commonStyle';
 import { BoardList } from 'components/_common/props';
@@ -39,6 +40,12 @@ const HobbySection = ({
     reg2: string;
     data: BoardList[];
 }) => {
+    // 게시물 이미지 클릭시 게시물 상세조회 페이지로 이동
+    const navigate = useNavigate();
+    const handlePostClick = (board_id: number) => {
+        navigate(`/archivedetail/${board_id}`);
+    };
+
     return (
         <Wrapper>
             <Title>
@@ -51,11 +58,14 @@ const HobbySection = ({
             <SliderWrapper>
                 <TinySlider settings={settings}>
                     {data.map((e, index) => (
-                        <ImgWrapper key={index}>
+                        <ImgWrapper
+                            key={index}
+                            onClick={() => handlePostClick(e.id)}
+                        >
                             <img
                                 className={`tns-lazy-img`}
                                 src={loadingImage}
-                                data-src={e}
+                                data-src={e.storedFileName}
                             />
                             <Text>
                                 <p>{e.title}</p>
@@ -92,8 +102,6 @@ const Title = styled.header`
     }
 
     @media (min-width: 650px) {
-        margin-top: 20px;
-
         p {
             font-size: 15px;
         }
@@ -104,7 +112,7 @@ const SliderWrapper = styled.div`
 
     @media (min-width: 650px) {
         margin: 0;
-        margin-bottom: 20px;
+        margin-top: -10px;
     }
 `;
 
@@ -120,7 +128,7 @@ const ImgWrapper = styled.div`
     }
 
     @media (min-width: 650px) {
-        height: 140px;
+        height: 130px;
         cursor: pointer;
 
         &:hover {

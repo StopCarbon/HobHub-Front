@@ -37,12 +37,12 @@ const MainPage = () => {
     }, []);
 
     // 사용자의 지역에 따른 다른 사용자들의 게시물 가져오기 api
-    useEffect(() => {
-        getLocationMainBoard({ home: '경기도' }).then((res) => {
-            setLocList(res?.data);
-            console.log(res?.data);
-        });
-    }, []);
+    // useEffect(() => {
+    //     getLocationMainBoard({ home: '경기도' }).then((res) => {
+    //         setLocList(res?.data);
+    //         console.log(res?.data);
+    //     });
+    // }, []);
 
     // 사용자의 동기에 따른 다른 사용자들의 게시물 가져오기 api
     useEffect(() => {
@@ -64,7 +64,7 @@ const MainPage = () => {
                     <HobbySection
                         reg1="민지님과 같은"
                         bold="#30대"
-                        reg2="들이 좋아한 취미"
+                        reg2="가 좋아한 취미"
                         data={ageList}
                     />
                 )}
@@ -72,7 +72,7 @@ const MainPage = () => {
                     <HobbySection
                         reg1="민지님과 같은"
                         bold="#경기도 거주자"
-                        reg2="들이 좋아한 취미"
+                        reg2="가 좋아한 취미"
                         data={locList}
                     />
                 )}
@@ -80,7 +80,7 @@ const MainPage = () => {
                     <HobbySection
                         reg1="민지님과 같은"
                         bold="#대인관계 목적의 사용자"
-                        reg2="들이 좋아한 취미"
+                        reg2="가 좋아한 취미"
                         data={motList}
                     />
                 )}

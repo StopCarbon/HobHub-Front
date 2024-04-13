@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 // component
 import Navbar from 'components/_common/Navbar';
@@ -11,7 +12,12 @@ import { HobbyList } from 'components/_common/props';
 // api
 import { getHobbyList } from 'api/hobbylist';
 
+// recoil
+import { UserInfoAtom } from 'recoil/User';
+
 const ArchiveFolderPage = () => {
+    const userInfo = useRecoilValue(UserInfoAtom);
+
     // 사용자의 취미 아카이브 목록
     const [hobbyList, setHobbyList] = useState<HobbyList[]>([]);
 
