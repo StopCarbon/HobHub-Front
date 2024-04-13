@@ -16,7 +16,8 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={'/'} element={<LoginPage />} />
+                {/* <Route path={'/'} element={<LoginPage />} /> */}
+                <Route path={'/'} element={<MainPage />} />
                 <Route path={'/main'} element={<MainPage />} />
                 <Route path={'/chat'} element={<ChatbotPage />} />
                 <Route path={'/recommend'} element={<RecommendPage />} />
