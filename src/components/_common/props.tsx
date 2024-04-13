@@ -31,7 +31,7 @@ export interface PostDetail {
     title: string;
     content: string;
     boardCreatedTime: string;
-    boardFile?: string;
+    storedFileName?: string;
 }
 
 // 게시물 작성 형식
@@ -40,4 +40,24 @@ export interface PostInfo {
     content: string;
     boardFile: Blob | null; // 파일
     open: string;
+}
+
+// 사용자 정보
+export interface User {
+    id: number;
+    name: string;
+    age: number;
+    gender: string;
+    home: string;
+    income: string;
+    motive: string;
+    work: number;
+    wkend: number;
+}
+
+// 추천 취미 리스트
+export interface RecommendList {
+    hobby1: string;
+    hobby2: string;
+    hobby3: string;
 }

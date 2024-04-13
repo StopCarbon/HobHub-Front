@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 // components
 import Header from 'components/_common/Header';
@@ -15,7 +16,12 @@ import camera from '../assets/archive/camera.svg';
 // api
 import { savePost } from 'api/board';
 
+// recoil
+import { UserInfoAtom } from 'recoil/User';
+
 const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
+    const userInfo = useRecoilValue(UserInfoAtom);
+
     // 작성 내용 저장
     const [setting, setSetting] = useState('공개');
     const [postImg, setPostImg] = useState<File | null>(null); // 이미지 파일 자체 -> 서버 저장용
