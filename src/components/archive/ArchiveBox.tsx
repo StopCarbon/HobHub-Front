@@ -35,7 +35,8 @@ const ArchiveBox = ({
 export default ArchiveBox;
 
 const Wrapper = styled.section`
-    min-width: 40vw; // 하나만 있을 때 조금 더 커지도록
+    min-width: 30vw; // 하나만 있을 때 조금 더 커지도록
+    max-width: 40vw; // 한 줄에 최대 2개만 배치
     height: 128px;
     display: flex;
     flex-direction: column;
