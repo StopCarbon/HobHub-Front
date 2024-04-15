@@ -4,7 +4,6 @@ import LoginPage from 'pages/LoginPage';
 import MainPage from 'pages/MainPage';
 import ChatbotPage from 'pages/ChatbotPage';
 import RecommendPage from 'pages/RecommendPage';
-import DetailHobbyPage from 'pages/DetailHobbyPage';
 import ArchiveFolderPage from 'pages/ArchiveFolderPage';
 import ArchiveDetailPage from 'pages/ArchiveDetailPage';
 import ArchivePage from 'pages/ArchivePage';
@@ -21,10 +20,6 @@ function App() {
                 <Route path={'/main'} element={<MainPage />} />
                 <Route path={'/chat'} element={<ChatbotPage />} />
                 <Route path={'/recommend'} element={<RecommendPage />} />
-                <Route
-                    path={'/detailhobby/:category'}
-                    element={<DetailHobbyPage />}
-                />
                 <Route
                     path={'/onedayclass/:category/:detailhobby'}
                     element={<OnedayclassPage />}

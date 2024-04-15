@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 import { Container } from 'components/_common/pageLayout';
 import { ClassData } from 'components/_common/props';
-import { hobbies, detailhobbies } from 'components/_common/hobbies';
 import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
@@ -14,20 +13,20 @@ const OnedayclassPage = () => {
     const { category, detailhobby } = useParams(); // 사용자가 선택한 취미 카테고리 & 세부 취미
 
     // 크롤링을 위해 한국어 -> 영어로 변경
-    const search_hobby = hobbies[category as string];
-    const search_detailhobby =
-        detailhobbies[category as string][detailhobby as string];
+    // const search_hobby = hobbies[category as string];
+    // const search_detailhobby =
+    //     detailhobbies[category as string][detailhobby as string];
 
     const [data, setData] = useState<ClassData[] | null>(null);
 
-    useEffect(() => {
-        fetch(`/search?category=${search_hobby}&keyword=${search_detailhobby}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data);
-                console.log(data);
-            });
-    }, [category, detailhobby]);
+    // useEffect(() => {
+    //     fetch(`/search?category=${search_hobby}&keyword=${search_detailhobby}`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setData(data);
+    //             console.log(data);
+    //         });
+    // }, [category, detailhobby]);
 
     // 난이도 선택
     const handleLevelClick = () => {};
