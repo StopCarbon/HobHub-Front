@@ -57,21 +57,23 @@ const HobbySection = ({
             </Title>
             <SliderWrapper>
                 <TinySlider settings={settings}>
-                    {data.map((e, index) => (
-                        <ImgWrapper
-                            key={index}
-                            onClick={() => handlePostClick(e.id)}
-                        >
-                            <img
-                                className={`tns-lazy-img`}
-                                src={loadingImage}
-                                data-src={e.storedFileName}
-                            />
-                            <Text>
-                                <p>{e.title}</p>
-                            </Text>
-                        </ImgWrapper>
-                    ))}
+                    {data &&
+                        data.length &&
+                        data.map((e, index) => (
+                            <ImgWrapper
+                                key={index}
+                                onClick={() => handlePostClick(e.id)}
+                            >
+                                <img
+                                    className={`tns-lazy-img`}
+                                    src={loadingImage}
+                                    data-src={e.storedFileName}
+                                />
+                                <Text>
+                                    <p>{e.title}</p>
+                                </Text>
+                            </ImgWrapper>
+                        ))}
                 </TinySlider>
             </SliderWrapper>
         </Wrapper>
