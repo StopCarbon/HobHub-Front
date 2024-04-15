@@ -2,23 +2,23 @@
     "rewrites": [
         {
             "source": "/user/:path*",
-            "destination": "@API_URL/:path*"
+            "destination": "@API_URL/user/:path*"
         },
         {
             "source": "/board/:path*",
-            "destination": "@API_URL/:path*"
+            "destination": "@API_URL/board/:path*"
         },
         {
-            "source": "/send_message/:path*",
-            "destination": "@API_URL/:path*"
+            "source": "/send_message",
+            "destination": "@FLASK_URL/send_message"
         },
         {
-            "source": "/webhook/:path*",
-            "destination": "@FLASK_URL/:path*"
+            "source": "/webhook",
+            "destination": "@FLASK_URL/webhook"
         },
         {
-            "source": "/hobbylist/:path*",
-            "destination": "@FLASK_URL/:path*"
+            "source": "/hobbylist",
+            "destination": "@FLASK_URL/hobbylist"
         }
     ]
 }
