@@ -1,0 +1,100 @@
+/* 폰트 선언 */
+@font-face {
+    font-family: nanum-light;
+    font-display: swap;
+    src: url('./fonts/NanumSquareL.otf') format('truetype');
+}
+@font-face {
+    font-family: nanum-reg;
+    font-display: swap;
+    src: url('./fonts/NanumSquareR.ttf') format('truetype');
+}
+@font-face {
+    font-family: nanum-bold;
+    font-display: swap;
+    src: url('./fonts/NanumSquareB.otf') format('truetype');
+}
+@font-face {
+    font-family: gmarket-light;
+    font-display: swap;
+    src: url('./fonts/GmarketSansLight.otf') format('truetype');
+}
+@font-face {
+    font-family: gmarket-reg;
+    font-display: swap;
+    src: url('./fonts/GmarketSansMedium.otf') format('truetype');
+}
+
+:root {
+    /* 색상 선언 */
+    --blue1: #eef5ff;
+    --blue2: #b4d4ff;
+    --blue3: #86b6f6;
+    --blue4: #014f86;
+    --pink: rgba(255, 214, 255, 0.7);
+    --purple1: rgba(231, 198, 255, 0.7);
+    --purple2: rgba(200, 182, 255, 0.7);
+    --orange: #ffd670;
+    --grey: #f2f4f5;
+
+    /* 그림자 선언 */
+    --dropdown-shadow: 0 4px 6px rgba(0, 0, 0, 0.45);
+    --popup-shadow: 0 4px 20px rgba(63, 65, 80, 0.3);
+    --popup-reversed-shadow: 0 -4px 20px rgba(63, 65, 80, 0.3);
+
+    --sidebar: 200px;
+}
+
+/* PC뷰 설정 */
+@media (min-width: 650px) {
+    body {
+        width: 640px;
+        margin: 0 auto;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'nanum-reg';
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 기본적으로 적용되는 스타일 제거 */
+ul,
+ol {
+    padding-left: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    background-color: transparent;
+    border: 0;
+    font-family: inherit;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+h1 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
