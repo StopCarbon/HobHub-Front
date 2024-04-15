@@ -2,23 +2,23 @@
     "rewrites": [
         {
             "source": "/user/:path*",
-            "destination": "process.env.API_URL/:path*"
+            "destination": "@API_URL/:path*"
         },
         {
             "source": "/board/:path*",
-            "destination": "process.env.API_URL/:path*"
+            "destination": "@API_URL/:path*"
         },
         {
             "source": "/send_message/:path*",
-            "destination": "process.env.FLASK_URL/:path*"
+            "destination": "@API_URL/:path*"
         },
         {
             "source": "/webhook/:path*",
-            "destination": "process.env.FLASK_URL/:path*"
+            "destination": "@FLASK_URL/:path*"
         },
         {
             "source": "/hobbylist/:path*",
-            "destination": "process.env.FLASK_URL/:path*"
+            "destination": "@FLASK_URL/:path*"
         }
     ]
 }
