@@ -18,16 +18,22 @@ module.exports = function (app) {
     );
 
     // for FLASK
-    // app.use(
-    //     createProxyMiddleware('/send_message', {
-    //         target: process.env.FLASK_URL,
-    //         changeOrigin: true,
-    //     }),
-    // );
-    // app.use(
-    //     createProxyMiddleware('/webhook', {
-    //         target: process.env.FLASK_URL,
-    //         changeOrigin: true,
-    //     }),
-    // );
+    app.use(
+        createProxyMiddleware('/send_message', {
+            target: process.env.FLASK_URL,
+            changeOrigin: true,
+        }),
+    );
+    app.use(
+        createProxyMiddleware('/webhook', {
+            target: process.env.FLASK_URL,
+            changeOrigin: true,
+        }),
+    );
+    app.use(
+        createProxyMiddleware('/hobbylist', {
+            target: process.env.FLASK_URL,
+            changeOrigin: true,
+        }),
+    );
 };
