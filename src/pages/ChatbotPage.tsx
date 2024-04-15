@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useRecoilState } from 'recoil';
@@ -15,6 +15,8 @@ import { saveUserInfo } from 'api/user';
 
 import { UserInfoAtom } from 'recoil/User';
 
+import { http } from 'flask_api/http';
+
 const history = Array.from({ length: 30 }, (_, index) => ({
     order: index,
     text: '',
@@ -26,7 +28,24 @@ const buttonHistory = Array.from({ length: 30 }, (_, index) => ({
 }));
 
 const ChatbotPage = () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await http.get(`/webhook`);
+                console.log('webhook', res);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const [finished, setFinished] = useState(false);
+
     const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+
+    const [botResponse, setBotResponse] = useState();
 
     const navigate = useNavigate();
 
@@ -61,21 +80,15 @@ const ChatbotPage = () => {
         setUserInput(e.target.value);
     };
 
-    // Dialogflow로 사용자 입력 전송
+    // msg 보내기 api
     const sendMessage = async (message: string | string[]) => {
         try {
-            const response = await fetch('/send_message', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message }),
-            });
-            const data = await response.json();
-            return data;
+            console.log(message);
+            const res = await http.post(`/send_message`, { message });
+            console.log(res);
+            return res.data;
         } catch (error) {
-            console.error('Error sending message:', error);
+            console.log(error);
         }
     };
 
@@ -83,6 +96,7 @@ const ChatbotPage = () => {
     const handleResponse = (data: any) => {
         console.log(data.action);
         console.log(data.message);
+        console.log(data.data.buttons);
 
         // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
         if (data.action === 'end') {
@@ -118,8 +132,8 @@ const ChatbotPage = () => {
             );
         }
         // 버튼이 있는 경우
-        if (data.buttons) {
-            const buttonNames = data.buttons.buttons.map(
+        if (data.data.buttons) {
+            const buttonNames = data.data.buttons.map(
                 (button: any) => button.name,
             );
             console.log('buttonNames: ', buttonNames);
@@ -168,7 +182,6 @@ const ChatbotPage = () => {
             setUserShow(copy);
             userCurrentOrder.current += 1;
 
-            // 사용자 메세지 보내고 dialogflow 답변 받아오기
             try {
                 const data = await sendMessage(messageToSend);
                 handleResponse(data);
@@ -248,24 +261,17 @@ const ChatbotPage = () => {
         setButtonType('default');
 
         try {
-            const response = await fetch('/hobbylist', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ selectedHobby }),
-            });
+            const res = await http.post(`/hobbylist`, { selectedHobby });
+            console.log(res);
+
             // 추천 취미 리스트 받기
-            const data = await response.json();
-            // 선택 취미 전달 3초 후 취미 추천 페이지로 이동
-            setTimeout(() => {
-                navigate(`/recommend`);
-            }, 3000);
-            console.log(data);
-            return data;
+            return res.data;
         } catch (error) {
-            console.error('Error sending message:', error);
+            console.log(error);
+            // setTimeout(() => {
+            //     navigate(`/recommend`);
+            // }, 3000);
+            // console.error('Error sending message:', error);
         }
     };
 
