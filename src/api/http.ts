@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const http = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: process.env.REACT_APP_API_URL,
     withCredentials: true,
 });
 

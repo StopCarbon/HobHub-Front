@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const http = axios.create({
-    baseURL: process.env.FLASK_URL,
+    baseURL: process.env.REACT_APP_FLASK_URL,
     withCredentials: true,
 });
 

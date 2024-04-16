@@ -2,23 +2,23 @@
     "rewrites": [
         {
             "source": "/user/:path*",
-            "destination": "@API_URL/user/:path*"
+            "destination": "@REACT_APP_API_URL/user/:path*"
         },
         {
             "source": "/board/:path*",
-            "destination": "@API_URL/board/:path*"
+            "destination": "@REACT_APP_API_URL/board/:path*"
         },
         {
             "source": "/send_message",
-            "destination": "@FLASK_URL/send_message"
+            "destination": "@REACT_APP_FLASK_URL/send_message"
         },
         {
             "source": "/webhook",
-            "destination": "@FLASK_URL/webhook"
+            "destination": "@REACT_APP_FLASK_URL/webhook"
         },
         {
             "source": "/hobbylist",
-            "destination": "@FLASK_URL/hobbylist"
+            "destination": "@REACT_APP_FLASK_URL/hobbylist"
         }
     ]
 }
