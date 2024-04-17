@@ -6,7 +6,7 @@ export const addHobby = async (
     percent: number,
 ) => {
     try {
-        const res = await http.post(`/user/${6}/hobby`, {
+        const res = await http.post(`/user/${1}/hobby`, {
             hobby: hobby,
             category: category,
             percent: percent,
