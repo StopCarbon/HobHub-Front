@@ -23,7 +23,7 @@ const ArchiveFolderPage = () => {
 
     // 사용자의 취미 아카이브 목록 가져오기 api
     useEffect(() => {
-        getHobbyList({ user_id: 6 }).then((res) => {
+        getHobbyList({ user_id: 1 }).then((res) => {
             setHobbyList(res?.data);
             console.log('data: ', res?.data);
         });

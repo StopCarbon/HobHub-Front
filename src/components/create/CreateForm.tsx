@@ -54,7 +54,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
             open: setting,
         };
         console.log(postImg);
-        savePost({ user_id: 6, hobby_id: hobbyId, postInfo: data }).then(
+        savePost({ user_id: 1, hobby_id: hobbyId, postInfo: data }).then(
             (res) => {
                 console.log(res);
                 navigate(-1);
