@@ -36,7 +36,6 @@ const ArchiveFolderPage = () => {
                 <Header reg="나의 취미 아카이브" />
                 <FolderWrapper>
                     {hobbyList &&
-                        hobbyList.length &&
                         hobbyList.map((e, idx) => (
                             <ArchiveFolder
                                 hobbyId={e?.id}
