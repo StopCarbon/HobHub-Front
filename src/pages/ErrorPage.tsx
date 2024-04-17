@@ -10,7 +10,7 @@ const ErrorPage = () => {
             <Error>
                 <img src={errorImg} alt="error" />
             </Error>
-            <p>잘못된 경로로 접근하셨습니다!</p>
+            <p>잘못된 경로로 접근하셨습니다</p>
         </Wrapper>
     );
 };
