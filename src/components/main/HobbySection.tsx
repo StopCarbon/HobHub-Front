@@ -58,7 +58,6 @@ const HobbySection = ({
             <SliderWrapper>
                 <TinySlider settings={settings}>
                     {data &&
-                        data.length &&
                         data.map((e, index) => (
                             <ImgWrapper
                                 key={index}
