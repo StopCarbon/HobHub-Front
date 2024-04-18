@@ -286,8 +286,8 @@ const ChatbotPage = () => {
             const res = await http.post(`/hobbylist`, { selectedHobby });
             console.log(res);
             setRecommend({
-                hobby1: '공예',
-                category1: '뜨개',
+                hobby1: '뜨개',
+                category1: '공예',
                 similarity1: 86,
                 hobby2: '연극',
                 category2: '문화예술',
