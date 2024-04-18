@@ -95,7 +95,7 @@ const ChatbotPage = () => {
     // Dialogflow의 답변 저장
     const handleResponse = (data: any) => {
         console.log(data.action);
-        console.log(data.message);
+        console.log(data.text);
         console.log(data.data.buttons);
 
         // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
@@ -153,7 +153,7 @@ const ChatbotPage = () => {
                 h.order == botCurrentOrder.current
                     ? {
                           ...h,
-                          text: data.message,
+                          text: data.text,
                       }
                     : h,
             ),
