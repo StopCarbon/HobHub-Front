@@ -109,7 +109,7 @@ const ChatbotPage = () => {
     // Dialogflow의 답변 저장
     const handleResponse = (data: any) => {
         console.log(data.action);
-        console.log(data.text);
+        console.log(data.message);
         console.log(data.data.buttons);
 
         // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
@@ -119,13 +119,10 @@ const ChatbotPage = () => {
             setRecommend({
                 hobby1: '러닝',
                 category1: '아웃도어',
-                similarity1: 86,
                 hobby2: '어학',
                 category2: '자기계발',
-                similarity2: 73,
                 hobby3: '쿠키',
                 category3: '베이킹',
-                similarity3: 62,
             });
             setTimeout(() => {
                 navigate(`/recommend`);
@@ -178,7 +175,7 @@ const ChatbotPage = () => {
                 h.order == botCurrentOrder.current
                     ? {
                           ...h,
-                          text: data.text,
+                          text: data.message,
                       }
                     : h,
             ),
