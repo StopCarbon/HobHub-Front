@@ -58,6 +58,12 @@ export interface User {
 // 추천 취미 리스트
 export interface RecommendList {
     hobby1: string;
+    category1: string;
+    similarity1?: number;
     hobby2: string;
+    category2: string;
+    similarity2?: number;
     hobby3: string;
+    category3: string;
+    similarity3?: number;
 }
