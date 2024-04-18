@@ -17,8 +17,6 @@ import { UserInfoAtom } from 'recoil/User';
 
 import { http } from 'flask_api/http';
 
-document.cookie = 'session=bar; SameSite=None; Secure';
-
 const history = Array.from({ length: 30 }, (_, index) => ({
     order: index,
     text: '',
