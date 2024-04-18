@@ -36,17 +36,6 @@ const ChatbotPage = () => {
             try {
                 const res = await http.get(`/webhook`);
                 console.log('webhook', res);
-                setRecommend({
-                    hobby1: '요리',
-                    category1: '요리',
-                    similarity1: 86,
-                    hobby2: '요가',
-                    category2: '피트니스',
-                    similarity2: 75,
-                    hobby3: '낚시',
-                    category3: '아웃도어',
-                    similarity3: 62,
-                });
             } catch (error) {
                 console.log(error);
             }
@@ -117,13 +106,17 @@ const ChatbotPage = () => {
             // 사용자 정보 flask에서 받기 & spring으로 post -> spring으로부터 받은 사용자 정보 저장
             // 추천 취미 리스트 flask 에서받기
             setRecommend({
-                hobby1: '러닝',
-                category1: '아웃도어',
-                hobby2: '어학',
-                category2: '자기계발',
-                hobby3: '쿠키',
+                hobby1: '뜨개',
+                category1: '공예',
+                similarity1: 86,
+                hobby2: '요가',
+                category2: '피트니스',
+                similarity2: 75,
+                hobby3: '케이크',
                 category3: '베이킹',
+                similarity3: 62,
             });
+
             setTimeout(() => {
                 navigate(`/recommend`);
             }, 4000);
@@ -286,17 +279,13 @@ const ChatbotPage = () => {
             const res = await http.post(`/hobbylist`, { selectedHobby });
             console.log(res);
             setRecommend({
-                hobby1: '뜨개',
-                category1: '공예',
-                similarity1: 86,
-                hobby2: '연극',
-                category2: '문화예술',
-                similarity2: 75,
-                hobby3: '케이크',
+                hobby1: '러닝',
+                category1: '아웃도어',
+                hobby2: '어학',
+                category2: '자기계발',
+                hobby3: '쿠키',
                 category3: '베이킹',
-                similarity3: 62,
             });
-
             setTimeout(() => {
                 navigate(`/recommend`);
             }, 4000);
