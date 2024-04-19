@@ -281,8 +281,8 @@ const ChatbotPage = () => {
             setRecommend({
                 hobby1: '러닝',
                 category1: '아웃도어',
-                hobby2: '어학',
-                category2: '자기계발',
+                hobby2: '피아노',
+                category2: '음악',
                 hobby3: '쿠키',
                 category3: '베이킹',
             });
