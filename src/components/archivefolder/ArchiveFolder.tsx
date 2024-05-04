@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -45,47 +45,65 @@ const ArchiveFolder = ({
             break;
     }
 
-    // 별점 매기기 완료 여부
-    const [ratingComplete, setRatingComplete] = useState(false);
     // 별점
     const [rating, setRating] = useState(0);
+    // 별점 매기기 완료 여부
+    const [ratingShow, setRatingShow] = useState(false);
 
-    const sendReview = () => {
-        // 별점 POST api
-        postRating({
-            hobby_id: hobbyId,
-            user_id: userInfo.id,
-            grade: rating,
-        }).then((res) => {
-            console.log(res);
-        });
-        console.log('post rating', rating);
-    };
-
+    // rating 상태가 변경될 때 실행, 처음(별점이 매겨지기 전)에는 실행 X
     useEffect(() => {
         if (rating > 0) {
-            sendReview();
+            // 별점 POST api
+            postRating({
+                hobby_id: hobbyId,
+                user_id: userInfo.id,
+                grade: rating,
+            }).then((res) => {
+                console.log(res);
+            });
+            console.log('post rating', rating);
         }
-    }, [rating]); // rating 상태가 변경될 때 마다 post 실행
+    }, [rating]);
 
+    // 중요 요소
+    const [priority, setPriority] = useState('');
+    // 중요 요소 선택 완료 여부
+    const [priorityShow, setPriorityShow] = useState(false);
+
+    // rating이 완료 됐을 때 실행
     useEffect(() => {
         // rating이 1 또는 2일 때 추가 작업 수행
-        if (ratingComplete && (rating === 1 || rating === 2)) {
+        if (ratingShow && (rating === 1 || rating === 2)) {
             setTimeout(() => {
-                withReactContent(Swal).fire({
-                    title: (
-                        <AlertTitle>
-                            취미를 선택할 때 있어서 중요하게 생각하는 것을
-                            선택해주세요!
-                        </AlertTitle>
-                    ),
-                    html: <Priority />,
-                    confirmButtonColor: `var(--blue4)`,
-                    confirmButtonText: <OptionButton>완료</OptionButton>,
-                });
+                withReactContent(Swal)
+                    .fire({
+                        title: (
+                            <AlertTitle>
+                                취미를 선택할 때 있어서 중요하게 생각하는 점을
+                                선택해주세요!
+                            </AlertTitle>
+                        ),
+                        html: <Priority setPriority={setPriority} />,
+                        confirmButtonColor: `var(--blue4)`,
+                        confirmButtonText: <OptionButton>완료</OptionButton>,
+                    })
+                    .then((res) => {
+                        if (res.isConfirmed) {
+                            setPriorityShow(true);
+                            setRatingShow(false);
+                        }
+                    });
             }, 1000);
         }
-    }, [ratingComplete]);
+    }, [ratingShow]);
+
+    // 중요 요소 선택이 완료 됐을 때 실행
+    useEffect(() => {
+        if (priority !== '') {
+            console.log('post pri', priority);
+            // 우선 순위 post api
+        }
+    }, [priorityShow]);
 
     // 기록 페이지로 이동
     const navigate = useNavigate();
@@ -124,7 +142,7 @@ const ArchiveFolder = ({
                         })
                         .then((feedbackResult) => {
                             if (feedbackResult.isConfirmed) {
-                                setRatingComplete(true);
+                                setRatingShow(true);
                             }
                         });
                 }
@@ -237,13 +255,18 @@ const AlertTitle = styled.p`
     color: rgb(0, 0, 0, 0.8);
     font-family: nanum-light;
     font-size: 18px;
-    line-height: 22px;
+    line-height: 25px;
     word-break: keep-all;
+
+    @media (min-width: 650px) {
+        font-size: 16px;
+        line-height: 22px;
+    }
 `;
 
 const OptionButton = styled.p`
     font-size: 13px;
-    font-family: nanum-bold;
+    font-family: nanum-reg;
     color: white;
     outline: none;
 
