@@ -1,13 +1,24 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 
-const Priority = () => {
+const options = ['비용', '소요시간', '거리', '위치'];
+
+const Priority = ({
+    setPriority,
+}: {
+    setPriority: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+    const handlePriorityClick = (option: string) => {
+        setPriority(option);
+        console.log('set pri', option);
+    };
+
     return (
         <Wrapper>
-            <Option>비용</Option>
-            <Option>소요 시간</Option>
-            <Option>거리</Option>
-            <Option>위치</Option>
+            {options.map((option, i) => (
+                <Option key={i} onClick={() => handlePriorityClick(option)}>
+                    {option}
+                </Option>
+            ))}
         </Wrapper>
     );
 };
@@ -20,7 +31,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    overflow-x: hidden;
+    flex-wrap: wrap;
 
     @media (min-width: 650px) {
         width: 80%;
@@ -28,21 +39,16 @@ const Wrapper = styled.div`
 `;
 
 const Option = styled.button`
-    padding: 10px 16px;
+    padding: 10px 15px;
     border-radius: 20px;
     background-color: var(--blue1);
     border: 1px solid var(--blue4);
-    margin: -8px 8px 20px 0;
-
+    margin-right: 5px;
     font-size: 16px;
 
-    &:hover {
-        background-color: var(--blue1);
-        cursor: pointer;
-        transition: background-color 200ms ease-in-out;
-    }
     &:active {
-        background-color: var(--blue1);
+        background-color: var(--blue3);
+        color: white;
     }
 
     @media (min-width: 650px) {
@@ -51,8 +57,8 @@ const Option = styled.button`
 
         &:hover {
             background-color: var(--blue1);
-            cursor: pointer;
             transition: background-color 200ms ease-in-out;
+            cursor: pointer;
         }
     }
 `;
