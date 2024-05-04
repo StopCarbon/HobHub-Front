@@ -1,9 +1,19 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
+import { useRecoilValue } from 'recoil';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 // component
 import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
+import Rating from './Rating';
+import Priority from './Priority';
+import { UserInfoAtom } from 'recoil/User';
+
+// api
+import { postRating } from 'api/rating';
 
 const ArchiveFolder = ({
     hobbyId,
@@ -16,6 +26,9 @@ const ArchiveFolder = ({
     category: string;
     hobby: string;
 }) => {
+    // 사용자 id 가져오기
+    const userInfo = useRecoilValue(UserInfoAtom);
+
     const remainder = order % 3;
     let orderNum;
 
@@ -31,9 +44,91 @@ const ArchiveFolder = ({
             orderNum = 3;
             break;
     }
+
+    // 별점 매기기 완료 여부
+    const [ratingComplete, setRatingComplete] = useState(false);
+    // 별점
+    const [rating, setRating] = useState(0);
+
+    const sendReview = () => {
+        // 별점 POST api
+        postRating({
+            hobby_id: hobbyId,
+            user_id: userInfo.id,
+            grade: rating,
+        }).then((res) => {
+            console.log(res);
+        });
+        console.log('post rating', rating);
+    };
+
+    useEffect(() => {
+        if (rating > 0) {
+            sendReview();
+        }
+    }, [rating]); // rating 상태가 변경될 때 마다 post 실행
+
+    useEffect(() => {
+        // rating이 1 또는 2일 때 추가 작업 수행
+        if (ratingComplete && (rating === 1 || rating === 2)) {
+            setTimeout(() => {
+                withReactContent(Swal).fire({
+                    title: (
+                        <AlertTitle>
+                            취미를 선택할 때 있어서 중요하게 생각하는 것을
+                            선택해주세요!
+                        </AlertTitle>
+                    ),
+                    html: <Priority />,
+                    confirmButtonColor: `var(--blue4)`,
+                    confirmButtonText: <OptionButton>완료</OptionButton>,
+                });
+            }, 1000);
+        }
+    }, [ratingComplete]);
+
+    // 기록 페이지로 이동
     const navigate = useNavigate();
+
     const handleFolderClick = () => {
-        navigate(`/archive/${hobby}/${hobbyId}`);
+        withReactContent(Swal)
+            .fire({
+                icon: 'question',
+                title: <AlertTitle>원하시는 활동을 선택해주세요!</AlertTitle>,
+                showCancelButton: true,
+                confirmButtonColor: `var(--blue4)`,
+                cancelButtonColor: `var(--pink)`,
+                confirmButtonText: <OptionButton>기록 남기기</OptionButton>,
+                cancelButtonText: (
+                    <OptionButton className="black">피드백 남기기</OptionButton>
+                ),
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    // 기록 남기기
+                    navigate(`/archive/${hobby}/${hobbyId}`);
+                } else if (result.isDismissed) {
+                    // 피드백 하기
+                    withReactContent(Swal)
+                        .fire({
+                            title: (
+                                <AlertTitle>
+                                    취미에 대한 별점을 남겨주세요!
+                                </AlertTitle>
+                            ),
+                            html: <Rating setRating={setRating} />,
+                            confirmButtonColor: `var(--blue4)`,
+                            confirmButtonText: (
+                                <OptionButton>완료</OptionButton>
+                            ),
+                        })
+                        .then((feedbackResult) => {
+                            if (feedbackResult.isConfirmed) {
+                                setRatingComplete(true);
+                            }
+                        });
+                }
+            });
     };
 
     return (
@@ -135,5 +230,24 @@ const Title = styled.h1`
 
     @media (min-width: 650px) {
         font-size: 16px;
+    }
+`;
+
+const AlertTitle = styled.p`
+    color: rgb(0, 0, 0, 0.8);
+    font-family: nanum-light;
+    font-size: 18px;
+    line-height: 22px;
+    word-break: keep-all;
+`;
+
+const OptionButton = styled.p`
+    font-size: 13px;
+    font-family: nanum-bold;
+    color: white;
+    outline: none;
+
+    &.black {
+        color: black;
     }
 `;
