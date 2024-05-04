@@ -26,12 +26,12 @@ const ClassCard = ({ classData }: { classData?: ClassData }) => {
     // 소요시간별로 태그 색 분류
     let timeTag;
     const total = classData?.total_time;
-    if (total != undefined) {
+    if (total !== undefined) {
         switch (true) {
-            case total == 0: // 미정인 경우
+            case total === 0: // 미정인 경우
                 timeTag = 'none';
                 break;
-            case total == 1440: // 24시간 이상
+            case total === 1440: // 24시간 이상
                 timeTag = 'allday';
                 break;
             case total <= 60: // ~1시간
@@ -61,13 +61,13 @@ const ClassCard = ({ classData }: { classData?: ClassData }) => {
                 <Border />
                 <DetailTag className={`time ${timeTag}`}>
                     <p>
-                        {classData?.total_time == 0
+                        {classData?.total_time === 0
                             ? '미정'
                             : classData?.total_time + '분'}
                     </p>
                 </DetailTag>
                 <DetailTag className={`level ${levelTag}`}>
-                    <p>{classData?.level == '' ? '미정' : classData?.level}</p>
+                    <p>{classData?.level === '' ? '미정' : classData?.level}</p>
                 </DetailTag>
             </Detail>
         </Wrapper>

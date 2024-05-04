@@ -1,22 +1,25 @@
 import styled from 'styled-components';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 
+// components
 import Navbar from 'components/_common/Navbar';
 import { ImgStyle } from 'components/_common/commonStyle';
 import { collabHobbyIcons } from 'components/_common/icons';
 
+// assets
 import arrow from '../assets/_common/arrow-up.svg';
 import bot from '../assets/_common/defaultProfile.png';
 
-import { saveUserInfo } from 'api/user';
-
+// recoil
 import { UserInfoAtom } from 'recoil/User';
 import { RecommendAtom } from 'recoil/Recommend';
 
+// api
 import { http } from 'flask_api/http';
+import { saveUserInfo } from 'api/user';
 
 const history = Array.from({ length: 30 }, (_, index) => ({
     order: index,
@@ -31,23 +34,8 @@ const buttonHistory = Array.from({ length: 30 }, (_, index) => ({
 const ChatbotPage = () => {
     const [recommend, setRecommend] = useRecoilState(RecommendAtom);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await http.get(`/webhook`);
-                console.log('webhook', res);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
     const [finished, setFinished] = useState(false);
-
     const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
-
     const [botResponse, setBotResponse] = useState();
 
     const navigate = useNavigate();
@@ -65,6 +53,7 @@ const ChatbotPage = () => {
     const [buttonType, setButtonType] = useState<'default' | 'hobby'>(
         'default',
     );
+
     // 버튼 이름 목록 저장
     const [botButton, setBotButton] =
         useState<{ order: number; buttons: string[] }[]>(buttonHistory);
@@ -104,7 +93,7 @@ const ChatbotPage = () => {
         // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
         if (data.action === 'end') {
             // 사용자 정보 flask에서 받기 & spring으로 post -> spring으로부터 받은 사용자 정보 저장
-            // 추천 취미 리스트 flask 에서받기
+            // 추천 취미 리스트 flask에서 받기
             setRecommend({
                 hobby1: '뜨개',
                 category1: '공예',
@@ -120,6 +109,19 @@ const ChatbotPage = () => {
             setTimeout(() => {
                 navigate(`/recommend`);
             }, 4000);
+
+            // 유저 정보 취합 api
+            const fetchData = async () => {
+                try {
+                    const res = await http.get(`/webhook`);
+                    console.log('webhook', res);
+                    // recoil set
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+
+            fetchData();
         }
 
         // 취미가 있는 경우 -> 기존 취미 입력 받기
@@ -255,7 +257,7 @@ const ChatbotPage = () => {
 
         setBotHistory(
             botHistory.map((h) =>
-                h.order == botCurrentOrder.current
+                h.order === botCurrentOrder.current
                     ? {
                           ...h,
                           text: '감사합니다. 잘 반영해서 사용자님께 딱 맞는 취미를 추천해드리겠습니다!',
