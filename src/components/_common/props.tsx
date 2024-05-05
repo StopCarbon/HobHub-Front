@@ -42,17 +42,21 @@ export interface PostInfo {
     open: string;
 }
 
-// 사용자 정보
+// 사용자 기본 정보
 export interface User {
     id: number;
     name: string;
+}
+
+// 사용자 상세 정보
+export interface UserDetail {
     age: number;
     gender: string;
     home: string;
     income: string;
     motive: string;
-    work: number;
-    wkend: number;
+    weekday: number;
+    weekend: number;
 }
 
 // 추천 취미 리스트

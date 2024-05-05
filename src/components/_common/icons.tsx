@@ -106,11 +106,11 @@ interface HobbyIcons {
 // 전체 취미 리스트
 const hobbyIcons = {
     공예: {
-        공예: craft, //
-        가죽: leather, //
-        비누: soap, //
-        목공예: woodart, //
-        캔들: candle, //
+        공예: craft,
+        가죽: leather,
+        비누: soap,
+        목공예: woodart,
+        캔들: candle,
         유리: glass,
         뜨개: wool,
         도예: pottery,

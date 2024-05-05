@@ -17,7 +17,7 @@ import camera from '../assets/archive/camera.svg';
 import { savePost } from 'api/board';
 
 // recoil
-import { UserInfoAtom } from 'recoil/User';
+import { UserInfoAtom } from 'recoil/UserDetail';
 
 const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
     const userInfo = useRecoilValue(UserInfoAtom);

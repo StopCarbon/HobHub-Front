@@ -14,7 +14,7 @@ import arrow from '../assets/_common/arrow-up.svg';
 import bot from '../assets/_common/defaultProfile.png';
 
 // recoil
-import { UserInfoAtom } from 'recoil/User';
+import { UserDetailAtom } from 'recoil/UserDetail';
 import { RecommendAtom } from 'recoil/Recommend';
 
 // api
@@ -35,7 +35,7 @@ const ChatbotPage = () => {
     const [recommend, setRecommend] = useRecoilState(RecommendAtom);
 
     const [finished, setFinished] = useState(false);
-    const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+    const [userInfo, setUserInfo] = useRecoilState(UserDetailAtom);
     const [botResponse, setBotResponse] = useState();
 
     const navigate = useNavigate();
@@ -58,7 +58,7 @@ const ChatbotPage = () => {
     const [botButton, setBotButton] =
         useState<{ order: number; buttons: string[] }[]>(buttonHistory);
 
-    // 선택된 취미
+    // 선택된 취미 리스트
     const [selectedHobby, setSelectedHobby] = useState<string[]>([]);
 
     // 화면 표시 여부
@@ -115,7 +115,17 @@ const ChatbotPage = () => {
                 try {
                     const res = await http.get(`/webhook`);
                     console.log('webhook', res);
-                    // recoil set
+                    // recoil 세팅
+
+                    // setUserInfo({
+                    //     age: res.age,
+                    //     gender: res.gender,
+                    //     home: res.home,
+                    //     income: res.income,
+                    //     motive: res.motive,
+                    //     weekday: res.weekday,
+                    //     weekend: res.weekend,
+                    // });
                 } catch (error) {
                     console.log(error);
                 }
@@ -277,6 +287,7 @@ const ChatbotPage = () => {
         // 선택 완료 버튼 제거
         setButtonType('default');
 
+        // 선택 취미 리스트 post api?
         try {
             const res = await http.post(`/hobbylist`, { selectedHobby });
             console.log(res);

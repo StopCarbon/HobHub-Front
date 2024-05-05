@@ -13,10 +13,10 @@ import { HobbyList } from 'components/_common/props';
 import { getHobbyList } from 'api/hobbylist';
 
 // recoil
-import { UserInfoAtom } from 'recoil/User';
+import { UserAtom } from 'recoil/User';
 
 const ArchiveFolderPage = () => {
-    const userInfo = useRecoilValue(UserInfoAtom);
+    const userInfo = useRecoilValue(UserAtom);
 
     // 사용자의 취미 아카이브 목록
     const [hobbyList, setHobbyList] = useState<HobbyList[]>([]);
@@ -44,18 +44,12 @@ const ArchiveFolderPage = () => {
                                 hobby={e?.hobby}
                             />
                         ))}
-                    <ArchiveFolder
+                    {/* <ArchiveFolder
                         hobbyId={2}
                         order={1}
                         category={'베이킹'}
                         hobby={'마들렌'}
-                    />
-                    <ArchiveFolder
-                        hobbyId={3}
-                        order={2}
-                        category={'베이킹'}
-                        hobby={'다쿠아즈'}
-                    />
+                    />*/}
                 </FolderWrapper>
             </Container>
         </Wrapper>

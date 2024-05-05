@@ -10,7 +10,7 @@ import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
 import Rating from './Rating';
 import Priority from './Priority';
-import { UserInfoAtom } from 'recoil/User';
+import { UserAtom } from 'recoil/User';
 
 // api
 import { postRating } from 'api/rating';
@@ -27,7 +27,7 @@ const ArchiveFolder = ({
     hobby: string;
 }) => {
     // 사용자 id 가져오기
-    const userInfo = useRecoilValue(UserInfoAtom);
+    const userInfo = useRecoilValue(UserAtom);
 
     const remainder = order % 3;
     let orderNum;
