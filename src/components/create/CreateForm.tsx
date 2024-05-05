@@ -17,10 +17,10 @@ import camera from '../assets/archive/camera.svg';
 import { savePost } from 'api/board';
 
 // recoil
-import { UserInfoAtom } from 'recoil/UserDetail';
+import { UserAtom } from 'recoil/User';
 
 const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
-    const userInfo = useRecoilValue(UserInfoAtom);
+    const userInfo = useRecoilValue(UserAtom);
 
     // 작성 내용 저장
     const [setting, setSetting] = useState('공개');
@@ -54,12 +54,14 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
             open: setting,
         };
         console.log(postImg);
-        savePost({ user_id: 1, hobby_id: hobbyId, postInfo: data }).then(
-            (res) => {
-                console.log(res);
-                navigate(-1);
-            },
-        );
+        savePost({
+            user_id: userInfo.id,
+            hobby_id: hobbyId,
+            postInfo: data,
+        }).then((res) => {
+            console.log(res);
+            navigate(-1);
+        });
     };
 
     return (
