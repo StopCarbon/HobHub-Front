@@ -49,8 +49,53 @@ const ArchiveFolder = ({
     const [rating, setRating] = useState(0);
     // 별점 매기기 완료 여부
     const [ratingShow, setRatingShow] = useState(false);
+    // 중요 요소
+    const [priority, setPriority] = useState('');
+    // 중요 요소 선택 완료 여부
+    const [priorityShow, setPriorityShow] = useState(false);
 
-    // rating 상태가 변경될 때 실행, 처음(별점이 매겨지기 전)에는 실행 X
+    // 피드백 완료창
+    const showSuccessFeedback = () => {
+        withReactContent(Swal).fire({
+            icon: 'success',
+            title: (
+                <AlertTitle>
+                    소중한 피드백 감사드립니다! 잘 반영하여 다음에는 더욱 잘
+                    맞는 취미를 추천해드리겠습니다!
+                </AlertTitle>
+            ),
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    };
+
+    // 중요 요소 선택창
+    const askForPriority = () => {
+        withReactContent(Swal)
+            .fire({
+                title: (
+                    <AlertTitle>
+                        취미를 선택할 때 있어서 중요하게 생각하는 점을
+                        선택해주세요!
+                    </AlertTitle>
+                ),
+                html: <Priority setPriority={setPriority} />,
+                confirmButtonColor: `var(--blue4)`,
+                confirmButtonText: <OptionButton>완료</OptionButton>,
+            })
+            .then((res) => {
+                if (res.isConfirmed) {
+                    setPriorityShow(true);
+                    setRatingShow(false);
+
+                    setTimeout(() => {
+                        showSuccessFeedback();
+                    }, 1000);
+                }
+            });
+    };
+
+    // 1. rating 상태가 변경될 때 실행, 처음(별점이 매겨지기 전)에는 실행 X
     useEffect(() => {
         if (rating > 0) {
             // 별점 POST api
@@ -65,39 +110,21 @@ const ArchiveFolder = ({
         }
     }, [rating]);
 
-    // 중요 요소
-    const [priority, setPriority] = useState('');
-    // 중요 요소 선택 완료 여부
-    const [priorityShow, setPriorityShow] = useState(false);
-
-    // rating이 완료 됐을 때 실행
+    // 2. rating이 완료 됐을 때 실행
     useEffect(() => {
-        // rating이 1 또는 2일 때 추가 작업 수행
-        if (ratingShow && (rating === 1 || rating === 2)) {
+        if (ratingShow) {
             setTimeout(() => {
-                withReactContent(Swal)
-                    .fire({
-                        title: (
-                            <AlertTitle>
-                                취미를 선택할 때 있어서 중요하게 생각하는 점을
-                                선택해주세요!
-                            </AlertTitle>
-                        ),
-                        html: <Priority setPriority={setPriority} />,
-                        confirmButtonColor: `var(--blue4)`,
-                        confirmButtonText: <OptionButton>완료</OptionButton>,
-                    })
-                    .then((res) => {
-                        if (res.isConfirmed) {
-                            setPriorityShow(true);
-                            setRatingShow(false);
-                        }
-                    });
+                if (rating >= 3) {
+                    showSuccessFeedback();
+                } else if (rating === 1 || rating === 2) {
+                    // 별점이 2 이하면 추가 작업 수행
+                    askForPriority();
+                }
             }, 1000);
         }
     }, [ratingShow]);
 
-    // 중요 요소 선택이 완료 됐을 때 실행
+    // 3. 중요 요소 선택이 완료 됐을 때 실행
     useEffect(() => {
         if (priority !== '') {
             console.log('post pri', priority);
