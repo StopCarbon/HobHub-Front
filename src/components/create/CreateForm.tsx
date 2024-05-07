@@ -2,16 +2,15 @@ import styled from 'styled-components';
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 // components
 import Header from 'components/_common/Header';
 import PictureBox from 'components/_common/PictureBox';
 import { InputStyle } from 'components/_common/commonStyle';
 import { PostDetail } from 'components/_common/props';
-
-// assets
-import archive from '../assets/archive/cookie.png';
-import camera from '../assets/archive/camera.svg';
+import AlertTitle from 'components/_common/AlertTitle';
 
 // api
 import { savePost } from 'api/board';
@@ -60,6 +59,14 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
             postInfo: data,
         }).then((res) => {
             console.log(res);
+
+            withReactContent(Swal).fire({
+                icon: 'success',
+                title: <AlertTitle text={'성공적으로 포스팅 되었습니다!'} />,
+                showConfirmButton: false,
+                timer: 2000,
+            });
+
             navigate(-1);
         });
     };
@@ -165,15 +172,6 @@ const Title = styled.input`
     }
 `;
 const OneDayClass = styled(Title)``;
-
-const Hashtag = styled.input`
-    ${InputStyle}
-
-    @media (min-width: 650px) {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-`;
 
 const TextForm = styled.textarea`
     ${InputStyle}
