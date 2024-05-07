@@ -11,6 +11,7 @@ import { ImgStyle } from 'components/_common/commonStyle';
 import Rating from './Rating';
 import Priority from './Priority';
 import { UserAtom } from 'recoil/User';
+import AlertTitle from 'components/_common/AlertTitle';
 
 // api
 import { postRating } from 'api/rating';
@@ -59,10 +60,11 @@ const ArchiveFolder = ({
         withReactContent(Swal).fire({
             icon: 'success',
             title: (
-                <AlertTitle>
-                    소중한 피드백 감사드립니다! 잘 반영하여 다음에는 더욱 잘
-                    맞는 취미를 추천해드리겠습니다!
-                </AlertTitle>
+                <AlertTitle
+                    text={
+                        '소중한 피드백 감사드립니다! 잘 반영하여 다음에는 더욱 잘 맞는 취미를 추천해드리겠습니다!'
+                    }
+                />
             ),
             showConfirmButton: false,
             timer: 2000,
@@ -74,10 +76,11 @@ const ArchiveFolder = ({
         withReactContent(Swal)
             .fire({
                 title: (
-                    <AlertTitle>
-                        취미를 선택할 때 있어서 중요하게 생각하는 점을
-                        선택해주세요!
-                    </AlertTitle>
+                    <AlertTitle
+                        text={
+                            '취미를 선택할 때 있어서 중요하게 생각하는 점을 선택해주세요!'
+                        }
+                    />
                 ),
                 html: <Priority setPriority={setPriority} />,
                 confirmButtonColor: `var(--blue4)`,
@@ -139,13 +142,13 @@ const ArchiveFolder = ({
         withReactContent(Swal)
             .fire({
                 icon: 'question',
-                title: <AlertTitle>원하시는 활동을 선택해주세요!</AlertTitle>,
+                title: <AlertTitle text={'원하시는 활동을 선택해주세요!'} />,
                 showCancelButton: true,
                 confirmButtonColor: `var(--blue4)`,
                 cancelButtonColor: `var(--pink)`,
-                confirmButtonText: <OptionButton>기록 남기기</OptionButton>,
+                confirmButtonText: <OptionButton>기록 페이지</OptionButton>,
                 cancelButtonText: (
-                    <OptionButton className="black">피드백 남기기</OptionButton>
+                    <OptionButton className="black">피드백 하기</OptionButton>
                 ),
             })
             .then((result) => {
@@ -157,9 +160,9 @@ const ArchiveFolder = ({
                     withReactContent(Swal)
                         .fire({
                             title: (
-                                <AlertTitle>
-                                    취미에 대한 별점을 남겨주세요!
-                                </AlertTitle>
+                                <AlertTitle
+                                    text={'취미에 대한 별점을 남겨주세요!'}
+                                />
                             ),
                             html: <Rating setRating={setRating} />,
                             confirmButtonColor: `var(--blue4)`,
@@ -275,19 +278,6 @@ const Title = styled.h1`
 
     @media (min-width: 650px) {
         font-size: 16px;
-    }
-`;
-
-const AlertTitle = styled.p`
-    color: rgb(0, 0, 0, 0.8);
-    font-family: nanum-light;
-    font-size: 18px;
-    line-height: 25px;
-    word-break: keep-all;
-
-    @media (min-width: 650px) {
-        font-size: 16px;
-        line-height: 22px;
     }
 `;
 

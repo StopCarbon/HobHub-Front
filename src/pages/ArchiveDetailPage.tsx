@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 // component
 import { Container } from 'components/_common/pageLayout';
@@ -9,6 +11,7 @@ import Navbar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import PictureBox from 'components/_common/PictureBox';
 import { PostDetail } from 'components/_common/props';
+import AlertTitle from 'components/_common/AlertTitle';
 
 // asset
 import cookie from '../assets/archive/cookie.png';
@@ -83,6 +86,14 @@ const ArchiveDetailPage = () => {
         deletePost({ board_id: parsedBoardId }).then((res) => {
             console.log(res?.data);
         });
+
+        withReactContent(Swal).fire({
+            icon: 'success',
+            title: <AlertTitle text={'성공적으로 삭제되었습니다.'} />,
+            showConfirmButton: false,
+            timer: 2000,
+        });
+
         setTimeout(() => {
             navigate(-1);
         }, 2000); // 2초 후에 이전 페이지로 이동

@@ -1,5 +1,11 @@
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+// component
+import AlertTitle from 'components/_common/AlertTitle';
+
+// api
 import { addHobby } from 'api/add';
 
 const AddButton = ({
@@ -17,6 +23,13 @@ const AddButton = ({
             console.log('hobby: ' + detailhobby);
             console.log('category: ' + category);
             console.log('percent: ' + percent);
+        });
+
+        withReactContent(Swal).fire({
+            icon: 'success',
+            title: <AlertTitle text={'성공적으로 추가되었습니다!'} />,
+            showConfirmButton: false,
+            timer: 2000,
         });
     };
 
