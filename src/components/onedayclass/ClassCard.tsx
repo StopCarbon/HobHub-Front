@@ -89,7 +89,7 @@ const Wrapper = styled.section`
 
     @media (min-width: 650px) {
         width: calc(33.333% - 11px); // (100% - 32px) / 3
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 `;
 

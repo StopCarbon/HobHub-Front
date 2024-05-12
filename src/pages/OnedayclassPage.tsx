@@ -63,6 +63,10 @@ const Wrapper = styled.div`
 const Filters = styled.div`
     display: flex;
     margin-bottom: 20px;
+
+    @media (min-width: 650px) {
+        margin-bottom: 12px;
+    }
 `;
 
 const Filter = styled.button`
