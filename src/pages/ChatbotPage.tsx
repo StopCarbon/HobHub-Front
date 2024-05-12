@@ -104,16 +104,20 @@ const ChatbotPage = () => {
                     });
             }
 
+            const categoryArr =
+                res.data.recommendations[0].categories.split(', ');
+            const hobbyArr = res.data.recommendations[0].hobbies.split(', ');
+
             // 추천 취미 저장
             setRecommend({
-                hobby1: res.data.recommendations[0].hobbies[0],
-                category1: '피트니스',
+                hobby1: hobbyArr[0],
+                category1: categoryArr[0],
                 similarity1: 86,
-                hobby2: res.data.recommendations[0].hobbies[1],
-                category2: '아웃도어',
+                hobby2: hobbyArr[1],
+                category2: categoryArr[1],
                 similarity2: 75,
-                hobby3: res.data.recommendations[0].hobbies[2],
-                category3: '아웃도어',
+                hobby3: hobbyArr[2],
+                category3: categoryArr[2],
                 similarity3: 62,
             });
         } catch (error) {
