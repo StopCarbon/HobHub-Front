@@ -22,7 +22,7 @@ export const getLocationMainBoard = async ({ home }: { home: string }) => {
     }
 };
 
-// 사용자 맞춤형 메인 화면 게시글 가져오기(동기))
+// 사용자 맞춤형 메인 화면 게시글 가져오기(동기)
 export const getMotiveMainBoard = async ({ motive }: { motive: string }) => {
     try {
         const res = await http.get(`/board/motive/${motive}`);

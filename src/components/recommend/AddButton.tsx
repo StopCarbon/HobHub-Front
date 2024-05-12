@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useRecoilValue } from 'recoil';
 
 // component
 import AlertTitle from 'components/_common/AlertTitle';
 
 // api
 import { addHobby } from 'api/add';
+
+// recoil
+import { UserAtom } from 'recoil/User';
 
 const AddButton = ({
     category,
@@ -17,12 +21,13 @@ const AddButton = ({
     detailhobby: string;
     percent: number;
 }) => {
+    // 사용자 id 가져오기
+    const userInfo = useRecoilValue(UserAtom);
+
     // 서랍장 post api
     const handleButtonClick = () => {
-        addHobby(category, detailhobby, percent).then((res) => {
-            console.log('hobby: ' + detailhobby);
-            console.log('category: ' + category);
-            console.log('percent: ' + percent);
+        addHobby(userInfo.id, category, detailhobby, percent).then((res) => {
+            console.log(res);
         });
 
         withReactContent(Swal).fire({
