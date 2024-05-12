@@ -104,9 +104,15 @@ const ChatbotPage = () => {
                     });
             }
 
+            const recommendations = res.data.recommendations;
             const categoryArr =
-                res.data.recommendations[0].categories.split(', ');
-            const hobbyArr = res.data.recommendations[0].hobbies.split(', ');
+                res.data.recommendations[
+                    recommendations.length - 1
+                ].categories.split(', ');
+            const hobbyArr =
+                res.data.recommendations[
+                    recommendations.length - 1
+                ].hobbies.split(', ');
 
             // 추천 취미 저장
             setRecommend({
