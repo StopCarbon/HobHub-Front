@@ -19,6 +19,8 @@ import {
     getAgeMainBoard,
     getLocationMainBoard,
     getMotiveMainBoard,
+    getGenderMainBoard,
+    getIncomeMainBoard,
 } from 'api/main';
 
 // recoil
@@ -27,6 +29,8 @@ import { UserDetailAtom } from 'recoil/UserDetail';
 const MainPage = () => {
     const [ageList, setAgeList] = useState<BoardList[]>();
     const [locList, setLocList] = useState<BoardList[]>();
+    const [genList, setGenList] = useState<BoardList[]>();
+    const [incList, setIncList] = useState<BoardList[]>();
     const [motList, setMotList] = useState<BoardList[]>([]);
 
     // 사용자 정보 가져오기
@@ -42,6 +46,14 @@ const MainPage = () => {
     useEffect(() => {
         getAgeMainBoard({ age: userDetail.age }).then((res) => {
             setAgeList(res?.data);
+            console.log(res?.data);
+        });
+    }, []);
+
+    // 사용자의 성별에 따른 다른 사용자들의 게시물 가져오기 api
+    useEffect(() => {
+        getGenderMainBoard({ gender: userDetail.gender }).then((res) => {
+            setGenList(res?.data);
             console.log(res?.data);
         });
     }, []);
@@ -63,6 +75,13 @@ const MainPage = () => {
         });
     }, []);
 
+    // 사용자의 수입에 따른 다른 사용자들의 게시물 가져오기 api
+    useEffect(() => {
+        getIncomeMainBoard({ income: userDetail.income }).then((res) => {
+            setIncList(res?.data);
+        });
+    }, []);
+
     return (
         <Wrapper>
             <Navbar />
@@ -78,6 +97,13 @@ const MainPage = () => {
                         data={ageList}
                     />
                 )}
+                {genList && (
+                    <HobbySection
+                        bold={`#${userDetail.gender}`}
+                        reg="가 좋아한 취미"
+                        data={genList}
+                    />
+                )}
                 {locList && (
                     <HobbySection
                         bold={`#${userDetail.location} 거주자`}
@@ -90,6 +116,13 @@ const MainPage = () => {
                         bold={`#${userDetail.motive} 목적의 사용자`}
                         reg="가 좋아한 취미"
                         data={motList}
+                    />
+                )}
+                {incList && (
+                    <HobbySection
+                        bold="#수입의 사용자"
+                        reg="가 좋아한 취미"
+                        data={incList}
                     />
                 )}
                 <IconWrapper onClick={handleChatClick}>
