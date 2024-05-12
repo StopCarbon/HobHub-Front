@@ -1,17 +1,49 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 
+// component
 import { Container } from 'components/_common/pageLayout';
 import NavBar from 'components/_common/Navbar';
 import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
 import ResultBox from 'components/recommend/ResultBox';
 
+// api
+import { saveUserInfo } from 'api/user';
+
+// recoil
 import { RecommendAtom } from 'recoil/Recommend';
+import { UserDetailAtom } from 'recoil/UserDetail';
+import { UserAtom } from 'recoil/User';
 
 const RecommendPage = () => {
+    // 사용자 정보
+    const userDetail = useRecoilValue(UserDetailAtom);
     // 추천 취미 정보
     const recommendInfo = useRecoilValue(RecommendAtom);
+    // 사용자 id 서버에서 반환 받은 후 저장
+    const [userId, setUserId] = useRecoilState(UserAtom);
+
+    // 사용자 정보 post 후 user_id 반환 받기
+    useEffect(() => {
+        const userInfo = {
+            name: '민지',
+            age: userDetail.age,
+            gender: userDetail.gender,
+            home: userDetail.home,
+            income: userDetail.income,
+            motive: userDetail.motive,
+            work: userDetail.weekday,
+            wkend: userDetail.weekend,
+        };
+
+        saveUserInfo({ userInfo: userInfo }).then((res) => {
+            setUserId({
+                id: res?.data.id,
+            });
+        });
+    });
 
     return (
         <Wrapper>

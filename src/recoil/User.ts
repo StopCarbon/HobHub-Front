@@ -9,7 +9,6 @@ export const UserAtom = atom<User>({
     key: 'UserAtom',
     default: {
         id: 1,
-        name: '',
     },
     effects_UNSTABLE: [persistAtom],
 });
