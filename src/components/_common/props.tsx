@@ -51,7 +51,7 @@ export interface User {
 export interface UserDetail {
     age: number;
     gender: string;
-    home: string;
+    location: string;
     income: string;
     motive: string;
     weekday: number;
@@ -69,4 +69,12 @@ export interface RecommendList {
     hobby3: string;
     category3: string;
     similarity3?: number;
+}
+
+export interface Login {
+    name: string;
+    email: string;
+    accessToken: string;
+    refreshToken: string;
+    isfirst: boolean;
 }

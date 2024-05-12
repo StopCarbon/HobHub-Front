@@ -16,8 +16,11 @@ import { saveUserInfo } from 'api/user';
 import { RecommendAtom } from 'recoil/Recommend';
 import { UserDetailAtom } from 'recoil/UserDetail';
 import { UserAtom } from 'recoil/User';
+import { LoginAtom } from 'recoil/Login';
 
 const RecommendPage = () => {
+    // 로그인 정보
+    const loginInfo = useRecoilValue(LoginAtom);
     // 사용자 정보
     const userDetail = useRecoilValue(UserDetailAtom);
     // 추천 취미 정보
@@ -28,10 +31,10 @@ const RecommendPage = () => {
     // 사용자 정보 post 후 user_id 반환 받기
     useEffect(() => {
         const userInfo = {
-            name: '민지',
+            name: loginInfo.name,
             age: userDetail.age,
             gender: userDetail.gender,
-            home: userDetail.home,
+            home: userDetail.location,
             income: userDetail.income,
             motive: userDetail.motive,
             work: userDetail.weekday,
@@ -43,13 +46,13 @@ const RecommendPage = () => {
                 id: res?.data.id,
             });
         });
-    });
+    }, [userDetail]);
 
     return (
         <Wrapper>
             <NavBar />
             <Container>
-                <Header bold="민지" reg="님을 위한 취미는 . . . " />
+                <Header bold={loginInfo.name} reg="님을 위한 취미는 . . . " />
                 <Explanation text="아이콘을 클릭하여 바로 취미 활동을 시작해보세요!" />
                 <ResultWrapper>
                     <ResultBox
