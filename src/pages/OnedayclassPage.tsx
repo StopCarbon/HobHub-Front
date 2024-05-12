@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+// component
 import { Container } from 'components/_common/pageLayout';
 import { ClassData } from 'components/_common/props';
 import Navbar from 'components/_common/Navbar';
@@ -9,24 +10,20 @@ import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
 import ClassCard from 'components/onedayclass/ClassCard';
 
+// api
+import { getClassList } from 'api/onedayclass';
+
 const OnedayclassPage = () => {
-    const { category, detailhobby } = useParams(); // 사용자가 선택한 취미 카테고리 & 세부 취미
+    const { detailhobby } = useParams(); // 사용자가 선택한 취미 가져오기
 
-    // 크롤링을 위해 한국어 -> 영어로 변경
-    // const search_hobby = hobbies[category as string];
-    // const search_detailhobby =
-    //     detailhobbies[category as string][detailhobby as string];
+    const [classData, setClassData] = useState<ClassData[] | null>(null);
 
-    const [data, setData] = useState<ClassData[] | null>(null);
-
-    // useEffect(() => {
-    //     fetch(`/search?category=${search_hobby}&keyword=${search_detailhobby}`)
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setData(data);
-    //             console.log(data);
-    //         });
-    // }, [category, detailhobby]);
+    useEffect(() => {
+        getClassList({ hobby: detailhobby as string }).then((res) => {
+            setClassData(res?.data);
+            console.log(res?.data);
+        });
+    }, []);
 
     // 난이도 선택
     const handleLevelClick = () => {};
@@ -46,9 +43,9 @@ const OnedayclassPage = () => {
                     <Filter onClick={handleLevelClick}>난이도</Filter>
                 </Filters>
                 <Content>
-                    {data
-                        ? data.map((item, index) => (
-                              <ClassCard key={index} classData={item} />
+                    {classData
+                        ? classData.map((item, idx) => (
+                              <ClassCard key={idx} classData={item} />
                           ))
                         : 'Loading...'}
                 </Content>

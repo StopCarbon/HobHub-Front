@@ -1,13 +1,13 @@
 // 원데이 클래스 정보 데이터
 export interface ClassData {
-    category: string;
+    hobby: string;
     title: string;
-    link: string;
     price: string;
     location: string;
     level: string;
-    picture: string;
     total_time: number;
+    link: string;
+    picture: string;
 }
 
 // 취미 폴더 목록
@@ -45,7 +45,6 @@ export interface PostInfo {
 // 사용자 기본 정보
 export interface User {
     id: number;
-    name: string;
 }
 
 // 사용자 상세 정보
