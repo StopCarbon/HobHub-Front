@@ -10,7 +10,7 @@ export const UserDetailAtom = atom<UserDetail>({
     default: {
         age: 0,
         gender: '',
-        home: '',
+        location: '',
         income: '',
         motive: '',
         weekday: 0,
