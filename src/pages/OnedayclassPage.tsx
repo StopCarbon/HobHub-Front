@@ -73,10 +73,10 @@ const Filter = styled.button`
     margin-right: 8px;
     white-space: nowrap;
 
-    @media (min-width: 1024px) {
-        padding: 10px 12px;
-        font-size: 20px;
-        margin-right: 15px;
+    @media (min-width: 650px) {
+        padding: 8px 10px;
+        font-size: 14px;
+        margin-right: 10px;
         cursor: pointer;
 
         &:hover {

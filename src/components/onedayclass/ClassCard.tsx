@@ -87,9 +87,9 @@ const Wrapper = styled.section`
     width: calc(50% - 8px); // 한 줄에 두개의 카드를 8px 간격으로 배치
     margin-bottom: 20px;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         width: calc(33.333% - 11px); // (100% - 32px) / 3
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 `;
 
@@ -110,7 +110,7 @@ const Picture = styled.a`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         cursor: pointer;
 
         &:hover {
@@ -126,8 +126,8 @@ const Detail = styled.div`
     align-items: start;
     font-size: 18px;
 
-    @media (min-width: 1024px) {
-        font-size: 20px;
+    @media (min-width: 650px) {
+        font-size: 14px;
     }
 `;
 
@@ -137,8 +137,8 @@ const Place = styled.p`
     color: rgba(0, 0, 0, 0.6);
     margin: 10px 0 5px 0;
 
-    @media (min-width: 1024px) {
-        font-size: 16px;
+    @media (min-width: 650px) {
+        font-size: 14px;
     }
 `;
 
@@ -149,7 +149,7 @@ const Title = styled.h1`
     overflow: hidden;
     margin-bottom: 8px;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         -webkit-line-clamp: 3;
         margin-bottom: 10px;
     }
@@ -165,7 +165,7 @@ const Border = styled.div`
     border-bottom: solid 1px #e0e2e7;
     margin: 5px 0 8px 0;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         margin: 8px 0 10px 0;
     }
 `;
@@ -210,7 +210,7 @@ const DetailTag = styled.div`
         background-color: var(--grey);
     }
 
-    @media (min-width: 1024px) {
-        font-size: 18px;
+    @media (min-width: 650px) {
+        font-size: 12px;
     }
 `;
