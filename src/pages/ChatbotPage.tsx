@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil';
 import Navbar from 'components/_common/Navbar';
 import { ImgStyle } from 'components/_common/commonStyle';
 import { collabHobbyIcons } from 'components/_common/icons';
+import { hobbyIcons } from 'components/_common/icons';
 
 // assets
 import arrow from '../assets/_common/arrow-up.svg';
@@ -19,7 +20,6 @@ import { RecommendAtom } from 'recoil/Recommend';
 
 // api
 import { http } from 'flask_api/http';
-import { saveUserInfo } from 'api/user';
 
 const history = Array.from({ length: 30 }, (_, index) => ({
     order: index,
@@ -32,12 +32,12 @@ const buttonHistory = Array.from({ length: 30 }, (_, index) => ({
 }));
 
 const ChatbotPage = () => {
+    // 사용자 정보 recoil 저장
+    const [userDetail, setUserDetail] = useRecoilState(UserDetailAtom);
+    // 추천 취미 recoil 저장
     const [recommend, setRecommend] = useRecoilState(RecommendAtom);
 
-    const [finished, setFinished] = useState(false);
-    const [userInfo, setUserInfo] = useRecoilState(UserDetailAtom);
-    const [botResponse, setBotResponse] = useState();
-
+    // 취미 추천 페이지로 이동
     const navigate = useNavigate();
 
     // 순서
@@ -72,7 +72,7 @@ const ChatbotPage = () => {
         setUserInput(e.target.value);
     };
 
-    // msg 보내기 api
+    // 메세지 보내기 api
     const sendMessage = async (message: string | string[]) => {
         try {
             console.log(message);
@@ -84,54 +84,57 @@ const ChatbotPage = () => {
         }
     };
 
+    // 사용자 정보, 추천 취미 리스트 recoil 저장 함수
+    const fetchData = async ({ saveUserInfo }: { saveUserInfo: boolean }) => {
+        try {
+            const res = await http.get(`/webhook`);
+            console.log('webhook', res.data);
+
+            // 사용자 정보 저장
+            {
+                saveUserInfo &&
+                    setUserDetail({
+                        age: res.data.user_inputs.age,
+                        gender: res.data.user_inputs.gender,
+                        location: res.data.user_inputs.location,
+                        income: res.data.user_inputs.income,
+                        motive: res.data.user_inputs.motive,
+                        weekday: res.data.user_inputs.weekday,
+                        weekend: res.data.user_inputs.weekend,
+                    });
+            }
+
+            // 추천 취미 저장
+            setRecommend({
+                hobby1: res.data.recommendations[0].hobbies[0],
+                category1: '피트니스',
+                similarity1: 86,
+                hobby2: res.data.recommendations[0].hobbies[1],
+                category2: '아웃도어',
+                similarity2: 75,
+                hobby3: res.data.recommendations[0].hobbies[2],
+                category3: '아웃도어',
+                similarity3: 62,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     // Dialogflow의 답변 저장
     const handleResponse = (data: any) => {
         console.log(data.action);
         console.log(data.message);
         console.log(data.data.buttons);
 
-        // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
+        // 정보 입력이 다 끝난 경우 취미 추천 페이지로 이동
         if (data.action === 'end') {
-            // 사용자 정보 flask에서 받기 & spring으로 post -> spring으로부터 받은 사용자 정보 저장
-            // 추천 취미 리스트 flask에서 받기
-            setRecommend({
-                hobby1: '뜨개',
-                category1: '공예',
-                similarity1: 86,
-                hobby2: '요가',
-                category2: '피트니스',
-                similarity2: 75,
-                hobby3: '케이크',
-                category3: '베이킹',
-                similarity3: 62,
-            });
+            // 사용자 정보 & 추천 취미 저장
+            fetchData({ saveUserInfo: true });
 
             setTimeout(() => {
                 navigate(`/recommend`);
             }, 4000);
-
-            // 유저 정보 취합 api
-            const fetchData = async () => {
-                try {
-                    const res = await http.get(`/webhook`);
-                    console.log('webhook', res);
-                    // recoil 세팅
-
-                    // setUserInfo({
-                    //     age: res.age,
-                    //     gender: res.gender,
-                    //     home: res.home,
-                    //     income: res.income,
-                    //     motive: res.motive,
-                    //     weekday: res.weekday,
-                    //     weekend: res.weekend,
-                    // });
-                } catch (error) {
-                    console.log(error);
-                }
-            };
-
-            fetchData();
         }
 
         // 취미가 있는 경우 -> 기존 취미 입력 받기
@@ -259,7 +262,7 @@ const ChatbotPage = () => {
         console.log(updatedButtons);
     };
 
-    // 취미 선택 제출
+    // 기존 취미 제출
     const handleHobbySubmit = async (
         e: React.MouseEvent<HTMLFormElement, MouseEvent>,
     ) => {
@@ -287,26 +290,29 @@ const ChatbotPage = () => {
         // 선택 완료 버튼 제거
         setButtonType('default');
 
-        // 선택 취미 리스트 post api?
+        // 선택 취미 리스트 post api
         try {
             const res = await http.post(`/hobbylist`, { selectedHobby });
             console.log(res);
-            setRecommend({
-                hobby1: '러닝',
-                category1: '아웃도어',
-                hobby2: '피아노',
-                category2: '음악',
-                hobby3: '쿠키',
-                category3: '베이킹',
-            });
-            setTimeout(() => {
-                navigate(`/recommend`);
-            }, 4000);
-            // 추천 취미 리스트 받기
-            return res.data;
+            // setRecommend({
+            //     hobby1: '러닝',
+            //     category1: '아웃도어',
+            //     hobby2: '피아노',
+            //     category2: '음악',
+            //     hobby3: '쿠키',
+            //     category3: '베이킹',
+            // });
         } catch (error) {
             console.log(error);
         }
+
+        // 추천 취미 저장
+        fetchData({ saveUserInfo: false });
+
+        // 취미 추천 페이지로 이동
+        setTimeout(() => {
+            navigate(`/recommend`);
+        }, 4000);
     };
 
     return (
