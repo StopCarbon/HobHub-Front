@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
+// component
 import { ImgStyle } from 'components/_common/commonStyle';
 import { ClassData } from 'components/_common/props';
 
-// todo : 기본 이미지 설정(이미지를 불러오지 못할 경우)
-import pic from '../../assets/archive/cookie.png';
+// asset
+import pic from '../../assets/_common/defaultProfile.png';
 
 const ClassCard = ({ classData }: { classData?: ClassData }) => {
     // 난이도별로 태그 색 분류
@@ -52,7 +53,11 @@ const ClassCard = ({ classData }: { classData?: ClassData }) => {
     return (
         <Wrapper>
             <Picture href={classData?.link}>
-                <img src={classData?.picture} alt="pic" />
+                {classData?.picture ? (
+                    <img src={classData?.picture} alt="pic" />
+                ) : (
+                    <img src={pic} alt="pic" />
+                )}
             </Picture>
             <Detail>
                 <Place>{classData?.location}</Place>
