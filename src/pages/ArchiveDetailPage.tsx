@@ -14,7 +14,7 @@ import { PostDetail } from 'components/_common/props';
 import AlertTitle from 'components/_common/AlertTitle';
 
 // asset
-import cookie from '../assets/archive/cookie.png';
+import def from '../assets/_common/defaultProfile.png';
 
 // api
 import { getPostDetail, deletePost } from 'api/board';
@@ -129,7 +129,7 @@ const ArchiveDetailPage = () => {
                         <>
                             <PictureBox
                                 type="upload"
-                                pic={cookie}
+                                pic={def}
                                 setEditedImg={setEditedImg}
                             />
                             <Detail>
