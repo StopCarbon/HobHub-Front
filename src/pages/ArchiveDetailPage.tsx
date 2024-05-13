@@ -17,7 +17,7 @@ import AlertTitle from 'components/_common/AlertTitle';
 import def from '../assets/_common/defaultProfile.png';
 
 // api
-import { getPostDetail, deletePost } from 'api/board';
+import { getPostDetail, deletePost, editPostDetail } from 'api/board';
 
 const ArchiveDetailPage = () => {
     // 게시물 상세내용
@@ -32,8 +32,8 @@ const ArchiveDetailPage = () => {
     // 게시물 상세내용 get api
     useEffect(() => {
         getPostDetail({ board_id: parsedBoardId }).then((res) => {
-            console.log(res?.data);
             setPostDetail(res?.data);
+
             // 날짜 형식 변환
             if (res?.data.boardCreatedTime) {
                 const dateObject = new Date(res.data.boardCreatedTime);
@@ -47,6 +47,17 @@ const ArchiveDetailPage = () => {
                     .padStart(2, '0')}`;
                 setPostDate(formattedDate);
             }
+
+            if (res?.data) {
+                setEditedTitle(res.data.title || '');
+                setEditedContent(res.data.content || '');
+                // setEditedPlace(res.data.place || '');
+                setEditedImg(
+                    res.data.storedFileName
+                        ? (res.data.storedFileName as File)
+                        : null,
+                );
+            }
         });
     }, []);
 
@@ -54,12 +65,9 @@ const ArchiveDetailPage = () => {
     const [isEditing, setIsEditing] = useState(false);
 
     // 수정한 데이터
-    const [editedTitle, setEditedTitle] =
-        useState('공강시간에 즐긴 베이킹 클래스');
-    const [editedPlace, setEditedPlace] = useState('마포/서대문');
-    const [editedContent, setEditedContent] = useState(
-        '베이킹을 처음해보는 거였는데 재밌었고 수업 분위기가 좋았다~~',
-    );
+    const [editedTitle, setEditedTitle] = useState('');
+    // const [editedPlace, setEditedPlace] = useState('');
+    const [editedContent, setEditedContent] = useState('');
     const [editedImg, setEditedImg] = useState<File | null>(null);
 
     // 수정 버튼을 클릭했을 때
@@ -70,10 +78,17 @@ const ArchiveDetailPage = () => {
     // 저장 버튼을 클릭했을 때
     const handleSaveClick = () => {
         // 수정된 데이터 patch api
-        const data = {
+        const editData = {
             title: editedTitle,
-            text: editedContent,
+            content: editedContent,
+            boardFile: null,
         };
+
+        // editPostDetail({ board_id: parsedBoardId, editInfo: editData }).then(
+        //     (res) => {
+        //         console.log(res);
+        //     },
+        // );
 
         // 수정 모드 종료
         setIsEditing(false);
@@ -139,13 +154,13 @@ const ArchiveDetailPage = () => {
                                         setEditedTitle(e.target.value)
                                     }
                                 />
-                                <OneDayClassInput
+                                {/* <OneDayClassInput
                                     type="text"
                                     value={editedPlace}
                                     onChange={(e) =>
                                         setEditedPlace(e.target.value)
                                     }
-                                />
+                                /> */}
                                 <TextInput
                                     value={editedContent}
                                     onChange={(e) =>

@@ -42,6 +42,13 @@ export interface PostInfo {
     open: string;
 }
 
+// 게시물 수정 형식
+export interface EditInfo {
+    title: string;
+    content: string;
+    boardFile: Blob | null; // 파일
+}
+
 // 사용자 기본 정보
 export interface User {
     id: number;
