@@ -58,6 +58,18 @@ export interface UserDetail {
     weekend: number;
 }
 
+// 사용자 정보 저장시 필요한 내용
+export interface UserInfo {
+    name: string;
+    age: number;
+    gender: string;
+    home: string;
+    income: string;
+    motive: string;
+    work: number;
+    wkend: number;
+}
+
 // 추천 취미 리스트
 export interface RecommendList {
     hobby1: string;
@@ -71,6 +83,7 @@ export interface RecommendList {
     similarity3?: number;
 }
 
+// 로그인 정보
 export interface Login {
     name: string;
     email: string;
