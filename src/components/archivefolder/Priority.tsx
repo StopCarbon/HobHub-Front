@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-const options = ['비용', '소요시간', '거리', '위치'];
+const options = ['비용', '소요시간', '거리', '난이도', '목적'];
 
 const Priority = ({
     setPriority,

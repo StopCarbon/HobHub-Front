@@ -25,7 +25,6 @@ const ArchiveFolderPage = () => {
     useEffect(() => {
         getHobbyList({ user_id: userInfo.id }).then((res) => {
             setHobbyList(res?.data);
-            console.log('data: ', res?.data);
         });
     }, []);
 
