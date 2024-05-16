@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -68,6 +68,21 @@ const ChatbotPage = () => {
 
     // 선택된 취미 리스트
     const [selectedHobby, setSelectedHobby] = useState<string[]>([]);
+
+    // 스크롤할 컴포넌트
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [userShow, botShow, userHistory, botHistory]);
+
+    const scrollToBottom = () => {
+        if (scrollRef.current) {
+            (scrollRef.current as HTMLDivElement).scrollTop = (
+                scrollRef.current as HTMLDivElement
+            ).scrollHeight;
+        }
+    };
 
     // input 관리
     const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -363,7 +378,7 @@ const ChatbotPage = () => {
     return (
         <Wrapper>
             <Navbar />
-            <Container>
+            <Container ref={scrollRef}>
                 <BotBubbleWrapper>
                     <Profile>
                         <img src={bot} />
@@ -486,26 +501,29 @@ const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
+    height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 25px 20px;
     padding-bottom: 50px;
+    overflow-y: auto;
 
     @media (min-width: 650px) {
         width: calc(640px - var(--sidebar) - 30px);
-        height: 100vh;
-        overflow-y: auto;
         padding: 15px;
-        padding-bottom: 60px;
+        padding-bottom: 55px;
         position: absolute;
         right: 0;
-
         background-color: var(--blue1);
         background-image: linear-gradient(
             to top,
             var(--blue2) 0%,
             transparent 70%
         );
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 
