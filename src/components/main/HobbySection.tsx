@@ -29,23 +29,14 @@ const settings = {
 };
 
 // 일반 글씨, 굵은 글씨
-const HobbySection = ({
-    bold,
-    reg,
-    data,
-}: {
-    bold: string;
-    reg: string;
-    data: BoardList[];
-}) => {
+const HobbySection = ({ bold, data }: { bold: string; data: BoardList[] }) => {
     // 게시물 이미지 클릭시 게시물 상세조회 페이지로 이동
     const navigate = useNavigate();
     const handlePostClick = (board_id: number) => {
         navigate(`/archivedetail/${board_id}`);
     };
 
-    // 로그인 정보 가져오기
-    const loginInfo = useRecoilValue(LoginAtom);
+    const loginInfo = useRecoilValue(LoginAtom); // 로그인 정보 가져오기
 
     return (
         <Wrapper>
@@ -53,7 +44,7 @@ const HobbySection = ({
                 <p>
                     {`${loginInfo.name}님과 같은` + '\u00A0'}
                     <span className="bold">{bold}</span>
-                    {reg}
+                    {'가 좋아한 취미'}
                 </p>
             </Title>
             <SliderWrapper>
