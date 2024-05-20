@@ -19,6 +19,7 @@ import { UserDetailAtom } from 'recoil/UserDetail';
 import { RecommendAtom } from 'recoil/Recommend';
 import { LoginAtom } from 'recoil/Login';
 import { UserAtom } from 'recoil/User';
+import { UserDetailAvailableAtom } from 'recoil/UserDetail';
 
 // api
 import { http } from 'flask_api/http';
@@ -37,6 +38,7 @@ const ChatbotPage = () => {
     const [userDetail, setUserDetail] = useRecoilState(UserDetailAtom); // 사용자 정보 recoil 저장
     const [recommend, setRecommend] = useRecoilState(RecommendAtom); // 추천 취미 recoil 저장
     const [userId, setUserId] = useRecoilState(UserAtom); // 사용자 id recoil 저장
+    const [isUserInfo, setIsUserInfo] = useRecoilState(UserDetailAvailableAtom); // 사용자 정보 사용 가능 여부
     const loginInfo = useRecoilValue(LoginAtom); // 사용자 이름 가져오기
 
     // 취미 추천 페이지로 이동
@@ -254,6 +256,7 @@ const ChatbotPage = () => {
                 };
 
                 setUserDetail(userDetail);
+                setIsUserInfo({ available: false });
             } else {
                 // 기존의 취미가 없는 경우
                 const userDetail = {
@@ -267,6 +270,7 @@ const ChatbotPage = () => {
                 };
 
                 setUserDetail(userDetail);
+                setIsUserInfo({ available: true });
             }
             // 사용자 id 받아오기
             getUserId({ userDetail });

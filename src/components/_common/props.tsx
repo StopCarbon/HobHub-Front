@@ -54,6 +54,11 @@ export interface User {
     id: number;
 }
 
+// 사용자 정보 존재 여부
+export interface UserDetailAvailable {
+    available: boolean;
+}
+
 // 사용자 상세 정보
 export interface UserDetail {
     age: number;
@@ -93,7 +98,6 @@ export interface RecommendList {
 // 로그인 정보
 export interface Login {
     name: string;
-    email: string;
     accessToken: string;
     refreshToken: string;
     isfirst: boolean;

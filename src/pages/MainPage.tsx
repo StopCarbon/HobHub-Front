@@ -13,6 +13,7 @@ import { BoardList } from 'components/_common/props';
 
 // asset
 import chatIcon from '../assets/_common/Chat.svg';
+import warning from '../assets/_common/warning.svg';
 
 // api
 import {
@@ -25,6 +26,7 @@ import {
 
 // recoil
 import { UserDetailAtom } from 'recoil/UserDetail';
+import { UserDetailAvailableAtom } from 'recoil/UserDetail';
 
 const MainPage = () => {
     const [ageList, setAgeList] = useState<BoardList[]>();
@@ -33,8 +35,8 @@ const MainPage = () => {
     const [incList, setIncList] = useState<BoardList[]>();
     const [motList, setMotList] = useState<BoardList[]>([]);
 
-    // 사용자 정보 가져오기
-    const userDetail = useRecoilValue(UserDetailAtom);
+    const userDetail = useRecoilValue(UserDetailAtom); // 사용자 정보 가져오기
+    const isUserDetail = useRecoilValue(UserDetailAvailableAtom); // 사용자 정보 존재 여부 가져오기
 
     // 챗 아이콘 클릭하면 챗봇 페이지로 이동
     const navigate = useNavigate();
@@ -90,40 +92,49 @@ const MainPage = () => {
                     type="noArrow"
                     reg="다른 사용자들이 즐긴 취미를 탐색해보세요."
                 />
-                {ageList && (
-                    <HobbySection
-                        bold={`#${userDetail.age}대`}
-                        reg="가 좋아한 취미"
-                        data={ageList}
-                    />
-                )}
-                {genList && (
-                    <HobbySection
-                        bold={`#${userDetail.gender}`}
-                        reg="가 좋아한 취미"
-                        data={genList}
-                    />
-                )}
-                {locList && (
-                    <HobbySection
-                        bold={`#${userDetail.location} 거주자`}
-                        reg="가 좋아한 취미"
-                        data={locList}
-                    />
-                )}
-                {motList && (
-                    <HobbySection
-                        bold={`#${userDetail.motive} 목적의 사용자`}
-                        reg="가 좋아한 취미"
-                        data={motList}
-                    />
-                )}
-                {incList && (
-                    <HobbySection
-                        bold="#수입의 사용자"
-                        reg="가 좋아한 취미"
-                        data={incList}
-                    />
+                {isUserDetail.available ? (
+                    <>
+                        {ageList && (
+                            <HobbySection
+                                bold={`#${userDetail.age}대`}
+                                data={ageList}
+                            />
+                        )}
+                        {genList && (
+                            <HobbySection
+                                bold={`#${userDetail.gender}`}
+                                data={genList}
+                            />
+                        )}
+                        {locList && (
+                            <HobbySection
+                                bold={`#${userDetail.location} 거주자`}
+                                data={locList}
+                            />
+                        )}
+                        {motList && (
+                            <HobbySection
+                                bold={`#${userDetail.motive} 목적의 사용자`}
+                                data={motList}
+                            />
+                        )}
+                        {incList && (
+                            <HobbySection
+                                bold="#수입의 사용자"
+                                data={incList}
+                            />
+                        )}
+                    </>
+                ) : (
+                    <NoInfo>
+                        <ImgWrapper>
+                            <img src={warning} />
+                        </ImgWrapper>
+                        <p>
+                            챗봇과 간단한 대화 후 사용자님과 같은 조건을 가진
+                            다른 사용자들이 즐긴 취미를 탐색해보세요!
+                        </p>
+                    </NoInfo>
                 )}
                 <IconWrapper onClick={handleChatClick}>
                     <img src={chatIcon} alt="chat" />
@@ -162,4 +173,32 @@ const IconWrapper = styled.div`
             transition: transform 500ms ease-in-out;
         }
     }
+`;
+
+const NoInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        ${ImgStyle}
+    }
+
+    p {
+        font-size: 18px;
+        text-align: center;
+        word-break: keep-all;
+        line-height: 22px;
+    }
+
+    @media (min-width: 650px) {
+        p {
+            font-size: 16px;
+        }
+    }
+`;
+
+const ImgWrapper = styled.div`
+    width: 150px;
+    margin: 20px 0;
 `;
