@@ -13,7 +13,7 @@ export const LoginStateAtom = atom<boolean>({
 export const LoginAtom = atom<Login>({
     key: 'LoginAtom',
     default: {
-        name: '김민지',
+        // name: '김민지',
         accessToken: '',
         refreshToken: '',
     },

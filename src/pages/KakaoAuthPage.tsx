@@ -17,9 +17,11 @@ const KakaoAuthPage = () => {
             // 인가코드 post api
             const res = await sendCode(code);
             const data = res?.data;
+            console.log(data);
+
             if (data) {
                 setLogin({
-                    name: data.properties.nickname,
+                    // name: data.properties.nickname,
                     accessToken: data.accessToken,
                     refreshToken: data.refreshToken,
                 });

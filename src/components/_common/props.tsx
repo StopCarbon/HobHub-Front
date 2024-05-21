@@ -97,7 +97,7 @@ export interface RecommendList {
 
 // 로그인 정보
 export interface Login {
-    name: string;
+    // name: string;
     accessToken: string;
     refreshToken: string;
 }
