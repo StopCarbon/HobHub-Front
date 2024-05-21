@@ -16,7 +16,6 @@ export const LoginAtom = atom<Login>({
         name: '김민지',
         accessToken: '',
         refreshToken: '',
-        isfirst: false,
     },
     effects_UNSTABLE: [persistAtom],
 });

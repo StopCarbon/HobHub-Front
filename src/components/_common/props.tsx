@@ -100,5 +100,4 @@ export interface Login {
     name: string;
     accessToken: string;
     refreshToken: string;
-    isfirst: boolean;
 }

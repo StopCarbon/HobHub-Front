@@ -13,20 +13,16 @@ const KakaoAuthPage = () => {
         const params = new URL(document.location.toString()).searchParams;
         const code: string = params.get('code') || '';
 
-        console.log(params);
-        console.log('code', code);
-
         const login = async () => {
             // 인가코드 post api
             const res = await sendCode(code);
             const data = res?.data;
             if (data) {
-                // setLogin({
-                //     name: data.name,
-                //     accessToken: data.accessToken,
-                //     refreshToken: data.refreshToken,
-                //     isfirst: data.isfirst,
-                // });
+                setLogin({
+                    name: data.properties.nickname,
+                    accessToken: data.accessToken,
+                    refreshToken: data.refreshToken,
+                });
                 console.log(data);
                 // 토큰을 받아서 localStorage에 저장
                 window.localStorage.setItem('accessToken', data.accessToken);
