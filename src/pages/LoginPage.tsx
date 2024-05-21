@@ -1,14 +1,22 @@
 import styled from 'styled-components';
+
+import { KAKAO_AUTH_URI } from 'api/login';
+
 import loginButton from '../assets/loginpage/kakao_login_button_sm.svg';
 import Logo from 'components/_common/Logo';
 import shadow from '../assets/_common/shadow.svg';
 
 const LoginPage = () => {
+    const handleLoginClick = () => {
+        // 카카오 로그인 인가코드 발급
+        window.location.href = KAKAO_AUTH_URI;
+    };
+
     return (
         <Wrapper>
             <Logo type="login" />
             <Shadow src={shadow} />
-            <LoginButton src={loginButton} />
+            <LoginButton src={loginButton} onClick={handleLoginClick} />
         </Wrapper>
     );
 };

@@ -14,7 +14,6 @@ export const LoginAtom = atom<Login>({
     key: 'LoginAtom',
     default: {
         name: '김민지',
-        email: '',
         accessToken: '',
         refreshToken: '',
         isfirst: false,

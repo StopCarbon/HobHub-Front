@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import KakaoAuthPage from 'pages/KakaoAuthPage';
 import LoginPage from 'pages/LoginPage';
 import MainPage from 'pages/MainPage';
 import ChatbotPage from 'pages/ChatbotPage';
@@ -15,8 +16,9 @@ function App() {
     return (
         <>
             <Routes>
-                {/* <Route path={'/'} element={<LoginPage />} /> */}
-                <Route path={'/'} element={<MainPage />} />
+                <Route path={'/'} element={<LoginPage />} />
+                <Route path={'/callback'} element={<KakaoAuthPage />} />
+                <Route path={'/main'} element={<MainPage />} />
                 <Route path={'/main'} element={<MainPage />} />
                 <Route path={'/chat'} element={<ChatbotPage />} />
                 <Route path={'/recommend'} element={<RecommendPage />} />
