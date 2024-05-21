@@ -21,7 +21,7 @@ const KakaoAuthPage = () => {
 
             if (data) {
                 setLogin({
-                    // name: data.properties.nickname,
+                    name: data.userInfo.properties.nickname,
                     accessToken: data.accessToken,
                     refreshToken: data.refreshToken,
                 });
