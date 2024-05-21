@@ -8,7 +8,6 @@ export const sendCode = async (code: string) => {
         const res = await http.post('/callback', {
             code: code,
         });
-        console.log('code', code);
         return res;
     } catch (err) {
         console.log(err);
