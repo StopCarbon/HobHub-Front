@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 // component
 import { Container } from 'components/_common/pageLayout';
@@ -13,7 +14,11 @@ import ClassCard from 'components/onedayclass/ClassCard';
 // api
 import { getClassList } from 'api/onedayclass';
 
+// recoil
+import { LoginAtom } from 'recoil/Login';
+
 const OnedayclassPage = () => {
+    const userInfo = useRecoilValue(LoginAtom); // 사용자 이름 가져오기
     const { detailhobby } = useParams(); // 사용자가 선택한 취미 가져오기
 
     const [classData, setClassData] = useState<ClassData[] | null>(null);
@@ -36,7 +41,9 @@ const OnedayclassPage = () => {
                     bold={detailhobby + '\u00A0'}
                     reg="원데이 클래스 목록"
                 />
-                <Explanation text="민지님의 위치와 가까운 순서대로 정렬한 결과입니다. " />
+                <Explanation
+                    text={`${userInfo.name}님을 위한 원데이 클래스 목록입니다.`}
+                />
                 <Filters>
                     <Filter>가격 낮은순</Filter>
                     <Filter>소요시간 적은순</Filter>
