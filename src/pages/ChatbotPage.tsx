@@ -243,35 +243,6 @@ const ChatbotPage = () => {
             const res = await http.get(`/webhook`);
             console.log('webhook', res.data);
 
-            // 기존의 취미가 있는 경우
-            if (existing_hobby) {
-                const userDetail = {
-                    age: 0,
-                    gender: '',
-                    location: '',
-                    income: '',
-                    motive: '',
-                    weekday: 0,
-                    weekend: 0,
-                };
-
-                setUserDetail(userDetail);
-                setIsUserInfo({ available: false });
-            } else {
-                // 기존의 취미가 없는 경우
-                const userDetail = {
-                    age: res.data.user_inputs.age,
-                    gender: res.data.user_inputs.gender,
-                    location: res.data.user_inputs.location,
-                    income: res.data.user_inputs.income,
-                    motive: res.data.user_inputs.motive,
-                    weekday: res.data.user_inputs.weekday,
-                    weekend: res.data.user_inputs.weekend,
-                };
-
-                setUserDetail(userDetail);
-                setIsUserInfo({ available: true });
-            }
             // 사용자 id 받아오기
             getUserId({ userDetail });
 
@@ -286,18 +257,74 @@ const ChatbotPage = () => {
                     recommendations.length - 1
                 ].hobbies.split(', ');
 
+            // 기존의 취미가 있는 경우
+            if (existing_hobby) {
+                const userDetail = {
+                    age: 0,
+                    gender: '',
+                    location: '',
+                    income: '',
+                    motive: '',
+                    weekday: 0,
+                    weekend: 0,
+                };
+
+                setUserDetail(userDetail);
+                setIsUserInfo({ available: false });
+
+                // 추천 취미 저장
+                setRecommend({
+                    hobby1: '케이크',
+                    category1: '베이킹',
+                    similarity1: 86,
+                    hobby2: '터프팅',
+                    category2: '공예',
+                    similarity2: 75,
+                    hobby3: '요가',
+                    category3: '피트니스',
+                    similarity3: 64,
+                });
+            } else {
+                // 기존의 취미가 없는 경우
+                const userDetail = {
+                    age: res.data.user_inputs.age,
+                    gender: res.data.user_inputs.gender,
+                    location: res.data.user_inputs.location,
+                    income: res.data.user_inputs.income,
+                    motive: res.data.user_inputs.motive,
+                    weekday: res.data.user_inputs.weekday,
+                    weekend: res.data.user_inputs.weekend,
+                };
+
+                // 추천 취미 저장
+                setRecommend({
+                    hobby1: hobbyArr[0],
+                    category1: categoryArr[0],
+                    similarity1: 0,
+                    hobby2: hobbyArr[1],
+                    category2: categoryArr[1],
+                    similarity2: 0,
+                    hobby3: hobbyArr[2],
+                    category3: categoryArr[2],
+                    similarity3: 0,
+                });
+
+                setUserDetail(userDetail);
+                setIsUserInfo({ available: true });
+            }
+
             // 추천 취미 저장
-            setRecommend({
-                hobby1: hobbyArr[0],
-                category1: categoryArr[0],
-                similarity1: 86,
-                hobby2: hobbyArr[1],
-                category2: categoryArr[1],
-                similarity2: 75,
-                hobby3: hobbyArr[2],
-                category3: categoryArr[2],
-                similarity3: 62,
-            });
+            // setRecommend({
+            //     hobby1: hobbyArr[0],
+            //     category1: categoryArr[0],
+            //     similarity1: 86,
+            //     hobby2: hobbyArr[1],
+            //     category2: categoryArr[1],
+            //     similarity2: 75,
+            //     hobby3: hobbyArr[2],
+            //     category3: categoryArr[2],
+            //     similarity3: 62,
+            // });
         } catch (error) {
             console.log(error);
         }

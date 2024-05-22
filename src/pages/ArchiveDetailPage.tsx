@@ -120,7 +120,7 @@ const ArchiveDetailPage = () => {
             <Container>
                 <HeaderWrapper>
                     <Header reg={postDate} />
-                    {isEditing ? ( // 수정 모드인 경우
+                    {/* {isEditing ? ( // 수정 모드인 경우
                         <Button className="edit" onClick={handleSaveClick}>
                             저장
                         </Button>
@@ -137,7 +137,7 @@ const ArchiveDetailPage = () => {
                                 삭제
                             </Button>
                         </ButtonWrapper>
-                    )}
+                    )} */}
                 </HeaderWrapper>
                 <ContentWrapper>
                     {isEditing ? ( // 수정 모드인 경우

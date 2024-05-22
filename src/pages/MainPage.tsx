@@ -88,12 +88,12 @@ const MainPage = () => {
         <Wrapper>
             <Navbar />
             <Container>
-                <Header
-                    type="noArrow"
-                    reg="다른 사용자들이 즐긴 취미를 탐색해보세요."
-                />
                 {isUserDetail.available ? (
                     <>
+                        <Header
+                            type="noArrow"
+                            reg="다른 사용자들이 즐긴 취미를 탐색해보세요."
+                        />
                         {ageList && (
                             <HobbySection
                                 bold={`#${userDetail.age}대`}

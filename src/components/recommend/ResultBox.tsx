@@ -31,7 +31,7 @@ const ResultBox = ({
             <Text>
                 <h1>{detailhobby}</h1>
                 <p className="category">{category}</p>
-                {percent && (
+                {percent !== 0 && (
                     <>
                         <p className="similarity">유사도 {percent}%</p>
                         <Graph>
