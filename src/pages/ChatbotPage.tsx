@@ -300,13 +300,13 @@ const ChatbotPage = () => {
                 setRecommend({
                     hobby1: hobbyArr[0],
                     category1: categoryArr[0],
-                    similarity1: 88,
+                    similarity1: 0,
                     hobby2: hobbyArr[1],
                     category2: categoryArr[1],
-                    similarity2: 62,
+                    similarity2: 0,
                     hobby3: hobbyArr[2],
                     category3: categoryArr[2],
-                    similarity3: 55,
+                    similarity3: 0,
                 });
 
                 setUserDetail(userDetail);
