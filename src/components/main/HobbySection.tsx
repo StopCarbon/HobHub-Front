@@ -1,19 +1,19 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import TinySlider from 'tiny-slider-react';
 import 'tiny-slider/dist/tiny-slider.css';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
+// component
 import { ImgStyle } from 'components/_common/commonStyle';
 import { BoardList } from 'components/_common/props';
 
-import loadingImage from '../../assets/archive/cookie.png';
-import cookie from '../../assets/archive/cookie.png';
-import cok from '../../assets/archive/cok.png';
-import rock from '../../assets/archive/rocks.png';
-import cake from '../../assets/archive/cake.png';
+// asset
+import loadingImage from '../../assets/_common/logo.svg';
 
-const imgs = [cookie, rock, cake, cok];
+// recoil
+import { LoginAtom } from 'recoil/Login';
+
 const settings = {
     lazyload: true,
     controls: false,
@@ -29,30 +29,22 @@ const settings = {
 };
 
 // 일반 글씨, 굵은 글씨
-const HobbySection = ({
-    reg1,
-    bold,
-    reg2,
-    data,
-}: {
-    reg1: string;
-    bold: string;
-    reg2: string;
-    data: BoardList[];
-}) => {
+const HobbySection = ({ bold, data }: { bold: string; data: BoardList[] }) => {
     // 게시물 이미지 클릭시 게시물 상세조회 페이지로 이동
     const navigate = useNavigate();
     const handlePostClick = (board_id: number) => {
         navigate(`/archivedetail/${board_id}`);
     };
 
+    const loginInfo = useRecoilValue(LoginAtom); // 로그인 정보 가져오기
+
     return (
         <Wrapper>
             <Title>
                 <p>
-                    {reg1 + '\u00A0'}
+                    {`${loginInfo.name}님과 같은` + '\u00A0'}
                     <span className="bold">{bold}</span>
-                    {reg2}
+                    {'가 좋아한 취미'}
                 </p>
             </Title>
             <SliderWrapper>

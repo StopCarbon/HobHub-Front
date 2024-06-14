@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { ImgStyle } from 'components/_common/commonStyle';
 
-import pic from '../../assets/archive/cookie.png';
-
 const ArchiveBox = ({
     boardId,
     title,

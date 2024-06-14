@@ -1,15 +1,5 @@
 import { http } from './http';
-
-interface UserInfo {
-    name: string;
-    age: number;
-    gender: string;
-    home: string;
-    income: string;
-    motive: string;
-    work: number;
-    wkend: number;
-}
+import { UserInfo } from 'components/_common/props';
 
 export const saveUserInfo = async ({ userInfo }: { userInfo: UserInfo }) => {
     try {

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
+// component
 import { Container } from 'components/_common/pageLayout';
 import { ClassData } from 'components/_common/props';
 import Navbar from 'components/_common/Navbar';
@@ -9,24 +11,24 @@ import Header from 'components/_common/Header';
 import Explanation from 'components/_common/Explanation';
 import ClassCard from 'components/onedayclass/ClassCard';
 
+// api
+import { getClassList } from 'api/onedayclass';
+
+// recoil
+import { LoginAtom } from 'recoil/Login';
+
 const OnedayclassPage = () => {
-    const { category, detailhobby } = useParams(); // 사용자가 선택한 취미 카테고리 & 세부 취미
+    const userInfo = useRecoilValue(LoginAtom); // 사용자 이름 가져오기
+    const { detailhobby } = useParams(); // 사용자가 선택한 취미 가져오기
 
-    // 크롤링을 위해 한국어 -> 영어로 변경
-    // const search_hobby = hobbies[category as string];
-    // const search_detailhobby =
-    //     detailhobbies[category as string][detailhobby as string];
+    const [classData, setClassData] = useState<ClassData[] | null>(null);
 
-    const [data, setData] = useState<ClassData[] | null>(null);
-
-    // useEffect(() => {
-    //     fetch(`/search?category=${search_hobby}&keyword=${search_detailhobby}`)
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setData(data);
-    //             console.log(data);
-    //         });
-    // }, [category, detailhobby]);
+    useEffect(() => {
+        getClassList({ hobby: detailhobby as string }).then((res) => {
+            setClassData(res?.data);
+            console.log(res?.data);
+        });
+    }, []);
 
     // 난이도 선택
     const handleLevelClick = () => {};
@@ -39,16 +41,18 @@ const OnedayclassPage = () => {
                     bold={detailhobby + '\u00A0'}
                     reg="원데이 클래스 목록"
                 />
-                <Explanation text="민지님의 위치와 가까운 순서대로 정렬한 결과입니다. " />
+                <Explanation
+                    text={`${userInfo.name}님을 위한 원데이 클래스 목록입니다.`}
+                />
                 <Filters>
                     <Filter>가격 낮은순</Filter>
                     <Filter>소요시간 적은순</Filter>
                     <Filter onClick={handleLevelClick}>난이도</Filter>
                 </Filters>
                 <Content>
-                    {data
-                        ? data.map((item, index) => (
-                              <ClassCard key={index} classData={item} />
+                    {classData
+                        ? classData.map((item, idx) => (
+                              <ClassCard key={idx} classData={item} />
                           ))
                         : 'Loading...'}
                 </Content>
@@ -66,6 +70,10 @@ const Wrapper = styled.div`
 const Filters = styled.div`
     display: flex;
     margin-bottom: 20px;
+
+    @media (min-width: 650px) {
+        margin-bottom: 12px;
+    }
 `;
 
 const Filter = styled.button`
@@ -76,10 +84,10 @@ const Filter = styled.button`
     margin-right: 8px;
     white-space: nowrap;
 
-    @media (min-width: 1024px) {
-        padding: 10px 12px;
-        font-size: 20px;
-        margin-right: 15px;
+    @media (min-width: 650px) {
+        padding: 8px 10px;
+        font-size: 14px;
+        margin-right: 10px;
         cursor: pointer;
 
         &:hover {

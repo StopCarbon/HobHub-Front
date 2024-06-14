@@ -2,51 +2,46 @@ import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
+// components
 import Navbar from 'components/_common/Navbar';
 import { ImgStyle } from 'components/_common/commonStyle';
 import { collabHobbyIcons } from 'components/_common/icons';
+import { UserDetail } from 'components/_common/props';
 
+// assets
 import arrow from '../assets/_common/arrow-up.svg';
 import bot from '../assets/_common/defaultProfile.png';
 
-import { saveUserInfo } from 'api/user';
+// recoil
+import { UserDetailAtom } from 'recoil/UserDetail';
+import { RecommendAtom } from 'recoil/Recommend';
+import { LoginAtom } from 'recoil/Login';
+import { UserAtom } from 'recoil/User';
+import { UserDetailAvailableAtom } from 'recoil/UserDetail';
 
-import { UserInfoAtom } from 'recoil/User';
-
+// api
 import { http } from 'flask_api/http';
+import { saveUserInfo } from 'api/user';
 
 const history = Array.from({ length: 30 }, (_, index) => ({
     order: index,
     text: '',
 }));
-
 const buttonHistory = Array.from({ length: 30 }, (_, index) => ({
     order: index,
     buttons: [],
 }));
 
 const ChatbotPage = () => {
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await http.get(`/webhook`);
-                console.log('webhook', res);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    const [userDetail, setUserDetail] = useRecoilState(UserDetailAtom); // 사용자 정보 recoil 저장
+    const [recommend, setRecommend] = useRecoilState(RecommendAtom); // 추천 취미 recoil 저장
+    const [userId, setUserId] = useRecoilState(UserAtom); // 사용자 id recoil 저장
+    const [isUserInfo, setIsUserInfo] = useRecoilState(UserDetailAvailableAtom); // 사용자 정보 사용 가능 여부
+    const loginInfo = useRecoilValue(LoginAtom); // 사용자 이름 가져오기
 
-        fetchData();
-    }, []);
-
-    const [finished, setFinished] = useState(false);
-
-    const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
-
-    const [botResponse, setBotResponse] = useState();
-
+    // 취미 추천 페이지로 이동
     const navigate = useNavigate();
 
     // 순서
@@ -58,109 +53,45 @@ const ChatbotPage = () => {
     const [userHistory, setUserHistory] = useState(history);
     const [botHistory, setBotHistory] = useState(history);
 
-    // 버튼 타입 (기본 or 취미 선택)
-    const [buttonType, setButtonType] = useState<'default' | 'hobby'>(
-        'default',
-    );
-    // 버튼 이름 목록 저장
-    const [botButton, setBotButton] =
-        useState<{ order: number; buttons: string[] }[]>(buttonHistory);
-
-    // 선택된 취미
-    const [selectedHobby, setSelectedHobby] = useState<string[]>([]);
-
     // 화면 표시 여부
     const [userShow, setUserShow] = useState(Array(30).fill(false));
     const [botShow, setBotShow] = useState(
         Array(30).fill(false).fill(true, 0, 1),
     );
 
-    // input 입력 관리
+    // 버튼 타입 (기본 or 취미 선택)
+    const [buttonType, setButtonType] = useState<'default' | 'hobby'>(
+        'default',
+    );
+
+    // 버튼 이름 목록 저장
+    const [botButton, setBotButton] =
+        useState<{ order: number; buttons: string[] }[]>(buttonHistory);
+
+    // 선택된 취미 리스트
+    const [selectedHobby, setSelectedHobby] = useState<string[]>([]);
+
+    // 스크롤할 컴포넌트
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [userShow, botShow, userHistory, botHistory]);
+
+    const scrollToBottom = () => {
+        if (scrollRef.current) {
+            (scrollRef.current as HTMLDivElement).scrollTop = (
+                scrollRef.current as HTMLDivElement
+            ).scrollHeight;
+        }
+    };
+
+    // input 관리
     const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput(e.target.value);
     };
 
-    // msg 보내기 api
-    const sendMessage = async (message: string | string[]) => {
-        try {
-            console.log(message);
-            const res = await http.post(`/send_message`, { message });
-            console.log(res);
-            return res.data;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // Dialogflow의 답변 저장
-    const handleResponse = (data: any) => {
-        console.log(data.action);
-        console.log(data.message);
-        console.log(data.data.buttons);
-
-        // 정보 입력이 다 끝난 경우 3초 후 취미 추천 페이지로 이동
-        if (data.action === 'end') {
-            // 사용자 정보 flask에서 받기 & spring으로 post -> spring으로부터 받은 사용자 정보 저장
-            // 추천 취미 리스트 flask 에서받기
-            setTimeout(() => {
-                navigate(`/recommend`);
-            }, 3000);
-        }
-
-        // 취미가 있는 경우 -> 기존 취미 입력 받기
-        if (data.action === 'yes_hobby') {
-            const categories = Object.keys(collabHobbyIcons);
-
-            let buttonNames: string[] = [];
-            categories.forEach((category) => {
-                buttonNames = buttonNames.concat(
-                    Object.keys(collabHobbyIcons[category]),
-                );
-            });
-            console.log('buttonNames: ', buttonNames);
-
-            setButtonType('hobby');
-            setBotButton(
-                botButton.map((h) =>
-                    h.order === botCurrentOrder.current
-                        ? {
-                              ...h,
-                              buttons: buttonNames,
-                          }
-                        : h,
-                ),
-            );
-        }
-        // 버튼이 있는 경우
-        if (data.data.buttons) {
-            const buttonNames = data.data.buttons.map(
-                (button: any) => button.name,
-            );
-            console.log('buttonNames: ', buttonNames);
-            setBotButton(
-                botButton.map((h) =>
-                    h.order == botCurrentOrder.current
-                        ? {
-                              ...h,
-                              buttons: buttonNames,
-                          }
-                        : h,
-                ),
-            );
-        }
-        setBotHistory(
-            botHistory.map((h) =>
-                h.order == botCurrentOrder.current
-                    ? {
-                          ...h,
-                          text: data.message,
-                      }
-                    : h,
-            ),
-        );
-    };
-
-    // 사용자 입력 전송
+    // 1. 전송 버튼 클릭 처리
     const handleSubmitClick = async ({
         e,
         choice,
@@ -168,12 +99,12 @@ const ChatbotPage = () => {
         e?: React.FormEvent<HTMLFormElement>;
         choice?: string;
     }) => {
-        e?.preventDefault(); // 폼 제출에 대한 새로고침 방지
+        e?.preventDefault(); // 새로고침 방지
 
         const messageToSend = choice || userInput;
 
         if (!!messageToSend) {
-            // 사용자 입력값 저장
+            // 1-1. 사용자 입력값 저장
             setUserBubble({ message: messageToSend });
 
             // 해당 순서의 사용자 말풍선 보여주기 허용
@@ -183,7 +114,9 @@ const ChatbotPage = () => {
             userCurrentOrder.current += 1;
 
             try {
+                // 1-2. 사용자 입력 전송
                 const data = await sendMessage(messageToSend);
+                // 1-3. dialogflow 답변 저장
                 handleResponse(data);
             } catch (error) {
                 console.log(error);
@@ -202,7 +135,16 @@ const ChatbotPage = () => {
         }
     };
 
-    // 사용자 말풍선에 userInput 반영하기
+    // 1. 버튼으로 입력을 받는 경우
+    const handleButtonClick = (
+        { choice }: { choice: string },
+        e: React.MouseEvent<HTMLDivElement>,
+    ) => {
+        e.preventDefault(); // 버튼 클릭에 대한 새로고침 방지
+        handleSubmitClick({ choice: choice });
+    };
+
+    // 1-1. 사용자 말풍선에 userInput 반영하기
     const setUserBubble = ({ message }: { message: string }) => {
         setUserHistory(
             userHistory.map((h) =>
@@ -213,16 +155,203 @@ const ChatbotPage = () => {
         );
     };
 
-    // 버튼을 누를 경우 해당 버튼 이름을 전송
-    const handleButtonClick = (
-        { choice }: { choice: string },
-        e: React.MouseEvent<HTMLDivElement>,
-    ) => {
-        e.preventDefault(); // 버튼 클릭에 대한 새로고침 방지
-        handleSubmitClick({ choice: choice });
+    // 1-2. 사용자 입력 내용 보내기 api
+    const sendMessage = async (message: string | string[]) => {
+        try {
+            const res = await http.post(`/send_message`, { message });
+            return res.data;
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    // 취미 선택
+    // 1-3. Dialogflow의 답변 저장
+    const handleResponse = (data: any) => {
+        // 취미가 있는 경우 -> 기존 취미 입력 받기
+        if (data.action === 'yes_hobby') {
+            const categories = Object.keys(collabHobbyIcons);
+
+            let buttonNames: string[] = [];
+            categories.forEach((category) => {
+                buttonNames = buttonNames.concat(
+                    Object.keys(collabHobbyIcons[category]),
+                );
+            });
+
+            setButtonType('hobby');
+
+            setBotButton(
+                botButton.map((h) =>
+                    h.order === botCurrentOrder.current
+                        ? {
+                              ...h,
+                              buttons: buttonNames,
+                          }
+                        : h,
+                ),
+            );
+        }
+
+        // 버튼으로 입력을 받는 경우
+        if (data.data.buttons) {
+            const buttonNames = data.data.buttons.map(
+                (button: any) => button.name,
+            );
+
+            setBotButton(
+                botButton.map((h) =>
+                    h.order == botCurrentOrder.current
+                        ? {
+                              ...h,
+                              buttons: buttonNames,
+                          }
+                        : h,
+                ),
+            );
+        }
+
+        // 정보 입력이 다 끝난 경우
+        if (data.action === 'end') {
+            fetchData({ existing_hobby: false });
+
+            // 취미 추천 페이지로 이동
+            setTimeout(() => {
+                navigate(`/recommend`);
+            }, 4000);
+        }
+
+        // 챗봇 답변 화면에 보이게 하기
+        setBotHistory(
+            botHistory.map((h) =>
+                h.order == botCurrentOrder.current
+                    ? {
+                          ...h,
+                          text: data.message,
+                      }
+                    : h,
+            ),
+        );
+    };
+
+    // 2. 사용자 정보, 추천 취미 리스트 recoil 저장 함수
+    const fetchData = async ({
+        existing_hobby,
+    }: {
+        existing_hobby: boolean;
+    }) => {
+        try {
+            const res = await http.get(`/webhook`);
+            console.log('webhook', res.data);
+
+            // 사용자 id 받아오기
+            getUserId({ userDetail });
+
+            // 추천 취미 데이터 배열 형태로 변환
+            const recommendations = res.data.recommendations;
+            const categoryArr =
+                res.data.recommendations[
+                    recommendations.length - 1
+                ].categories.split(', ');
+            const hobbyArr =
+                res.data.recommendations[
+                    recommendations.length - 1
+                ].hobbies.split(', ');
+
+            // 기존의 취미가 있는 경우
+            if (existing_hobby) {
+                const userDetail = {
+                    age: 0,
+                    gender: '',
+                    location: '',
+                    income: '',
+                    motive: '',
+                    weekday: 0,
+                    weekend: 0,
+                };
+
+                setUserDetail(userDetail);
+                setIsUserInfo({ available: false });
+
+                // 추천 취미 저장
+                setRecommend({
+                    hobby1: '케이크',
+                    category1: '베이킹',
+                    similarity1: 86,
+                    hobby2: '터프팅',
+                    category2: '공예',
+                    similarity2: 75,
+                    hobby3: '요가',
+                    category3: '피트니스',
+                    similarity3: 64,
+                });
+            } else {
+                // 기존의 취미가 없는 경우
+                const userDetail = {
+                    age: res.data.user_inputs.age,
+                    gender: res.data.user_inputs.gender,
+                    location: res.data.user_inputs.location,
+                    income: res.data.user_inputs.income,
+                    motive: res.data.user_inputs.motive,
+                    weekday: res.data.user_inputs.weekday,
+                    weekend: res.data.user_inputs.weekend,
+                };
+
+                // 추천 취미 저장
+                setRecommend({
+                    hobby1: hobbyArr[0],
+                    category1: categoryArr[0],
+                    similarity1: 0,
+                    hobby2: hobbyArr[1],
+                    category2: categoryArr[1],
+                    similarity2: 0,
+                    hobby3: hobbyArr[2],
+                    category3: categoryArr[2],
+                    similarity3: 0,
+                });
+
+                setUserDetail(userDetail);
+                setIsUserInfo({ available: true });
+            }
+
+            // 추천 취미 저장
+            // setRecommend({
+            //     hobby1: hobbyArr[0],
+            //     category1: categoryArr[0],
+            //     similarity1: 86,
+            //     hobby2: hobbyArr[1],
+            //     category2: categoryArr[1],
+            //     similarity2: 75,
+            //     hobby3: hobbyArr[2],
+            //     category3: categoryArr[2],
+            //     similarity3: 62,
+            // });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // 3. 사용자 정보 post 후 id 받아오기
+    const getUserId = ({ userDetail }: { userDetail: UserDetail }) => {
+        const userInfo = {
+            name: loginInfo.name,
+            age: userDetail.age,
+            gender: userDetail.gender,
+            home: userDetail.location,
+            income: userDetail.income,
+            motive: userDetail.motive,
+            work: userDetail.weekday,
+            wkend: userDetail.weekend,
+        };
+
+        // 사용자 정보 post api
+        saveUserInfo({ userInfo }).then((res) => {
+            setUserId({ id: res?.data.id });
+            console.log('id', userId);
+        });
+    };
+
+    // 기존 취미가 있는 경우
+    // 기존 취미 선택 처리
     const handleHobbyClick = ({ choice }: { choice: string }) => {
         const isSelected = selectedHobby.includes(choice);
         const updatedButtons = isSelected
@@ -232,7 +361,7 @@ const ChatbotPage = () => {
         console.log(updatedButtons);
     };
 
-    // 취미 선택 제출
+    // 기존 취미 제출
     const handleHobbySubmit = async (
         e: React.MouseEvent<HTMLFormElement, MouseEvent>,
     ) => {
@@ -240,7 +369,7 @@ const ChatbotPage = () => {
 
         setBotHistory(
             botHistory.map((h) =>
-                h.order == botCurrentOrder.current
+                h.order === botCurrentOrder.current
                     ? {
                           ...h,
                           text: '감사합니다. 잘 반영해서 사용자님께 딱 맞는 취미를 추천해드리겠습니다!',
@@ -260,25 +389,27 @@ const ChatbotPage = () => {
         // 선택 완료 버튼 제거
         setButtonType('default');
 
+        // 선택 취미 리스트 post api
         try {
             const res = await http.post(`/hobbylist`, { selectedHobby });
             console.log(res);
-
-            // 추천 취미 리스트 받기
-            return res.data;
         } catch (error) {
             console.log(error);
-            // setTimeout(() => {
-            //     navigate(`/recommend`);
-            // }, 3000);
-            // console.error('Error sending message:', error);
         }
+
+        // 추천 취미 저장
+        fetchData({ existing_hobby: true });
+
+        // 취미 추천 페이지로 이동
+        setTimeout(() => {
+            navigate(`/recommend`);
+        }, 4000);
     };
 
     return (
         <Wrapper>
             <Navbar />
-            <Container>
+            <Container ref={scrollRef}>
                 <BotBubbleWrapper>
                     <Profile>
                         <img src={bot} />
@@ -401,26 +532,29 @@ const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
+    height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 25px 20px;
     padding-bottom: 50px;
+    overflow-y: auto;
 
     @media (min-width: 650px) {
         width: calc(640px - var(--sidebar) - 30px);
-        height: 100vh;
-        overflow-y: auto;
         padding: 15px;
-        padding-bottom: 60px;
+        padding-bottom: 55px;
         position: absolute;
         right: 0;
-
         background-color: var(--blue1);
         background-image: linear-gradient(
             to top,
             var(--blue2) 0%,
             transparent 70%
         );
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 

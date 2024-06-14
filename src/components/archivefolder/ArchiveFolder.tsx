@@ -1,9 +1,20 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 // component
 import { hobbyIcons } from 'components/_common/icons';
 import { ImgStyle } from 'components/_common/commonStyle';
+import Rating from './Rating';
+import Priority from './Priority';
+import { UserAtom } from 'recoil/User';
+import AlertTitle from 'components/_common/AlertTitle';
+
+// api
+import { postRating } from 'api/rating';
 
 const ArchiveFolder = ({
     hobbyId,
@@ -16,6 +27,9 @@ const ArchiveFolder = ({
     category: string;
     hobby: string;
 }) => {
+    // 사용자 id 가져오기
+    const userInfo = useRecoilValue(UserAtom);
+
     const remainder = order % 3;
     let orderNum;
 
@@ -31,9 +45,138 @@ const ArchiveFolder = ({
             orderNum = 3;
             break;
     }
+
+    // 별점
+    const [rating, setRating] = useState(0);
+    // 별점 매기기 완료 여부
+    const [ratingShow, setRatingShow] = useState(false);
+    // 중요 요소
+    const [priority, setPriority] = useState('');
+    // 중요 요소 선택 완료 여부
+    const [priorityShow, setPriorityShow] = useState(false);
+
+    // 피드백 완료창
+    const showSuccessFeedback = () => {
+        withReactContent(Swal).fire({
+            icon: 'success',
+            title: (
+                <AlertTitle
+                    text={
+                        '소중한 피드백 감사드립니다! 잘 반영하여 다음에는 더욱 잘 맞는 취미를 추천해드리겠습니다!'
+                    }
+                />
+            ),
+            showConfirmButton: false,
+            timer: 2000,
+        });
+    };
+
+    // 중요 요소 선택창
+    const askForPriority = () => {
+        withReactContent(Swal)
+            .fire({
+                title: (
+                    <AlertTitle
+                        text={
+                            '취미를 선택할 때 있어서 중요하게 생각하는 점을 선택해주세요!'
+                        }
+                    />
+                ),
+                html: <Priority setPriority={setPriority} />,
+                confirmButtonColor: `var(--blue4)`,
+                confirmButtonText: <OptionButton>완료</OptionButton>,
+            })
+            .then((res) => {
+                if (res.isConfirmed) {
+                    setPriorityShow(true);
+                    setRatingShow(false);
+
+                    setTimeout(() => {
+                        showSuccessFeedback();
+                    }, 1000);
+                }
+            });
+    };
+
+    // 1. rating 상태가 변경될 때 실행, 처음(별점이 매겨지기 전)에는 실행 X
+    useEffect(() => {
+        if (rating > 0) {
+            // 별점 POST api
+            postRating({
+                hobby_id: hobbyId,
+                user_id: userInfo.id,
+                grade: rating,
+            }).then((res) => {
+                console.log(res);
+            });
+            console.log('post rating', rating);
+        }
+    }, [rating]);
+
+    // 2. rating이 완료 됐을 때 실행
+    useEffect(() => {
+        if (ratingShow) {
+            setTimeout(() => {
+                if (rating >= 3) {
+                    showSuccessFeedback();
+                } else if (rating === 1 || rating === 2) {
+                    // 별점이 2 이하면 추가 작업 수행
+                    askForPriority();
+                }
+            }, 1000);
+        }
+    }, [ratingShow]);
+
+    // 3. 중요 요소 선택이 완료 됐을 때 실행
+    useEffect(() => {
+        if (priority !== '') {
+            console.log('post pri', priority);
+            // 우선 순위 post api
+        }
+    }, [priorityShow]);
+
+    // 기록 페이지로 이동
     const navigate = useNavigate();
+
     const handleFolderClick = () => {
-        navigate(`/archive/${hobby}/${hobbyId}`);
+        withReactContent(Swal)
+            .fire({
+                icon: 'question',
+                title: <AlertTitle text={'원하시는 활동을 선택해주세요!'} />,
+                showCancelButton: true,
+                confirmButtonColor: `var(--blue4)`,
+                cancelButtonColor: `var(--pink)`,
+                confirmButtonText: <OptionButton>기록 페이지</OptionButton>,
+                cancelButtonText: (
+                    <OptionButton className="black">피드백 하기</OptionButton>
+                ),
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    // 기록 남기기
+                    navigate(`/archive/${hobby}/${hobbyId}`);
+                } else if (result.isDismissed) {
+                    // 피드백 하기
+                    withReactContent(Swal)
+                        .fire({
+                            title: (
+                                <AlertTitle
+                                    text={'취미에 대한 별점을 남겨주세요!'}
+                                />
+                            ),
+                            html: <Rating setRating={setRating} />,
+                            confirmButtonColor: `var(--blue4)`,
+                            confirmButtonText: (
+                                <OptionButton>완료</OptionButton>
+                            ),
+                        })
+                        .then((feedbackResult) => {
+                            if (feedbackResult.isConfirmed) {
+                                setRatingShow(true);
+                            }
+                        });
+                }
+            });
     };
 
     return (
@@ -135,5 +278,16 @@ const Title = styled.h1`
 
     @media (min-width: 650px) {
         font-size: 16px;
+    }
+`;
+
+const OptionButton = styled.p`
+    font-size: 13px;
+    font-family: nanum-reg;
+    color: white;
+    outline: none;
+
+    &.black {
+        color: black;
     }
 `;

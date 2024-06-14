@@ -1,6 +1,7 @@
 import { http } from './http';
 
 import { PostInfo } from 'components/_common/props';
+import { EditInfo } from 'components/_common/props';
 
 // 게시물 작성
 export const savePost = async ({
@@ -24,19 +25,6 @@ export const savePost = async ({
         // boardFile이 null인 경우에는 null을 formData에 추가
         formData.append('boardFile', 'null');
     }
-
-    // formData.append('postInfo', JSON.stringify(postInfo));
-    // FormData의 key 확인
-    // @ts-ignore
-    for (const key of formData.keys()) {
-        console.log(key);
-    }
-    // FormData의 value 확인
-    // @ts-ignore
-    for (const value of formData.values()) {
-        console.log(value);
-    }
-    console.log(formData);
 
     try {
         const res = await http.post(
@@ -70,6 +58,23 @@ export const getHobbyBoard = async ({ hobby_id }: { hobby_id: number }) => {
 export const getPostDetail = async ({ board_id }: { board_id: number }) => {
     try {
         const res = http.get(`/board/${board_id}`);
+        console.log(res);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// 게시물 수정
+export const editPostDetail = async ({
+    board_id,
+    editInfo,
+}: {
+    board_id: number;
+    editInfo: EditInfo;
+}) => {
+    try {
+        const res = http.post(`/board/update/${board_id}`, editInfo);
         console.log(res);
         return res;
     } catch (error) {

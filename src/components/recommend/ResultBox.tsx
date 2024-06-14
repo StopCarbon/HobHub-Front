@@ -8,13 +8,11 @@ import AddButton from './AddButton';
 
 const ResultBox = ({
     ranking,
-    type,
     detailhobby,
     category,
     percent,
 }: {
     ranking: number;
-    type: 'collab' | 'simil';
     detailhobby: string;
     category: string;
     percent?: number;
@@ -33,7 +31,7 @@ const ResultBox = ({
             <Text>
                 <h1>{detailhobby}</h1>
                 <p className="category">{category}</p>
-                {percent && (
+                {percent !== 0 && (
                     <>
                         <p className="similarity">유사도 {percent}%</p>
                         <Graph>
@@ -49,17 +47,10 @@ const ResultBox = ({
             </Text>
             <IconCircle className={`rank${ranking}`}>
                 <Icon onClick={handleIconClick}>
-                    {type == 'collab' ? ( // 협업 필터링 취미 추천 or 유사도 기반 취미 추천
-                        <img
-                            src={hobbyIcons[category][detailhobby]}
-                            alt={detailhobby}
-                        />
-                    ) : (
-                        <img
-                            src={hobbyIcons[category][detailhobby]}
-                            alt={detailhobby}
-                        />
-                    )}
+                    <img
+                        src={hobbyIcons[category][detailhobby]}
+                        alt={detailhobby}
+                    />
                 </Icon>
             </IconCircle>
         </Wrapper>

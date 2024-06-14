@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
+// component
 import { ImgStyle } from 'components/_common/commonStyle';
 import { ClassData } from 'components/_common/props';
 
-// todo : 기본 이미지 설정(이미지를 불러오지 못할 경우)
-import pic from '../../assets/archive/cookie.png';
+// asset
+import pic from '../../assets/_common/defaultProfile.png';
 
 const ClassCard = ({ classData }: { classData?: ClassData }) => {
     // 난이도별로 태그 색 분류
@@ -26,12 +27,12 @@ const ClassCard = ({ classData }: { classData?: ClassData }) => {
     // 소요시간별로 태그 색 분류
     let timeTag;
     const total = classData?.total_time;
-    if (total != undefined) {
+    if (total !== undefined) {
         switch (true) {
-            case total == 0: // 미정인 경우
+            case total === 0: // 미정인 경우
                 timeTag = 'none';
                 break;
-            case total == 1440: // 24시간 이상
+            case total === 1440: // 24시간 이상
                 timeTag = 'allday';
                 break;
             case total <= 60: // ~1시간
@@ -52,7 +53,11 @@ const ClassCard = ({ classData }: { classData?: ClassData }) => {
     return (
         <Wrapper>
             <Picture href={classData?.link}>
-                <img src={classData?.picture} alt="pic" />
+                {classData?.picture ? (
+                    <img src={classData?.picture} alt="pic" />
+                ) : (
+                    <img src={pic} alt="pic" />
+                )}
             </Picture>
             <Detail>
                 <Place>{classData?.location}</Place>
@@ -61,13 +66,13 @@ const ClassCard = ({ classData }: { classData?: ClassData }) => {
                 <Border />
                 <DetailTag className={`time ${timeTag}`}>
                     <p>
-                        {classData?.total_time == 0
+                        {classData?.total_time === 0
                             ? '미정'
                             : classData?.total_time + '분'}
                     </p>
                 </DetailTag>
                 <DetailTag className={`level ${levelTag}`}>
-                    <p>{classData?.level == '' ? '미정' : classData?.level}</p>
+                    <p>{classData?.level === '' ? '미정' : classData?.level}</p>
                 </DetailTag>
             </Detail>
         </Wrapper>
@@ -82,9 +87,9 @@ const Wrapper = styled.section`
     width: calc(50% - 8px); // 한 줄에 두개의 카드를 8px 간격으로 배치
     margin-bottom: 20px;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         width: calc(33.333% - 11px); // (100% - 32px) / 3
-        margin-bottom: 25px;
+        margin-bottom: 15px;
     }
 `;
 
@@ -105,7 +110,7 @@ const Picture = styled.a`
         ${ImgStyle}
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         cursor: pointer;
 
         &:hover {
@@ -121,8 +126,8 @@ const Detail = styled.div`
     align-items: start;
     font-size: 18px;
 
-    @media (min-width: 1024px) {
-        font-size: 20px;
+    @media (min-width: 650px) {
+        font-size: 14px;
     }
 `;
 
@@ -132,8 +137,8 @@ const Place = styled.p`
     color: rgba(0, 0, 0, 0.6);
     margin: 10px 0 5px 0;
 
-    @media (min-width: 1024px) {
-        font-size: 16px;
+    @media (min-width: 650px) {
+        font-size: 14px;
     }
 `;
 
@@ -144,7 +149,7 @@ const Title = styled.h1`
     overflow: hidden;
     margin-bottom: 8px;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         -webkit-line-clamp: 3;
         margin-bottom: 10px;
     }
@@ -160,7 +165,7 @@ const Border = styled.div`
     border-bottom: solid 1px #e0e2e7;
     margin: 5px 0 8px 0;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 650px) {
         margin: 8px 0 10px 0;
     }
 `;
@@ -205,7 +210,7 @@ const DetailTag = styled.div`
         background-color: var(--grey);
     }
 
-    @media (min-width: 1024px) {
-        font-size: 18px;
+    @media (min-width: 650px) {
+        font-size: 12px;
     }
 `;

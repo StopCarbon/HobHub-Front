@@ -44,7 +44,7 @@ const PictureBox = ({
 
     // 취미 아카이브 페이지 -> 업로드한 사진을 볼 수 있는 div
     // 기록 작성 페이지 -> 사진을 업로드할 수 있는 input
-    return type == 'archive' ? (
+    return type === 'archive' ? (
         <Wrapper>
             {pic ? (
                 <img className="pic" src={pic} alt="기록" />

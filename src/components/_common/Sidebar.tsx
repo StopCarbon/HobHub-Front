@@ -1,9 +1,12 @@
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
+// component
 import Avatar from './Avatar';
 import Logo from './Logo';
 import { ImgStyle } from './commonStyle';
 
+// asset
 import home from '../../assets/sidebar/home.svg';
 import chat from '../../assets/sidebar/message-circle.svg';
 import list from '../../assets/sidebar/file-text.svg';
@@ -11,13 +14,19 @@ import anchor from '../../assets/sidebar/anchor.svg';
 import bell from '../../assets/sidebar/bell.svg';
 import user from '../../assets/sidebar/user.svg';
 
+// recoil
+import { LoginAtom } from 'recoil/Login';
+
 const Sidebar = () => {
+    // 로그인 정보 가져오기
+    const loginInfo = useRecoilValue(LoginAtom);
+
     return (
         <Wrapper>
             <Logo type="sidebar" />
             <AvatarWrapper>
                 <Avatar type="sidebar" />
-                <p>김민지</p>
+                <p>{loginInfo.name}</p>
             </AvatarWrapper>
             <Border className="first" />
             <MenuWrapper>
