@@ -53,6 +53,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
             open: setting,
         };
         console.log(postImg);
+
         savePost({
             user_id: userInfo.id,
             hobby_id: hobbyId,
@@ -69,6 +70,7 @@ const CreateForm = ({ hobbyId }: { hobbyId: number }) => {
 
             navigate(-1);
         });
+
     };
 
     return (
