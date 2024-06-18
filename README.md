@@ -42,9 +42,11 @@
 
 ##  🤍 사용 데이터
 콘텐츠 기반 추천 알고리즘에 사용된 데이터: https://docs.google.com/spreadsheets/d/1leFDaOCDJfxu9AZgyfMM_50xPK2Z39ayGna_stVtbxw/edit?gid=1227239017#gid=1227239017
+
 [출처: 컨슈머인사이트 'MZ 문화여가활동 특징 데이터']
 
 협업 필터링 추천 알고리즘에 사용된 데이터: https://docs.google.com/spreadsheets/d/1Fb4xSgideUwhk5jMRLWG8XCmubvU8s1Y/edit?gid=1062421834#gid=1062421834
+
 [출처: 솜씨당]
 
 ## 🤍 How to build
